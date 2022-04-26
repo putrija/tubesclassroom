@@ -1,0 +1,29 @@
+li {
+    float: left;
+    list-style: none;
+    padding: 12px;
+
+}
+
+#button {
+    position: absolute;
+    left: 49%;
+    transform: translate(-50%, -50%);
+    margin-top: 20px;
+
+
+}
+
+#btnn {
+    width: 145px;
+}
+
+#nav {
+    float: right;
+
+}
+
+h5 {
+    text-align: right;
+
+}
