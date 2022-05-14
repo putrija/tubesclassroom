@@ -1,4 +1,4 @@
-li {
+#j {
     float: left;
     list-style: none;
     padding: 12px;
@@ -16,11 +16,6 @@ li {
 
 #btnn {
     width: 145px;
-}
-
-#nav {
-    float: right;
-
 }
 
 h5 {
