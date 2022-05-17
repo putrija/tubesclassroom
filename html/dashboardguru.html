@@ -7,11 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
   <!-- Styles -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Merriweather:wght@300;400;700;900&family=Roboto+Condensed:wght@300;400;700&display=swap"
-  rel="stylesheet">
   <link rel="stylesheet" href="../css/bootstrap.min.css" />
   <link rel="stylesheet" href="../fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/common.css" />
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/components.css" />
@@ -79,20 +76,34 @@
     <!-- offcanvas-Body -->
     <div class="offcanvas-body">
     <!--isi-->
-    <ul class="nav nav-pills flex-column mb-auto ">
+    <ul class="nav nav-pills flex-column">
         <li class="nav-item mb-3">
           <a href="#" class="nav-link active" aria-current="page">
             <i class="fa-solid fa-house me-3"></i>
-            Kelas
-          </a>
+            Kelas</a>
         </li>
         <li class="nav-item mb-3">
             <a href="#" class="nav-link text-black">
               <i class="fa-regular fa-calendar me-3"></i>
               Kalender
+             </a>
+        </li>
+        <li class="nav item border-top py-3">
+          Mengajar
+        </li>
+        <li class="nav item mb-2">
+            <a href="#" class="nav-link text-black">
+            <i class="fa-solid fa-table-list me-3"></i>
+            untuk diperiksa
+           </a>
+        </li>
+        <li class="nav item mb-3">
+            <a href="#" class="nav-link text-black">
+            <i class="fa-solid fa-users-rectangle me-3"></i>
+            Kelas SBD
             </a>
         </li>
-        <li class="nav-item mb-3 border-top">
+        <li class="nav-item mb-3 border-top pt-3">
             <a href="#" class="nav-link text-black">
               <i class="fa-solid fa-box-archive me-3"></i>
               Kelas yang diarsipkan
@@ -106,25 +117,39 @@
         </li>
     </ul>
 
-    </div>
-    </div>
-
-<!-- Mading -->
-<div>
-    <img src="../gambar/logo.jpeg" style="display:block; margin:auto; width: 175pt; padding-top: 75pt;"><br>
-    <p
-      style="text-align: center; letter-spacing: .01785714em; font-family: Google Sans ,Roboto,Arial,sans-serif; font-size: 0.875rem; font-weight: 500; line-height: 1.25rem; color: #3c4043;">
-      Tambahkan kelas untuk memulai</p>
-  
-    <ul id="button">
-      <li id="j"> <button id="btnn" type="submit" class="btn btn-light"
-          style="color:  #1a73e8;font-size: 14px; font-family:Google Sans ,Roboto,Arial,sans-serif ; letter-spacing: 0.7px;">
-          Buat kelas</button></li>
-  
-      <li id="j"><button id="btnn" type="submit" class="btn btn-primary btn-block" name="btnlogin">
-          Gabung ke kelas </button></li>
-    </ul>
 </div>
+</div>
+
+<!------ISI-------->
+ <!-- Kartu kelas -->
+<div class="container py-3 class-list">
+  <div class="list-class my-3">
+      <div class="row">
+
+          <div class="col-lg-4 col-md-4 my-3">
+              <div class="card">
+                  <img src="../gambar/img_code.jpg" class="card-img-top">
+                  <div class="card-body">
+                    <h5 class="card-title">Kelas SBD 21</h5>
+                    <p class="card-text"> Teknologi Informasi </p>
+                    <a href="#" class="btn btn-outline-primary">buka Kelas</a>
+                  </div>
+                </div>
+          </div>
+
+        <div class="col-lg-4 col-md-4 my-3">
+          <div class="card">
+              <img src="../gambar/img_bookclub.jpg" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">Kelas PWL 21</h5>
+                <p class="card-text"> Teknologi Informasi </p>
+                <a href="#" class="btn btn-outline-primary">buka Kelas</a>
+              </div>
+            </div>
+      </div>
+
+
+
 
 
 <!---SCRIPT-->
