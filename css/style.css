@@ -1,9 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color:white;
+}
+
+
+
+li, a, button {
+    font-family: "Monstserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16 px;
+    color: black;
+    text-decoration: none;
+}
+
+#navbar {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kiri{
+    display: flex;
+}
+
+.tengah{
+    list-style: none;
+}
+
+.tengah li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.tengah li a{
+    transition:all 0.3s ease 0s;
+}
+
+.tengah li a:hover{
+    color: grey;
+}
+
 #j {
     float: left;
     list-style: none;
     padding: 12px;
 
 }
+
 
 #button {
     position: absolute;
