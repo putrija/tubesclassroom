@@ -43,6 +43,15 @@ li, a, button {
     color: grey;
 }
 
+#semuakelas{
+    color: black;
+    border: 1px solid;
+}
+
+.containerr{
+    margin: 30px 300px;
+}
+
 #j {
     float: left;
     list-style: none;
