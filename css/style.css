@@ -52,6 +52,15 @@ li, a, button {
     margin-left: 300px;
     margin-right: 300px;
     margin-top: 30px;
+    padding: 50px;
+}
+
+#satukelas{
+    margin-top: 20px;
+}
+
+#gambartidakada {
+    margin-left: 100px;
 }
 
 #j {
