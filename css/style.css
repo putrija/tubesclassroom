@@ -51,6 +51,7 @@ button {
   color: black;
   border: 1px solid;
   border-radius: 10px;
+  width: 50%;
 }
 
 .containerr {
