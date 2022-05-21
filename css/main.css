@@ -28,3 +28,10 @@
 a {
   text-decoration: none;
 }
+
+.nav-link.active{
+border-bottom: 4px solid #304ffe;
+bottom: 0;
+transition: 0.5s ease;
+border-radius: 1px;
+} 
