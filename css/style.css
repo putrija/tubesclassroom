@@ -46,6 +46,7 @@ li, a, button {
 #semuakelas{
     color: black;
     border: 1px solid;
+    border-radius: 10px;
 }
 
 .containerr{
