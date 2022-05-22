@@ -1,3 +1,31 @@
+<?php 
+    if(isset($_POST['btnlogin']))
+    {
+
+        require ("function.php");
+        $user_login=$_POST['username'];
+        $pass_login=sha1($_POST['password']);
+        $sql = "SELECT * FROM user WHERE username = '{$user_login}' OR email = '{$user_login}' and password = '{$pass_login}'";
+        $query = mysqli_query($connection, $sql);
+
+        while($row = mysqli_fetch_array($query)){
+            $iduser = $row['id'];
+            $user=$row['username'];
+            $pass=$row['password'];
+            $email=$row['email'];
+        }
+        if($user_login == $user || $email && $pass_login ==$pass){
+            echo "Username: $user_login dan Password: $pass_login";
+            header ("Location: dashboardsiswa.php");
+            $_SESSION['iduser'] = $iduser;
+            $_SESSION['username'] = $user ;
+            $_SESSION['email'] = $email;
+        } else{
+            echo "LOGIN GAGAL";
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="vn">
   <head>
@@ -15,8 +43,13 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/common.css" />
     <link rel="stylesheet" href="../css/reset.css" />
-  </head>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+  </head>
   <body>
     <div class="mt-5 col-10 col-md-7 col-lg-3 text-center mx-auto">
       <div class="board">
@@ -24,18 +57,21 @@
       </div>
       <h1 class="fs-2 mb-3">Sign In</h1>
 
-      <form>
+      <form method="POST" class="my-login-validation" novalidate="">
         <div class="mb-3">
           <input
-            type="email"
+            type="text"
             class="form-control py-3"
-            placeholder="Username"
+            name="username"
+            id="username"
+            placeholder="Username/Email"
           />
         </div>
         <div class="mb-3">
           <input
             type="password"
             class="form-control py-3"
+            name="password"
             placeholder="Password"
           />
         </div>
@@ -50,7 +86,7 @@
             Remember me
           </label>
         </div>
-        <button type="submit" class="w-100 py-3 btn btn-primary">
+        <button type="submit" class="w-100 py-3 btn btn-primary" name="btnlogin">
           Sign In
         </button>
         <div class="my-2">OR</div>
@@ -59,5 +95,6 @@
           <a href="register.php">Sign Up </a></button>
       </form>
     </div>
+
   </body>
 </html>

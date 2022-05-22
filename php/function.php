@@ -1,6 +1,11 @@
 <?php
 
+if(!isset($_SESSION)){
+    session_start();
+}
+
 $connection = mysqli_connect("localhost","root","","classroom");
+
 
 function daftar($data) {
 
