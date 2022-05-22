@@ -79,7 +79,7 @@ error_reporting(0);
         require ("function.php");
         $user_login=$_POST['username'];
         $pass_login=sha1($_POST['password']);
-        $sql = "SELECT * FROM user WHERE username = '{$user_login}' and password = '{$pass_login}'";
+        $sql = "SELECT * FROM user WHERE username = '{$user_login}' OR email = '{$user_login}' and password = '{$pass_login}'";
         $query = mysqli_query($connection, $sql);
 
         while($row = mysqli_fetch_array($query)){
@@ -88,7 +88,7 @@ error_reporting(0);
             $pass=$row['password'];
             $email=$row['email'];
         }
-        if($user_login == $user  && $pass_login ==$pass){
+        if($user_login == $user || $email && $pass_login ==$pass){
             echo "Username: $user_login dan Password: $pass_login";
             header ("Location: dashboardsiswa.php");
             $_SESSION['iduser'] = $iduser;
