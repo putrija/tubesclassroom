@@ -1,63 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <title>Gabung ke kelas</title>
+  </head>
+  <body>
     <!----NAVBAR----->
-    <nav class="navbar navbar-expand-lg navbar-light container-fluid sticky-top border mb-2 pt-3 pb-1" style="background-color: white" >
-        <div class="container navbar-head">
-         <div class="logo">
-            <!---Side Button--->
-            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fas fa-bars"></i></button>
-            <!---Logo--->
-            <img src="../gambar/google.png" style="width: 190px;">
-            <!---Span button-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-         </div>
+    <div class="row mt-3">
+      <div class="col-md-1">
+        <a href="dashboardsiswa.html" class="btn btn-close"></a>
+      </div>
+      <div class="col-md-10"><h5>Gabung ke kelas</h5></div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-primary">Gabung</button>
+      </div>
+    </div>
+    <hr class="solid" />
+    <div class="row justify-content-center">
+      <div class="col col-lg-6 col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              Saat ini Anda login sebagai
+            </h6>
 
-         
-
-         <!---tambah dan akun-->
-         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" >
-           <ul class="navbar-nav">
-                <li class="nav-item dropdown mx-4">
-                <a class="nav-link active "href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-plus" aria-hidden="true"></i> </a> 
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item " href="#">Gabung ke kelas </a>
-                    <li><a class="dropdown-item " href="#">Buat kelas </a>
-                </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <i class="fas fa-th"></i>
-                  </a>
-                </li>
-                <li class="popup py-2 mx-3 ">
-                  <div class="avatar me-3 cursor-pointer">
-                    <i class="fas fa-user"></i>
-                  </div>
-            <!--ISI POPUP-->
-                  <div class="popup__content d-flex flex-column align-items-center shadow rounded-3 bg-white">
-                    <img class="popup__avatar cursor-pointer"
-                         src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg"
-                         alt="Avatar"/>
-                    <p class="popup__email">youremail@gmail.com</p>
-                    <a class="popup__link" href="#" target="_blank">Manage your account</a>
-                    <div class="popup__logout mt-auto cursor-pointer">Log Out</div>
-                    <div class="popup__pseudo"></div>
-                  </div>
-                </li>
-           </ul>
+            <div class="row">
+              <div class="col-md-1">
+                <div class="avatar me-3 cursor-pointer">
+                  <i class="fas fa-user"></i>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="body-text-3">TI_Putrija Malau</div>
+                <div class="body-text-6">putrijamalau23@gmail.com</div>
+              </div>
+              <div class="col-md-3">
+                <button type="button" class="btn btn-outline-secondary">
+                  <div class="button-transparent">Ganti akun</div>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-    </nav>
-</body>
+        <div class="card mt-2">
+          <div class="card-body">
+            <h5>Kode kelas</h5>
+            <div>
+              Mintalah kode kelas kepada pengajar, lalu masukkan kode di sini.
+            </div>
+            <input
+              style="width: 10rem"
+              type="text"
+              class="form-control"
+              aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-lg"
+              placeholder="Kode kelas"
+            />
+          </div>
+        </div>
+        <div class="mt-5">
+          <h5>Untuk login menggunakan kode kelas</h5>
+          <ul>
+            <li>Gunakan akun yang diberi otorisasi</li>
+            <li>
+              Gunakan kode kelas yang terdiri dari 5-7 huruf atau angka, tanpa
+              spasi atau simbol
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!---SCRIPT-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/9c0c4e63c7.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

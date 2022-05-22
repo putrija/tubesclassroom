@@ -1,91 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    background-color:white;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: white;
 }
 
+.kotakgab {
+  margin: 0;
+}
 
-
-li, a, button {
-    font-family: "Monstserrat", sans-serif;
-    font-weight: 500;
-    font-size: 16 px;
-    color: black;
-    text-decoration: none;
+li,
+a,
+button {
+  font-family: "Monstserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16 px;
+  color: black;
+  text-decoration: none;
 }
 
 #navbar {
-    justify-content: space-between;
-    align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.kiri{
-    display: flex;
+.kiri {
+  display: flex;
 }
 
-.tengah{
-    list-style: none;
+.tengah {
+  list-style: none;
 }
 
-.tengah li{
-    display: inline-block;
-    padding: 0px 20px;
+.tengah li {
+  display: inline-block;
+  padding: 0px 20px;
 }
 
-.tengah li a{
-    transition:all 0.3s ease 0s;
+.tengah li a {
+  transition: all 0.3s ease 0s;
 }
 
-.tengah li a:hover{
-    color: grey;
+.tengah li a:hover {
+  color: grey;
 }
 
-#semuakelas{
-    color: black;
-    border: 1px solid;
-    border-radius: 10px;
+#semuakelas {
+  color: black;
+  border: 1px solid;
+  border-radius: 10px;
+  width: 50%;
 }
 
-.containerr{
-    margin-left: 300px;
-    margin-right: 300px;
-    margin-top: 30px;
-    padding: 50px;
+.containerr {
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-top: 30px;
+  padding: 50px;
 }
 
-#satukelas{
-    margin-top: 20px;
+#satukelas {
+  margin-top: 20px;
 }
 
 #gambartidakada {
-    margin-left: 100px;
+  margin-left: 100px;
 }
 
 #j {
-    float: left;
-    list-style: none;
-    padding: 12px;
-
+  float: left;
+  list-style: none;
+  padding: 12px;
 }
 
-
 #button {
-    position: absolute;
-    left: 49%;
-    transform: translate(-50%, -50%);
-    margin-top: 20px;
-
-
+  position: absolute;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  margin-top: 20px;
 }
 
 #btnn {
-    width: 145px;
+  width: 145px;
 }
 
-h5 {
-    text-align: right;
+.body-text-1 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.body-text-2 {
+  font-size: 1rem;
+}
 
+.body-text-3 {
+  color: #3c4043;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.body-text-4 {
+  font-size: 0.9rem;
+}
+
+.body-text-5 {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.body-text-6 {
+  color: #5f6368;
+  font-size: 0.75rem;
+}
+
+.button-transparent {
+  color: #1a73e8;
+  font-weight: bold;
 }
