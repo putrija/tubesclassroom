@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2022 at 08:25 AM
+-- Generation Time: May 22, 2022 at 12:23 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -41,7 +41,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `nama_user`, `email`, `created_at`) VALUES
-(1, 'User1', '123', 'alan', 'user1@gmail.com', '2022-05-22 04:26:15');
+(1, 'User1', '123', 'alan', 'user1@gmail.com', '2022-05-22 04:26:15'),
+(2, 'eee', '$2y$10$zsqDk4cnue0kCuCCHMjotuOfvLoFeYBBcMIkG.CuyeAMqC/zQDIDy', 'alanharskuy', 'wewe@gmail.com', '2022-05-22 08:41:16');
 
 --
 -- Indexes for dumped tables
@@ -63,7 +64,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
