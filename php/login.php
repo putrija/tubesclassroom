@@ -67,8 +67,7 @@ error_reporting(0);
         </button>
         <div class="my-2">OR</div>
         <a href="#" class="d-block mb-3 text-primary">Forgot password?</a>
-        <button class="w-100 py-3 btn btn-dark">
-          <a href="register.php">Sign Up </a></button>
+        <a href="register.php" class="w-100 py-3 btn btn-dark">Sign up</a>
       </form>
     </div>
 

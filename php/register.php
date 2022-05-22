@@ -124,6 +124,7 @@ if (isset($_POST["register"])) {
         <button class="w-100 btn py-3 btn-primary form-contol" name="register">
           Sign Up
         </button>
+        <a href="login.php" class="w-100 py-3 btn btn-dark">Already have an account? Sign in!</a>
       
       </form>
     </div>
