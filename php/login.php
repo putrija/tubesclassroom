@@ -90,7 +90,7 @@ error_reporting(0);
         }
         if($user_login == $user || $email && $pass_login ==$pass){
             echo "Username: $user_login dan Password: $pass_login";
-            header ("Location: dashboardsiswa.php");
+            header ("Location: dashboard.php");
             $_SESSION['iduser'] = $iduser;
             $_SESSION['username'] = $user ;
             $_SESSION['email'] = $email;

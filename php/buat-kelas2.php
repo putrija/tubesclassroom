@@ -56,7 +56,7 @@ error_reporting(0);
             $_SESSION['kodekelas'] = $kodekelas;
             $_SESSION['level'] = $level;
 
-    echo "<script>location='forumguru.php';</script>";
+    echo "<script>location='forum.php';</script>";
 ?>
 
  <!-- Scripts -->

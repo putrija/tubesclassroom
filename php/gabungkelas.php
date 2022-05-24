@@ -24,13 +24,14 @@ if(empty($_SESSION['username'])){
   </head>
   <body>
     <!----NAVBAR----->
+    <form action="#" method="POST">
     <div class="row mt-3">
       <div class="col-md-1">
-        <a href="dashboardsiswa.php" class="btn btn-close"></a>
+        <a href="dashboard.php" class="btn btn-close"></a>
       </div>
       <div class="col-md-10"><h5>Gabung ke kelas</h5></div>
       <div class="col-md-1">
-        <button type="button" class="btn btn-primary">Gabung</button>
+          <button name="btngabung" type="button" class="btn btn-primary">Gabung</button>
       </div>
     </div>
     <hr class="solid" />
@@ -66,7 +67,9 @@ if(empty($_SESSION['username'])){
             <div>
               Mintalah kode kelas kepada pengajar, lalu masukkan kode di sini.
             </div>
+            <form action="#" method="POST">
             <input
+              name="kodekelas"
               style="width: 10rem"
               type="text"
               class="form-control"
@@ -74,6 +77,7 @@ if(empty($_SESSION['username'])){
               aria-describedby="inputGroup-sizing-lg"
               placeholder="Kode kelas"
             />
+            </form>
           </div>
         </div>
         <div class="mt-5">
@@ -88,6 +92,20 @@ if(empty($_SESSION['username'])){
         </div>
       </div>
     </div>
+
+    <?php
+    if(isset($_POST['btnlogin']))
+    {
+    $kodekelas = $_POST['kodekelas'];
+
+    $pemeriksaan_kodekelas = (mysqli_query($connection, "SELECT kodekelas FROM kelas WHERE kodekelas='$_POST[kodekelas]'"));
+      if ($pemeriksaan_kodekelas > 0 ) {
+        echo "<script>location='forum.php';</script>";
+      } else{
+        echo "GAGAL";
+        }
+      }
+    ?>
 
     <!---SCRIPT-->
     <script

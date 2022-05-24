@@ -40,7 +40,7 @@ if(empty($_SESSION['username'])){
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav justify-content-start">
       <li class="nav-item active">
-        <a class="nav-link" href="dashboardsiswa.php">
+        <a class="nav-link" href="dashboard.php">
           <b><?php echo $_SESSION['namakelas'] ?></b><br>
           <?php echo $_SESSION['bagian'] ?>
            <span class="sr-only">(current)</span></a>
@@ -51,7 +51,7 @@ if(empty($_SESSION['username'])){
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav justify-content-between">
       <li class="nav-item active">
-        <a class="nav-link active" href="forumguru.php">Forum </a>
+        <a class="nav-link active" href="forum.php">Forum </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="tugaskelas.html">Tugas kelas</a>
@@ -109,7 +109,7 @@ if(empty($_SESSION['username'])){
     <!--isi-->
     <ul class="nav nav-pills flex-column">
         <li class="nav-item mb-3">
-          <a href="dashboardsiswa.php" class="nav-link text-black">
+          <a href="dashboard.php" class="nav-link text-black">
             <i class="fa-solid fa-house me-3"></i>
             Kelas</a>
         </li>
@@ -129,7 +129,7 @@ if(empty($_SESSION['username'])){
            </a>
         </li>
         <li class="nav item mb-3">
-            <a href="forumguru.html" class="nav-link text-black">
+            <a href="forum.php" class="nav-link text-black">
             <i class="fa-solid fa-users-rectangle me-3"></i>
             Kelas SBD 21
             </a>

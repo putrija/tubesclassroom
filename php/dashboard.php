@@ -85,7 +85,7 @@ if(empty($_SESSION['username'])){
     <!--isi-->
     <ul class="nav nav-pills flex-column">
         <li class="nav-item mb-3">
-          <a href="dashboardsiswa.html" class="nav-link active" aria-current="page">
+          <a href="dashboard.php" class="nav-link active" aria-current="page">
             <i class="fa-solid fa-house me-3"></i>
             Kelas</a>
         </li>
@@ -105,7 +105,7 @@ if(empty($_SESSION['username'])){
            </a>
         </li>
         <li class="nav item mb-3">
-            <a href="forumsiswa.html" class="nav-link text-black">
+            <a href="forum.php" class="nav-link text-black">
             <i class="fa-solid fa-users-rectangle me-3"></i>
             Kelas SBD 21
             </a>
@@ -143,14 +143,14 @@ if(empty($_SESSION['username'])){
               <div class="card text-white">
                   <img src="../gambar/img_code.jpg" class="card-img-top" height="100px" width="200px">
                   <div class="card-img-overlay">
-                    <h5 class="card-title mb-1">Kelas SBD 21</h5>
-                    <p class="card-text"> Teknologi Informasi <br>
-                                          Teacher
+                    <h5 class="card-title mb-1"><?php echo $_SESSION['namakelas'] ?></h5>
+                    <p class="card-text"> <?php echo $_SESSION['bagian'] ?> <br>
+                    <?php echo $_SESSION['nama_user'] ?>
                     </p>
                   </div>
                   <div class="card-body">
                     <br><br><br>
-                    <a href="forumsiswa.html" class="btn btn-outline-primary">buka Kelas</a>
+                    <a href="forum.php" class="btn btn-outline-primary">buka Kelas</a>
                   </div>
               </div>
           </div>
