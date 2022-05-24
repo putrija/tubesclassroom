@@ -86,6 +86,7 @@ error_reporting(0);
             $user=$row['username'];
             $pass=$row['password'];
             $email=$row['email'];
+            $nama_user=$row['nama_user'];
         }
         if($user_login == $user || $email && $pass_login ==$pass){
             echo "Username: $user_login dan Password: $pass_login";
@@ -93,6 +94,7 @@ error_reporting(0);
             $_SESSION['iduser'] = $iduser;
             $_SESSION['username'] = $user ;
             $_SESSION['email'] = $email;
+            $_SESSION['nama_user'] = $nama_user;
         } else{
             echo "LOGIN GAGAL";
         }

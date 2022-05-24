@@ -1,3 +1,10 @@
+<?php 
+require ("function.php");
+if(empty($_SESSION['username'])){
+    header("Location: ../html/error.html");
+}
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,8 +47,8 @@
                 <a class="nav-link"href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-plus" aria-hidden="true"></i> </a> 
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item " href="gabungkelas.html">Gabung ke kelas </a>
-                    <li><a class="dropdown-item " href="buat-kelas.html">Buat kelas </a>
+                    <a class="dropdown-item " href="gabungkelas.php">Gabung ke kelas </a>
+                    <a class="dropdown-item " href="buat-kelas.php">Buat kelas </a>
                 </ul>
                 </li>
                 <li class="nav-item">
@@ -58,7 +65,7 @@
                     <img class="popup__avatar cursor-pointer"
                          src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg"
                          alt="Avatar"/>
-                    <p class="popup__email">youremail@gmail.com</p>
+                    <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
                     <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
                     <div class="popup__logout mt-auto cursor-pointer">Log Out</div>
                     <div class="popup__pseudo"></div>
