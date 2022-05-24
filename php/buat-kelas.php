@@ -29,7 +29,6 @@ error_reporting(0);
       <div>
         <h1>Buat kelas</h1>
       </div>
-      <?php print_r($_SESSION)?>
       <div class="mx-3 my-3">
         <div class="mb-3">
           <input class="form-control py-3" name="namakelas" type="text" placeholder="Nama namakelas (wajib)" required="" />
@@ -78,6 +77,10 @@ error_reporting(0);
 
 
     $buatkelasbaru= mysqli_query($connection, "INSERT INTO kelas (namakelas, bagian, mapel, ruang, kodekelas) values('$namakelas', '$bagian', '$mapel', '$ruang', '$code') ");
+
+    $iduser=$_SESSION['iduser'];
+    $iduserdb = mysqli_query($connection,"INSERT INTO user_level (iduser) values('$iduser')");
+
 
     echo "<script>location='forumguru.php';</script>";
     }  
