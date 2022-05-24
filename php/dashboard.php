@@ -67,7 +67,7 @@ if(empty($_SESSION['username'])){
                          alt="Avatar"/>
                     <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
                     <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
-                    <div class="popup__logout mt-auto cursor-pointer">Log Out</div>
+                    <a href="logout.php">Log Out</a>
                     <div class="popup__pseudo"></div>
                   </div>
                 </li>
@@ -135,25 +135,38 @@ if(empty($_SESSION['username'])){
 
 <!------ISI-------->
  <!-- Kartu kelas -->
+<?php 
+$ambildatakelas = mysqli_query($connection,"SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas");
+while($data=mysqli_fetch_array($ambildatakelas)){
+  print_r($data);
+    $namakelas = $data['namakelas'];
+    $bagian = $data ['bagian'];
+    $nama_user= $data['nama_user'];
+?>
 <div class="container py-3 class-list">
   <div class="list-class my-3">
-      <div class="row">
-
-          <div class="col-lg-4 col-md-4 my-3">
-              <div class="card text-white">
-                  <img src="../gambar/img_code.jpg" class="card-img-top" height="100px" width="200px">
-                  <div class="card-img-overlay">
-                    <h5 class="card-title mb-1"><?php echo $_SESSION['namakelas'] ?></h5>
-                    <p class="card-text"> <?php echo $_SESSION['bagian'] ?> <br>
-                    <?php echo $_SESSION['nama_user'] ?>
-                    </p>
-                  </div>
-                  <div class="card-body">
-                    <br><br><br>
-                    <a href="forum.php" class="btn btn-outline-primary">buka Kelas</a>
-                  </div>
-              </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 my-3">
+        <div class="card text-white">
+          <img src="../gambar/img_code.jpg" class="card-img-top" height="100px" width="200px">
+          <div class="card-img-overlay">
+            <h5 class="card-title mb-1"><?=$namakelas?></h5>
+            <p class="card-text"><?=$bagian?><br>
+            <?=$nama_user?>
+            </p>
           </div>
+          <div class="card-body">
+            <br><br><br>
+            <a href="forum.php" class="btn btn-outline-primary">buka Kelas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php 
+};
+?>
 
 
 
