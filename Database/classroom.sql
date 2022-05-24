@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2022 at 01:16 PM
+-- Generation Time: May 24, 2022 at 01:44 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -103,12 +103,12 @@ INSERT INTO `kelas` (`idkelas`, `namakelas`, `bagian`, `mapel`, `ruang`, `kodeke
 --
 
 CREATE TABLE `user` (
-  `iduser` int(255) UNSIGNED NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `nama_user` varchar(200) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `iduser` int(200) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `nama_user` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -116,10 +116,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`iduser`, `username`, `password`, `nama_user`, `email`, `created_at`) VALUES
-(1, 'User1', '123', 'alan', 'user1@gmail.com', '2022-05-22 04:26:15'),
-(2, 'eee', '$2y$10$zsqDk4cnue0kCuCCHMjotuOfvLoFeYBBcMIkG.CuyeAMqC/zQDIDy', 'alanharskuy', 'wewe@gmail.com', '2022-05-22 08:41:16'),
-(3, 'putrija', '$2y$10$EKo2APsSDKymMjS40Zpt7.rdvXUu3Vbe0M3duk4WEEi7Okt.uZwzi', 'Putrija Malau', 'putrija@gmail.com', '2022-05-22 12:28:13'),
-(4, 'a', '$2y$10$MweHrLTovrqoMW6FWCBQue8YoyeSSYFf2fgmOloOCwzQFy/tKXlb2', 'a', 'a@gmail.com', '2022-05-24 08:19:45');
+(1, 'a', '$2y$10$A8.fFgrsm9O75UYuo/m7De0R5oDYUcrsM2FpLhhDfh5BBRJD4IkOW', 'a', 'a@gmail.com', '2022-05-24 11:40:37');
 
 -- --------------------------------------------------------
 
@@ -189,9 +186,7 @@ ALTER TABLE `kelas`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`iduser`),
-  ADD KEY `username` (`username`),
-  ADD KEY `email` (`email`);
+  ADD PRIMARY KEY (`iduser`);
 
 --
 -- Indexes for table `user_level`
@@ -225,7 +220,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `iduser` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user_level`

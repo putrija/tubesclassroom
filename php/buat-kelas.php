@@ -29,7 +29,7 @@ error_reporting(0);
       <div>
         <h1>Buat kelas</h1>
       </div>
-      <?php echo "$_SESSION[iduser]"; ?>
+      <?php print_r($_SESSION)?>
       <div class="mx-3 my-3">
         <div class="mb-3">
           <input class="form-control py-3" name="namakelas" type="text" placeholder="Nama namakelas (wajib)" required="" />
