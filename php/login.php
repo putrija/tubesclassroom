@@ -96,7 +96,11 @@ error_reporting(0);
             $_SESSION['email'] = $email;
             $_SESSION['nama_user'] = $nama_user;
         } else{
-            echo "LOGIN GAGAL";
+          ?>
+          <script>
+            alert("Login Gagal!");
+          </script>
+          <?php  
         }
     }
 ?>
