@@ -29,6 +29,7 @@ error_reporting(0);
       <div>
         <h1>Buat kelas</h1>
       </div>
+      <?php echo "$_SESSION[iduser]"; ?>
       <div class="mx-3 my-3">
         <div class="mb-3">
           <input class="form-control py-3" name="namakelas" type="text" placeholder="Nama namakelas (wajib)" required="" />
@@ -39,19 +40,22 @@ error_reporting(0);
         <div class="mb-3">
           <input class="form-control py-3" name="mapel" type="text" placeholder="Mata Pelajaran" required="" />
         </div>
+
+        <?php
+        
+        ?>
         <div class="mb-3">
           <input class="form-control py-3" name="ruang" type="text" placeholder="Ruang" required="" />
         </div>
         <input type="hidden" name="kode_kelas">
         <?php 
-    function generate_code($len = 8){
-      $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      $code = substr( str_shuffle( $chars ), 0, $len );
-      return $code;
-    }
-    $code = generate_code();
-  
-    ?>
+          function generate_code($len = 8){
+            $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            $code = substr( str_shuffle( $chars ), 0, $len );
+            return $code;
+          }
+          $code = generate_code();
+        ?>
         
 
       <div class="modal-footer">
@@ -64,6 +68,7 @@ error_reporting(0);
     </form>
 
 
+
     <?php
     if (isset($_POST['btnbuatkelas'])) {
     $namakelas = $_POST['namakelas'];
@@ -73,9 +78,13 @@ error_reporting(0);
 
 
     $buatkelasbaru= mysqli_query($connection, "INSERT INTO kelas (namakelas, bagian, mapel, ruang, kodekelas) values('$namakelas', '$bagian', '$mapel', '$ruang', '$code') ");
-    }
+
+    echo "<script>location='forumguru.php';</script>";
+    }  
 
     ?>
+
+
 
 
 

@@ -32,7 +32,7 @@
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav justify-content-start">
       <li class="nav-item active">
-        <a class="nav-link" href="forumguru.html">
+        <a class="nav-link" href="dashboardsiswa.php">
           <b>Kelas SBD 21 </b><br>
            Teknologi Informasi
            <span class="sr-only">(current)</span></a>
@@ -98,7 +98,7 @@
     <!--isi-->
     <ul class="nav nav-pills flex-column">
         <li class="nav-item mb-3">
-          <a href="dashboardguru.html" class="nav-link text-black">
+          <a href="dashboardsiswa.php" class="nav-link text-black">
             <i class="fa-solid fa-house me-3"></i>
             Kelas</a>
         </li>
@@ -341,8 +341,6 @@
       </div>
     </section>
 </div>
-
-
 
 <!---SCRIPT-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

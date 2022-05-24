@@ -82,7 +82,7 @@ error_reporting(0);
         $query = mysqli_query($connection, $sql);
 
         while($row = mysqli_fetch_array($query)){
-            $iduser = $row['id'];
+            $iduser=$row['iduser'];
             $user=$row['username'];
             $pass=$row['password'];
             $email=$row['email'];
