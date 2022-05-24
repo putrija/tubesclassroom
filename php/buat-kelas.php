@@ -81,11 +81,12 @@ error_reporting(0);
     $iduser=$_SESSION['iduser'];
     $iduserdb = mysqli_query($connection,"INSERT INTO user_level (iduser) values('$iduser')");
 
-
-    echo "<script>location='forumguru.php';</script>";
+    echo "<script>location='buat-kelas2.php';</script>";
     }  
 
     ?>
+
+
 
 
 
