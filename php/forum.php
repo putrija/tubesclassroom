@@ -6,7 +6,6 @@ if(empty($_SESSION['username'])){
 }
  ?>
 
-<?php if($_SESSION['level'] =='student' || 'teacher') : ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +55,7 @@ if(empty($_SESSION['username'])){
         <a class="nav-link active" href="forum.php">Forum </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="tugaskelas.html">Tugas kelas</a>
+        <a class="nav-link" href="tugaskelas.php">Tugas kelas</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="anggota.php">Anggota</a>
@@ -361,11 +360,6 @@ if(empty($_SESSION['username'])){
     </div>
 </div>
 
-<?php 
-  
-?>
-
-<?php endif; ?>
 
 <!---SCRIPT-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

@@ -1,6 +1,6 @@
 <?php
 
-require_once'function.php';
+include 'function.php';
 error_reporting(0);
 
 ?>

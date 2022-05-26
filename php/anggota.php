@@ -157,13 +157,13 @@ error_reporting(0);
 
     <!-- Teacher -->
     <section class="container py-4 bg-white col-7 ">
+      <?php 
+          $ambildata = mysqli_query($connection, "SELECT * from kelas INNER JOIN user ON kelas.role = user.iduser where namakelas='SDA'");
+          $student  = mysqli_fetch_array($asd);
+
+          ?>
       <div>
         <h2 class="text-primary border-bottom border-primary pb-3 mb-4">Pengajar</h2>
-        <?php 
-        $asd = mysqli_query($connection, "SELECT * from kelas INNER JOIN user ON kelas.role = user.iduser where namakelas='SDA'");
-        $as  = mysqli_fetch_array($asd);
-
-         ?>
         <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex align-items-center">
             <div class="avatar me-3">

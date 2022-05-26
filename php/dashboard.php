@@ -24,11 +24,10 @@ if(empty($_SESSION['username'])){
 
 </head>
 <body>
-<form method="POST">
-
-<!----NAVBAR----->
-    <nav class="navbar navbar-expand-lg navbar-light container-fluid sticky-top border mb-2 pt-3 pb-1" style="background-color: white" >
-        <div class="container navbar-head">
+  
+  <!----NAVBAR----->
+  <nav class="navbar navbar-expand-lg navbar-light container-fluid sticky-top border mb-2 pt-3 pb-1" style="background-color: white" >
+    <div class="container navbar-head">
          <div class="logo">
             <!---Side Button--->
             <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fas fa-bars"></i></button>
@@ -40,17 +39,17 @@ if(empty($_SESSION['username'])){
             <span class="navbar-toggler-icon"></span>
           </button>
          </div>
-
+         
          <!---tambah dan akun-->
          <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" >
            <ul class="navbar-nav">
-                <li class="nav-item dropdown mx-4">
-                <a class="nav-link"href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-plus" aria-hidden="true"></i> </a> 
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item " href="gabungkelas.php">Gabung ke kelas </a>
-                    <a class="dropdown-item " href="buat-kelas.php">Buat kelas </a>
-                </ul>
+             <li class="nav-item dropdown mx-4">
+               <a class="nav-link"href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 <i class="fa fa-plus" aria-hidden="true"></i> </a> 
+                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                   <a class="dropdown-item " href="gabungkelas.php">Gabung ke kelas </a>
+                   <a class="dropdown-item " href="buat-kelas.php">Buat kelas </a>
+                  </ul>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#">
@@ -61,94 +60,94 @@ if(empty($_SESSION['username'])){
                   <div class="avatar me-3 cursor-pointer">
                     <i class="fas fa-user"></i>
                   </div>
-            <!--ISI POPUP-->
+                  <!--ISI POPUP-->
                   <div class="popup__content d-flex flex-column align-items-center shadow rounded-3 bg-white">
                     <img class="popup__avatar cursor-pointer"
                          src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg"
                          alt="Avatar"/>
-                    <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
-                    <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
-                    <a class="popup__link" href="logout.php">Log Out</a>
-                    <div class="popup__pseudo"></div>
-                  </div>
+                         <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
+                         <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
+                         <a class="popup__link" href="logout.php">Log Out</a>
+                         <div class="popup__pseudo"></div>
+                        </div>
                 </li>
            </ul>
           </div>
         </div>
     </nav>
-
+    
 <!------SIDEBAR----->
     <!-- offcanvas -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
     style="width: 350px;">
     <!-- offcanvas-Body -->
     <div class="offcanvas-body">
-    <!--isi-->
-    <ul class="nav nav-pills flex-column">
+      <!--isi-->
+      <ul class="nav nav-pills flex-column">
         <li class="nav-item mb-3">
           <a href="dashboard.php" class="nav-link active" aria-current="page">
             <i class="fa-solid fa-house me-3"></i>
             Kelas</a>
-        </li>
-        <li class="nav-item mb-3">
+          </li>
+          <li class="nav-item mb-3">
             <a href="kalender.html" class="nav-link text-black">
               <i class="fa-regular fa-calendar me-3"></i>
               Kalender
-             </a>
-        </li>
-        <li class="nav item border-top py-3">
-          Terdaftar
-        </li>
+            </a>
+          </li>
+          <li class="nav item border-top py-3">
+            Terdaftar
+          </li>
         <li class="nav item mb-2">
             <a href="daftartugas.html" class="nav-link text-black">
             <i class="fa-solid fa-list-check me-3"></i>
             Daftar tugas
-           </a>
+          </a>
         </li>
         <li class="nav item mb-3">
-            <a href="forum.php" class="nav-link text-black">
+          <a href="forum.php" class="nav-link text-black">
             <i class="fa-solid fa-users-rectangle me-3"></i>
             Kelas SBD 21
-            </a>
+          </a>
         </li>
         <li class="nav item mb-3">
-            <a href="#" class="nav-link text-black">
+          <a href="#" class="nav-link text-black">
             <i class="fa-solid fa-users-rectangle me-3"></i>
             Kelas PWL 21
-            </a>
+          </a>
         </li>
         <li class="nav-item mb-3 border-top pt-3">
-            <a href="#" class="nav-link text-black">
-              <i class="fa-solid fa-box-archive me-3"></i>
-              Kelas yang diarsipkan
-            </a>
+          <a href="#" class="nav-link text-black">
+            <i class="fa-solid fa-box-archive me-3"></i>
+            Kelas yang diarsipkan
+          </a>
         </li>
         <li class="nav-item mb-3">
-            <a href="editprofil.html" class="nav-link text-black">
-              <i class="fa-solid fa-gear me-3"></i>
-              setelan
-            </a>
+          <a href="editprofil.html" class="nav-link text-black">
+            <i class="fa-solid fa-gear me-3"></i>
+            setelan
+          </a>
         </li>
     </ul>
-
-</div>
+    
+  </div>
 </div>
 
 <!------ISI-------->
- <!-- Kartu kelas -->
+<!-- Kartu kelas -->
 
 <div class="container py-3 class-list">
   <div class="list-class my-3">
     <div class="row">
-    <?php 
+      <?php 
           $iduser=$_SESSION['iduser'];
           $ambildatakelas = mysqli_query($connection,"SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.iduser='{$iduser}'" );
           while($data=mysqli_fetch_array($ambildatakelas)){
-              $namakelas = $data['namakelas'];
-              $bagian = $data ['bagian'];
-              $namaguru= $data['teacher'];
-              $idkelass = $data['idkelas'];
-          ?>
+            $namakelas = $data['namakelas'];
+            $bagian = $data ['bagian'];
+            $namaguru= $data['teacher'];
+            $idkelass = $data['idkelas'];
+            ?>
       <div class="col-lg-4 col-md-4 my-3">
         <div class="card text-white">
           <img src="../gambar/img_code.jpg" class="card-img-top" height="100px" width="200px">
@@ -156,15 +155,18 @@ if(empty($_SESSION['username'])){
             <h5 class="card-title mb-1"><?=$namakelas?></h5>
             <p class="card-text"><?=$bagian?><br>
             <?=$namaguru?>
-            </p>
-          </div>
-          <div class="card-body">
-            <br><br><br>
-          </div>
+          </p>
         </div>
-        <button name="btnbukakelas" type="submit" class="btn btn-primary">Buka Kelas</button>
+        <div class="card-body">
+          <br><br><br>
+        </div>
       </div>
-      <?php 
+      <form method="POST">
+        <input type="hidden" value="<?=$idkelass?>" name="idkelas" >
+        <button name="btnbukakelas" type="submit" class="btn btn-primary">Buka Kelas</button>
+      </form>
+    </div>
+    <?php 
  };
  ?>
     </div>
@@ -173,38 +175,37 @@ if(empty($_SESSION['username'])){
 </div>
 
 
-</form>
 
 <?php 
 if (isset($_POST['btnbukakelas'])) {
-  echo "bisabukakelas";
+$idkelas = $_POST['idkelas'];
+$idUser = $_SESSION['iduser'];
+  $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas= '$idkelas' AND u.iduser='$idUser'";
+        $query = mysqli_query($connection, $innerjoinkelas);
+        print_r($query);
 
-  // $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas= '$idkelass' ";
-  //       $query = mysqli_query($connection, $innerjoinkelas);
-  //       print_r($query);
-
-  //       while($row = mysqli_fetch_array($query)){
-  //         $nama_user=$row['nama_user'];
-  //         $email=$row['email'];
-  //         $namakelas=$row['namakelas'];
-  //         $bagian=$row['bagian'];
-  //         $mapel=$row['mapel'];
-  //         $ruang=$row['ruang'];
-  //         $kodekelas=$row['kodekelas'];
-  //         $level=$row['level'];
-  //     }
+        $row = $query->fetch_assoc();
+          $nama_user = $row['nama_user'];
+          $email = $row['email'];
+          $namakelas = $row['namakelas'];
+          $bagian = $row['bagian'];
+          $mapel = $row['mapel'];
+          $ruang = $row['ruang'];
+          $kodekelas = $row['kodekelas'];
+          $level = $row['level'];
       
-  //         $_SESSION['nama_user'] = $nama_user;
-  //         $_SESSION['email'] = $email;
-  //         $_SESSION['namakelas'] = $namakelas;
-  //         $_SESSION['bagian'] = $bagian ;
-  //         $_SESSION['mapel'] = $mapel;
-  //         $_SESSION['ruang'] = $ruang;
-  //         $_SESSION['kodekelas'] = $kodekelas;
-  //         $_SESSION['level'] = $level;
+          $_SESSION['nama_user'] = $nama_user;
+          $_SESSION['email'] = $email;
+          $_SESSION['namakelas'] = $namakelas;
+          $_SESSION['bagian'] = $bagian ;
+          $_SESSION['mapel'] = $mapel;
+          $_SESSION['ruang'] = $ruang;
+          $_SESSION['kodekelas'] = $kodekelas;
+          $_SESSION['level'] = $level;
+          $_SESSION['idkelas'] = $idkelas;
 
 
-  //echo "<script>location='forum.php';</script>";
+  echo "<script>location='forum.php';</script>";
   }  
 
 ?>
