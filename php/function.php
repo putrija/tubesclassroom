@@ -1,13 +1,14 @@
 <?php
 
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
-$connection = mysqli_connect("localhost","root","","classroom");
+$connection = mysqli_connect("localhost", "root", "", "classroom");
 
 
-function daftar($data) {
+function daftar($data)
+{
 
     global $connection;
 
@@ -16,17 +17,17 @@ function daftar($data) {
     $password2 = mysqli_real_escape_string($connection, $data["password2"]);
     $namaUser = htmlspecialchars($data["namauser"]);
     $email = stripslashes($data["email"]);
-    
+
 
     //check data kosong
-    if (empty($username) || empty($password) || empty($namaUser) || empty($email) || empty($password2) ) {
+    if (empty($username) || empty($password) || empty($namaUser) || empty($email) || empty($password2)) {
         return false;
     }
 
     //Check Ketersediaan email
     $emailCheck = mysqli_query($connection, "SELECT email FROM user WHERE email = '$email'");
 
-    if(mysqli_fetch_assoc($emailCheck)) {
+    if (mysqli_fetch_assoc($emailCheck)) {
         return false;
     }
 
@@ -44,12 +45,9 @@ function daftar($data) {
 
     //passwordhash
 
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    $password = sha1($password);
 
     $insert = mysqli_query($connection, "INSERT INTO user(username,password,nama_user,email) VALUES ('$username','$password','$namaUser','$email')");
 
-    return mysqli_affected_rows($connection) ;
-
+    return mysqli_affected_rows($connection);
 }
-
-?>
