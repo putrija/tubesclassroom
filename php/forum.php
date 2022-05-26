@@ -276,15 +276,18 @@ if (empty($_SESSION['username'])) {
   if (isset($_POST['btnisitugas'])) {
     $idkelas = $_POST['idkelas'];
     $idUser = $_SESSION['iduser'];
-    $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas INNER JOIN WHERE ul.idkelas= '$idkelas' AND u.iduser='$idUser'";
+    $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas INNER JOIN tugas AS t ON ul.idkelas=t.idkelas WHERE ul.idkelas= '$idkelas' ";
     $query = mysqli_query($connection, $innerjoinkelas);
 
     $row = $query->fetch_assoc();
     $nama_user = $row['nama_user'];
 
 
-    $_SESSION['nama_user'] = $nama_user;
-    $_SESSION['email'] = $email;
+    $_SESSION['nama'] = $nama;
+    $_SESSION['teacher'] = $teacher;
+    $_SESSION['created_at'] = $created_at;
+    $_SESSION['date'] = $date;
+    $_SESSION['description'] = $description;
     echo "<script>location='isitugas.php';</script>";
   }
   ?>

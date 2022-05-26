@@ -136,18 +136,18 @@ if (empty($_SESSION['username'])) {
     <div class="row">
         <div class="col-md-8">
             <div class="container mt-3">
-                <h1><?= $nama; ?></h1> <br>
-                <h5><?= $user; ?>, Created at: <?= $created_at; ?></h5>
+                <h1><?php echo $_SESSION['nama'] ?></h1> <br>
+                <h5><?php echo $_SESSION['teacher'] ?>, Created at: <?php echo $_SESSION['created_at'] ?></h5>
                 <div class="row mt-3">
                     <div class="col-md-10">
                         <h5>100 poin</h5>
                     </div>
                     <div class="col-md-2">
-                        <h5>Tenggat: <?= $date; ?></h5>
+                        <h5>Tenggat: <?php echo $_SESSION['date'] ?></h5>
                     </div>
                 </div>
                 <hr class="solid">
-                <h4><?= $description; ?></h4>
+                <h4><?php echo $_SESSION['description'] ?></h4>
             </div>
         </div>
         <div class="col-md-4">

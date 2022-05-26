@@ -1,3 +1,11 @@
+<?php
+require("function.php");
+if (empty($_SESSION['username'])) {
+  header("Location: ../html/error.html");
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="vn">
 
