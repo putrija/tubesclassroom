@@ -135,16 +135,17 @@ if(empty($_SESSION['username'])){
 
 <!------ISI-------->
  <!-- Kartu kelas -->
-<?php 
-$ambildatakelas = mysqli_query($connection,"SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas");
-while($data=mysqli_fetch_array($ambildatakelas)){
-    $namakelas = $data['namakelas'];
-    $bagian = $data ['bagian'];
-    $nama_user= $data['nama_user'];
-?>
+
 <div class="container py-3 class-list">
   <div class="list-class my-3">
     <div class="row">
+    <?php 
+          $ambildatakelas = mysqli_query($connection,"SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas");
+          while($data=mysqli_fetch_array($ambildatakelas)){
+              $namakelas = $data['namakelas'];
+              $bagian = $data ['bagian'];
+              $nama_user= $data['nama_user'];
+          ?>
       <div class="col-lg-4 col-md-4 my-3">
         <div class="card text-white">
           <img src="../gambar/img_code.jpg" class="card-img-top" height="100px" width="200px">
@@ -156,18 +157,36 @@ while($data=mysqli_fetch_array($ambildatakelas)){
           </div>
           <div class="card-body">
             <br><br><br>
-            <a href="forum.php" class="btn btn-outline-primary">buka Kelas</a>
+            <button name="btnbukakelas" class="btn btn-outline-primary">
+              Buka Kelas
+            </button>
           </div>
         </div>
       </div>
+      <?php 
+};
+?>
     </div>
   </div>
 </div>
+
 <?php 
-};
+if (isset($_POST['btnbukakelas'])) {
+  $namakelas = $_POST['namakelas'];
+  $bagian = $_POST['bagian'];
+  $mapel = $_POST['mapel'];
+  $ruang = $_POST['ruang'];
+
+
+  $buatkelasbaru= mysqli_query($connection, "INSERT INTO kelas (namakelas, bagian, mapel, ruang, kodekelas) values('$namakelas', '$bagian', '$mapel', '$ruang', '$code') ");
+
+  $iduser=$_SESSION['iduser'];
+  $iduserdb = mysqli_query($connection,"INSERT INTO user_level (iduser) values('$iduser')");
+
+  echo "<script>location='forum.php';</script>";
+  }  
+
 ?>
-
-
 
 
 
