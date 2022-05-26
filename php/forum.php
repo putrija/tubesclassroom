@@ -242,26 +242,28 @@ if (empty($_SESSION['username'])) {
             </div>
           </div>
         </div>
-        <form action="" method="POST">
-          <ul>
+        <ul>
+          <?php
+          $query = "SELECT * FROM tugas WHERE idkelas = '$_SESSION[idkelas]'";
+          $result = mysqli_query($connection, $query);
+          while ($row = mysqli_fetch_assoc($result)) { ?>
             <li class="bg-white px-3 py-4 rounded shadow">
               <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center mb-3">
-
                   <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-                  <?php
-                  $idkelas = $_SESSION['idkelas'];
-                  ?>
-
-                  <input type="hidden" value="<?= $idkelas ?>" name="idkelas">
-                  <button name="btnisitugas" type="submit">
-                    <h3 class="fs-5"><?php echo $_SESSION['teacher'] ?> memposting Tugas Baru </h3>
-                  </button>
+                  <form action="" method="POST">
+                    <input type="hidden" value="<?= $row['id_tugas']; ?>" name="idtugas">
+                    <button name="btnisitugas" type="submit">
+                      <h3 class="fs-5"><?php echo $_SESSION['teacherr'] ?> memposting Tugas Baru </h3>
+                    </button>
+                  </form>
                 </div>
               </div>
             </li>
-          </ul>
-        </form>
+            <br>
+
+          <?php } ?>
+        </ul>
       </div>
     </div>
   </div>
@@ -269,20 +271,7 @@ if (empty($_SESSION['username'])) {
 
   <?php
   if (isset($_POST['btnisitugas'])) {
-    $idkelas = $_POST['idkelas'];
-    $idUser = $_SESSION['iduser'];
-    $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas INNER JOIN tugas AS t ON ul.idkelas=t.idkelas WHERE ul.idkelas= '$idkelas' ";
-    $query = mysqli_query($connection, $innerjoinkelas);
-
-    $row = $query->fetch_assoc();
-    $nama_user = $row['nama_user'];
-
-
-    $_SESSION['nama'] = $nama;
-    $_SESSION['teacher'] = $teacher;
-    $_SESSION['created_at'] = $created_at;
-    $_SESSION['date'] = $date;
-    $_SESSION['description'] = $description;
+    $_SESSION['idtugas'] = $_POST['idtugas'];
     echo "<script>location='isitugas.php';</script>";
   }
   ?>
