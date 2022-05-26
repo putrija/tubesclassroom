@@ -156,13 +156,12 @@ if (empty($_SESSION['username'])) {
               </div>
               <div class="card-body">
                 <br><br><br>
+              </div>
+            </div>
             <form method="POST">
               <input type="hidden" value="<?= $idkelass ?>" name="idkelas">
               <button name="btnbukakelas" type="submit" class="btn btn-primary">Buka Kelas</button>
             </form>
-              </div>
-            </div>
-            
           </div>
         <?php
         };
