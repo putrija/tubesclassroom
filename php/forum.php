@@ -193,29 +193,7 @@ if(empty($_SESSION['username'])){
           </div>
         </div>
       </div>
-      <div class="col-md-9">
-        v
-      </div>
-    </div>
-
-    <div class="row">
-    <div class="container mt-5 col-md-3">
-      <div class="row">
-        <div class="col col-lg-3 d-none d-lg-block">
-          <div class="border pt-4 px-4 pb-5">
-            <div class="mb-4">Class code</div>
-            <h1 class="mb-5"><?php echo $_SESSION['kodekelas'] ?> </h1>
-          </div>
-        </div>
-        <div class="col col-lg-3 d-none d-lg-block">
-          <div class="border pt-4 px-4 pb-5">
-            <div class="mb-4">Upcoming</div>
-            <p class="mb-5">Woohoo, no work due soon!</p>
-            <a href="#" class="d-block text-success text-end">View All</a>
-          </div>
-        </div>
-
-      <div class=" col-md-9">
+      <div class="col-md-9 mt-3">
         <!-- Click to show input area -->
         <button
           class="
@@ -378,7 +356,7 @@ if(empty($_SESSION['username'])){
         </ul>
       </div>
       </div>
-
+    </div>
 </div>
 
 <?php 

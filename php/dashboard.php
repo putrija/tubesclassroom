@@ -138,7 +138,6 @@ if(empty($_SESSION['username'])){
 <?php 
 $ambildatakelas = mysqli_query($connection,"SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas");
 while($data=mysqli_fetch_array($ambildatakelas)){
-  print_r($data);
     $namakelas = $data['namakelas'];
     $bagian = $data ['bagian'];
     $nama_user= $data['nama_user'];
