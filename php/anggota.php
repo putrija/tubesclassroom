@@ -69,11 +69,6 @@ error_reporting(0);
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="editkelas.php">
-              <i class="fa-solid fa-gear me-3"></i>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fas fa-th"></i>
             </a>

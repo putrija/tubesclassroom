@@ -52,27 +52,22 @@ if (empty($_SESSION['username'])) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav justify-content-between">
           <li class="nav-item active">
-            <a class="nav-link" href="forumguru.html">Forum </a>
+            <a class="nav-link" href="forum.php">Forum </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="tugaskelas.html">Tugas kelas</a>
+            <a class="nav-link" href="tugaskelas.php">Tugas kelas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="anggotaguru.html">Anggota</a>
+            <a class="nav-link" href="anggota.php">Anggota</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="nilai.html">Nilai</a>
+            <a class="nav-link active" href="nilai.php">Nilai</a>
           </li>
         </ul>
       </div>
       <!---tambah dan akun-->
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="editkelas.html">
-              <i class="fa-solid fa-gear me-3"></i>
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fas fa-th"></i>
@@ -85,9 +80,9 @@ if (empty($_SESSION['username'])) {
             <!--ISI POPUP-->
             <div class="popup__content d-flex flex-column align-items-center shadow rounded-3 bg-white">
               <img class="popup__avatar cursor-pointer" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-              <p class="popup__email">youremail@gmail.com</p>
+              <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
               <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
-              <div class="popup__logout mt-auto cursor-pointer">Log Out</div>
+              <a class="popup__link" href="logout.php">Log Out</a>
               <div class="popup__pseudo"></div>
             </div>
           </li>

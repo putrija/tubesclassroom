@@ -68,11 +68,6 @@ require_once 'function.php';
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="editkelas.php">
-              <i class="fa-solid fa-gear me-3"></i>
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fas fa-th"></i>
             </a>
@@ -84,8 +79,8 @@ require_once 'function.php';
             <!--ISI POPUP-->
             <div class="popup__content d-flex flex-column align-items-center shadow rounded-3 bg-white">
               <img class="popup__avatar cursor-pointer" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-              <p class="popup__email">youremail@gmail.com</p>
-              <a class="popup__link" href="editprofil.php" target="_blank">Manage your account</a>
+              <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
+              <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
               <a class="popup__link" href="logout.php">Log Out</a>
               <div class="popup__pseudo"></div>
             </div>
