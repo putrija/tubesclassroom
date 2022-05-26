@@ -57,7 +57,7 @@ if(empty($_SESSION['username'])){
         <a class="nav-link" href="tugaskelas.html">Tugas kelas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="anggotaguru.html">Anggota</a>
+        <a class="nav-link" href="anggota.php">Anggota</a>
       </li>
       <?php if($_SESSION['level'] == 'teacher') : ?>
       <li class="nav-item">
