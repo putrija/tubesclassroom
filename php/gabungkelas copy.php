@@ -98,23 +98,33 @@ if(empty($_SESSION['username'])){
       $iduser=$_SESSION['iduser'];
 
       $pemeriksaan_kodekelas= mysqli_num_rows(mysqli_query($connection, "SELECT * FROM kelas WHERE kodekelas='{$kodekelas}'"));
-      if ($pemeriksaan_kodekelas> 0 ) {
-        
-        $pemeriksaan_iduser= mysqli_num_rows(mysqli_query($connection, "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE k.kodekelas= '$kodekelas' AND u.iduser= '$iduser' "));
-          if ($pemeriksaan_iduser>0) {
-            echo "Maaf, Anda sudah bergabung dengan kelas tersebut";
-          }
-          else{
-            $ambil_idkelas = mysqli_query($connection,"SELECT idkelas FROM kelas WHERE kodekelas = '{$kodekelas}'");
-            $idkelass = mysqli_fetch_array($ambil_idkelas);
-            $idkelas = $idkelass[0];
-            $rolestudentkedb= mysqli_query($connection, "INSERT INTO user_level (iduser, idkelas, level) VALUES ('$iduser', '$idkelas', 'student')");
-            ?>
-				echo "<script>location='dashboard.php';</script>" 
+      $pemeriksaan_iduser= mysqli_num_rows(mysqli_query($connection, "SELECT * FROM user_level WHERE kodekelas='{$kodekelas}' AND iduser='{$iduser}'"));
+      if ($pemeriksaan_kodekelas> 0 && $iduser=0 ) {
+        ?>
+        alert("Selamat anda telah bergabung");
+        <?php  
+          //$ambil_idkelas = mysqli_query($connection,"SELECT idkelas FROM kelas WHERE kodekelas = '{$kodekelas}'");
+          //$idkelass = mysqli_fetch_array($ambil_idkelas);
+          //$idkelas = $idkelass[0];
+          //$rolestudentkedb= mysqli_query($connection, "INSERT INTO user_level (iduser, idkelas, level) VALUES ('$iduser', '$idkelas', 'student')");
+        ?>
+				<!-- echo "<script>location='dashboard.php';</script>"  -->
         <?php 
-          }
         }
-			else{
+        elseif($pemeriksaan_kodekelas> 0  && $iduser>0){
+          ?>
+          alert("kambing");
+          <?php  
+          $ambil_idkelas = mysqli_query($connection,"SELECT idkelas FROM kelas WHERE kodekelas = '{$kodekelas}'");
+          $idkelass = mysqli_fetch_array($ambil_idkelas);
+          $idkelas = $idkelass[0];
+          $rolestudentkedb= mysqli_query($connection, "INSERT INTO user_level (iduser, idkelas, level) VALUES ('$iduser', '$idkelas', 'student')");
+
+        ?>
+        <!-- echo "<script>location='dashboard.php';</script>"  -->
+        <?php 
+        }
+			 else{
         ?>
         <script>
           alert("Maaf, kelas dengan kode yang Anda masukkan tidak dapat ditemukan ")

@@ -24,6 +24,7 @@ if(empty($_SESSION['username'])){
 
 </head>
 <body>
+<form method="POST">
 
 <!----NAVBAR----->
     <nav class="navbar navbar-expand-lg navbar-light container-fluid sticky-top border mb-2 pt-3 pb-1" style="background-color: white" >
@@ -67,7 +68,7 @@ if(empty($_SESSION['username'])){
                          alt="Avatar"/>
                     <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
                     <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
-                    <a href="logout.php">Log Out</a>
+                    <a class="popup__link" href="logout.php">Log Out</a>
                     <div class="popup__pseudo"></div>
                   </div>
                 </li>
@@ -145,13 +146,8 @@ if(empty($_SESSION['username'])){
           while($data=mysqli_fetch_array($ambildatakelas)){
               $namakelas = $data['namakelas'];
               $bagian = $data ['bagian'];
-              $nama_user= $data['nama_user'];
+              $namaguru= $data['teacher'];
               $idkelass = $data['idkelas'];
-              $level = $data['level'];
-            };
-            $ambilnamaguru= mysqli_query($connection,"SELECT nama_user FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser WHERE ul.idkelas='{$idkelass}' AND ul.level ='teacher'" );
-            $namaguru=mysqli_fetch_array($ambilnamaguru);
-            $guru = $namaguru[0];
           ?>
       <div class="col-lg-4 col-md-4 my-3">
         <div class="card text-white">
@@ -159,60 +155,56 @@ if(empty($_SESSION['username'])){
           <div class="card-img-overlay">
             <h5 class="card-title mb-1"><?=$namakelas?></h5>
             <p class="card-text"><?=$bagian?><br>
-            <?=$guru?>
+            <?=$namaguru?>
             </p>
           </div>
           <div class="card-body">
             <br><br><br>
-            <button name="btnbukakelas" class="btn btn-outline-primary">
-              Buka Kelas
-            </button>
           </div>
         </div>
+        <button name="btnbukakelas" type="submit" class="btn btn-primary">Buka Kelas</button>
       </div>
       <?php 
-?>
+ };
+ ?>
     </div>
+
   </div>
 </div>
 
+
+</form>
+
 <?php 
 if (isset($_POST['btnbukakelas'])) {
-  $namakelas = $_POST['namakelas'];
-  $bagian = $_POST['bagian'];
-  $mapel = $_POST['mapel'];
-  $ruang = $_POST['ruang'];
+  echo "bisabukakelas";
+
+  // $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas= '$idkelass' ";
+  //       $query = mysqli_query($connection, $innerjoinkelas);
+  //       print_r($query);
+
+  //       while($row = mysqli_fetch_array($query)){
+  //         $nama_user=$row['nama_user'];
+  //         $email=$row['email'];
+  //         $namakelas=$row['namakelas'];
+  //         $bagian=$row['bagian'];
+  //         $mapel=$row['mapel'];
+  //         $ruang=$row['ruang'];
+  //         $kodekelas=$row['kodekelas'];
+  //         $level=$row['level'];
+  //     }
+      
+  //         $_SESSION['nama_user'] = $nama_user;
+  //         $_SESSION['email'] = $email;
+  //         $_SESSION['namakelas'] = $namakelas;
+  //         $_SESSION['bagian'] = $bagian ;
+  //         $_SESSION['mapel'] = $mapel;
+  //         $_SESSION['ruang'] = $ruang;
+  //         $_SESSION['kodekelas'] = $kodekelas;
+  //         $_SESSION['level'] = $level;
 
 
-  $buatkelasbaru= mysqli_query($connection, "INSERT INTO kelas (namakelas, bagian, mapel, ruang, kodekelas) values('$namakelas', '$bagian', '$mapel', '$ruang', '$code') ");
-
-  $iduser=$_SESSION['iduser'];
-  $iduserdb = mysqli_query($connection,"INSERT INTO user_level (iduser) values('$iduser')");
-
-  $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas= '$idkelass' ";
-        $query = mysqli_query($connection, $innerjoinkelas);
-
-        while($row = mysqli_fetch_array($query)){
-          $nama_user=$row['nama_user'];
-          $email=$row['email'];
-          $namakelas=$row['namakelas'];
-          $bagian=$row['bagian'];
-          $mapel=$row['mapel'];
-          $ruang=$row['ruang'];
-          $kodekelas=$row['kodekelas'];
-          $level=$row['level'];
-      }
-          $_SESSION['nama_user'] = $nama_user;
-          $_SESSION['email'] = $email;
-          $_SESSION['namakelas'] = $namakelas;
-          $_SESSION['bagian'] = $bagian ;
-          $_SESSION['mapel'] = $mapel;
-          $_SESSION['ruang'] = $ruang;
-          $_SESSION['kodekelas'] = $kodekelas;
-          $_SESSION['level'] = $level;
-
-
-  echo "<script>location='forum.php';</script>";
+  //echo "<script>location='forum.php';</script>";
   }  
 
 ?>

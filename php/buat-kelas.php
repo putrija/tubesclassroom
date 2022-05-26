@@ -74,9 +74,10 @@ error_reporting(0);
     $bagian = $_POST['bagian'];
     $mapel = $_POST['mapel'];
     $ruang = $_POST['ruang'];
+    $nama_user=$_SESSION['nama_user'];
 
 
-    $buatkelasbaru= mysqli_query($connection, "INSERT INTO kelas (namakelas, bagian, mapel, ruang, kodekelas) values('$namakelas', '$bagian', '$mapel', '$ruang', '$code') ");
+    $buatkelasbaru= mysqli_query($connection, "INSERT INTO kelas (namakelas, bagian, mapel, ruang, kodekelas, teacher) values('$namakelas', '$bagian', '$mapel', '$ruang', '$code', '$nama_user') ");
 
     $iduser=$_SESSION['iduser'];
     $iduserdb = mysqli_query($connection,"INSERT INTO user_level (iduser) values('$iduser')");

@@ -33,6 +33,7 @@ error_reporting(0);
     $idkelas = $idkelass[0];
 
     $idkelasdb = mysqli_query($connection,"UPDATE user_level SET idkelas = '$idkelas', level = 'teacher' WHERE iduserlevel IN (SELECT MAX(iduserlevel) FROM user_level)");   
+
     
     echo "<script>location='dashboard.php';</script>";
 ?>
