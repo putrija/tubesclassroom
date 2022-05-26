@@ -96,41 +96,23 @@ if(empty($_SESSION['username'])){
     if (isset($_POST['btngabung'])) {
       $kodekelas = $_POST['kodekelas'];
 
-      $pemeriksaan_kodekelas= mysqli_num_rows(mysqli_query($connection, "SELECT kodekelas FROM kelas"));
+      $pemeriksaan_kodekelas= mysqli_num_rows(mysqli_query($connection, "SELECT * FROM kelas WHERE kodekelas='{$kodekelas}'"));
       if ($pemeriksaan_kodekelas> 0 ) {
+        echo "jikakode kelas ada di database";
         $iduser=$_SESSION['iduser'];
-        $idkelas = mysqli_query($connection,"SELECT idkelas FROM kelas WHERE kodekelas='$kodekelas' ");
-        $rolestudentkedb= mysqli_query($connection, "INSERT INTO user_level (iduser, idkelas, level) VALUES ('$iduser','$idkelas', 'student')");
-        $ambildatakelas = mysqli_query($connection,"SELECT * FROM kelas WHERE kodekelas='$kodekelas'");
-
-        while($row = mysqli_fetch_array($ambildatakelas)){
-          $nama_user=$row['nama_user'];
-          $email=$row['email'];
-          $namakelas=$row['namakelas'];
-          $bagian=$row['bagian'];
-          $mapel=$row['mapel'];
-          $ruang=$row['ruang'];
-          $kodekelas=$row['kodekelas'];
-          $level=$row['level'];
-      }
-          $_SESSION['nama_user'] = $nama_user;
-          $_SESSION['email'] = $email;
-          $_SESSION['namakelas'] = $namakelas;
-          $_SESSION['bagian'] = $bagian ;
-          $_SESSION['mapel'] = $mapel;
-          $_SESSION['ruang'] = $ruang;
-          $_SESSION['kodekelas'] = $kodekelas;
-          $_SESSION['level'] = $level;
-
-        ?>
-				echo "<script>location='forum.php';</script>"
+        $ambil_idkelas = mysqli_query($connection,"SELECT idkelas FROM kelas WHERE kodekelas = '{$kodekelas}'");
+        $idkelass = mysqli_fetch_array($ambil_idkelas);
+        $idkelas = $idkelass[0];
+        $rolestudentkedb= mysqli_query($connection, "INSERT INTO user_level (iduser, idkelas, level) VALUES ('$iduser', '$idkelas', 'student')");
+    ?>
+				echo "<script>location='dashboard.php';</script>" 
         <?php 
 			} else{
-    ?>
-				<script>
-            alert("Maaf, kode yang Anda masukkan tidak ditemukan");
-          </script>
-      <?php  
+        ?>
+        <script>
+          alert("Maaf, kelas dengan kode yang Anda masukkan tidak dapat ditemukan ")
+        </script>
+        <?php  
       }
     }
     ?>

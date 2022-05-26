@@ -33,8 +33,30 @@ error_reporting(0);
     $idkelas = $idkelass[0];
 
     $idkelasdb = mysqli_query($connection,"UPDATE user_level SET idkelas = '$idkelas', level = 'teacher' WHERE iduserlevel IN (SELECT MAX(iduserlevel) FROM user_level)");   
-    
-    echo "<script>location='dashboard.php';</script>";
+
+    $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas ORDER BY k.idkelas DESC LIMIT 1  ";
+        $query = mysqli_query($connection, $innerjoinkelas);
+
+        while($row = mysqli_fetch_array($query)){
+            $nama_user=$row['nama_user'];
+            $email=$row['email'];
+            $namakelas=$row['namakelas'];
+            $bagian=$row['bagian'];
+            $mapel=$row['mapel'];
+            $ruang=$row['ruang'];
+            $kodekelas=$row['kodekelas'];
+            $level=$row['level'];
+        }
+            $_SESSION['nama_user'] = $nama_user;
+            $_SESSION['email'] = $email;
+            $_SESSION['namakelas'] = $namakelas;
+            $_SESSION['bagian'] = $bagian ;
+            $_SESSION['mapel'] = $mapel;
+            $_SESSION['ruang'] = $ruang;
+            $_SESSION['kodekelas'] = $kodekelas;
+            $_SESSION['level'] = $level;
+
+    echo "<script>location='forum.php';</script>";
 ?>
 
  <!-- Scripts -->
