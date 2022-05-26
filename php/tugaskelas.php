@@ -243,10 +243,6 @@ require_once 'function.php';
       <?php
       $idkelas = $_SESSION['idkelas'];
       $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
-      // $data = mysqli_fetch_array($ambildata);
-      // $nama = $data['nama'];
-      // $description = $data['description'];
-      // $tugas = $data['tugas'];
       while ($data = mysqli_fetch_array($ambildata)) {
       ?>
         <div class="accordion-item px-4 py-3" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
@@ -281,9 +277,10 @@ require_once 'function.php';
                 </div>
               </div>
               <div class="see-tugas p-2 border-top p-3">
-                <a href="tugassiswa.php">
-                  <p>lihat tugas</p>
-                </a>
+                <form method="POST">
+                  <input type="hidden" value="<?= $data['idtugas']; ?>" name="idtugas">
+                  <button name="btnlihattugas" type="submit" class="btn btn-primary">Lihat Tugas</button>
+                </form>
               </div>
 
             </div>
@@ -304,12 +301,44 @@ require_once 'function.php';
     $date = $_POST['date'];
     $idkelas = $_SESSION['idkelas'];
 
-
-
     $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, date) values('$idkelas','$nama', '$description', '$date')");
 
-
     echo "<script>location='tugaskelas.php';</script>";
+  }
+
+  ?>
+
+  <?php
+  if (isset($_POST['btnlihattugas'])) {
+    $idtugas = $_POST['idtugas'];
+
+    // $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas= '$idkelas' AND u.iduser='$idUser'";
+    // $query = mysqli_query($connection, $innerjoinkelas);
+
+    // $row = $query->fetch_assoc();
+    // $nama_user = $row['nama_user'];
+    // $email = $row['email'];
+    // $namakelas = $row['namakelas'];
+    // $bagian = $row['bagian'];
+    // $mapel = $row['mapel'];
+    // $ruang = $row['ruang'];
+    // $kodekelas = $row['kodekelas'];
+    // $level = $row['level'];
+    // $teacher = $row['teacher'];
+
+
+
+    // $_SESSION['nama_user'] = $nama_user;
+    // $_SESSION['email'] = $email;
+    // $_SESSION['namakelas'] = $namakelas;
+    // $_SESSION['bagian'] = $bagian;
+    // $_SESSION['mapel'] = $mapel;
+    $_SESSION['idtugas'] = $idtugas;
+
+    header("location:isitugas.php");
+
+
+    //echo "<script>location='isitugas.php';</script>";
   }
 
   ?>
