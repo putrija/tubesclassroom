@@ -1,7 +1,7 @@
 <?php 
 require ("function.php");
 if(empty($_SESSION['username'])){
-    header("Location: ../html/error.html");
+    header("Location: ../html/error.php");
 }
  ?>
 
@@ -140,11 +140,18 @@ if(empty($_SESSION['username'])){
   <div class="list-class my-3">
     <div class="row">
     <?php 
-          $ambildatakelas = mysqli_query($connection,"SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas");
+          $iduser=$_SESSION['iduser'];
+          $ambildatakelas = mysqli_query($connection,"SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.iduser='{$iduser}'" );
           while($data=mysqli_fetch_array($ambildatakelas)){
               $namakelas = $data['namakelas'];
               $bagian = $data ['bagian'];
               $nama_user= $data['nama_user'];
+              $idkelass = $data['idkelas'];
+              $level = $data['level'];
+            };
+            $ambilnamaguru= mysqli_query($connection,"SELECT nama_user FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser WHERE ul.idkelas='{$idkelass}' AND ul.level ='teacher'" );
+            $namaguru=mysqli_fetch_array($ambilnamaguru);
+            $guru = $namaguru[0];
           ?>
       <div class="col-lg-4 col-md-4 my-3">
         <div class="card text-white">
@@ -152,7 +159,7 @@ if(empty($_SESSION['username'])){
           <div class="card-img-overlay">
             <h5 class="card-title mb-1"><?=$namakelas?></h5>
             <p class="card-text"><?=$bagian?><br>
-            <?=$nama_user?>
+            <?=$guru?>
             </p>
           </div>
           <div class="card-body">
@@ -164,7 +171,6 @@ if(empty($_SESSION['username'])){
         </div>
       </div>
       <?php 
-};
 ?>
     </div>
   </div>
@@ -183,10 +189,34 @@ if (isset($_POST['btnbukakelas'])) {
   $iduser=$_SESSION['iduser'];
   $iduserdb = mysqli_query($connection,"INSERT INTO user_level (iduser) values('$iduser')");
 
+  $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas= '$idkelass' ";
+        $query = mysqli_query($connection, $innerjoinkelas);
+
+        while($row = mysqli_fetch_array($query)){
+          $nama_user=$row['nama_user'];
+          $email=$row['email'];
+          $namakelas=$row['namakelas'];
+          $bagian=$row['bagian'];
+          $mapel=$row['mapel'];
+          $ruang=$row['ruang'];
+          $kodekelas=$row['kodekelas'];
+          $level=$row['level'];
+      }
+          $_SESSION['nama_user'] = $nama_user;
+          $_SESSION['email'] = $email;
+          $_SESSION['namakelas'] = $namakelas;
+          $_SESSION['bagian'] = $bagian ;
+          $_SESSION['mapel'] = $mapel;
+          $_SESSION['ruang'] = $ruang;
+          $_SESSION['kodekelas'] = $kodekelas;
+          $_SESSION['level'] = $level;
+
+
   echo "<script>location='forum.php';</script>";
   }  
 
 ?>
+
 
 
 
