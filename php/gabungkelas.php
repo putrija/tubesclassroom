@@ -24,14 +24,14 @@ if(empty($_SESSION['username'])){
   </head>
   <body>
     <!----NAVBAR----->
-    <form action="#" method="POST">
+    <form method="POST">
     <div class="row mt-3">
       <div class="col-md-1">
         <a href="dashboard.php" class="btn btn-close"></a>
       </div>
       <div class="col-md-10"><h5>Gabung ke kelas</h5></div>
       <div class="col-md-1">
-          <button name="btngabung" type="button" class="btn btn-primary">Gabung</button>
+          <button name="btngabung" type="submit" class="btn btn-primary">Gabung</button>
       </div>
     </div>
     <hr class="solid" />
@@ -67,7 +67,6 @@ if(empty($_SESSION['username'])){
             <div>
               Mintalah kode kelas kepada pengajar, lalu masukkan kode di sini.
             </div>
-            <form action="#" method="POST">
             <input
               name="kodekelas"
               style="width: 10rem"
@@ -77,7 +76,6 @@ if(empty($_SESSION['username'])){
               aria-describedby="inputGroup-sizing-lg"
               placeholder="Kode kelas"
             />
-            </form>
           </div>
         </div>
         <div class="mt-5">
@@ -92,19 +90,49 @@ if(empty($_SESSION['username'])){
         </div>
       </div>
     </div>
+    </form>
 
     <?php
-    if(isset($_POST['btnlogin']))
-    {
-    $kodekelas = $_POST['kodekelas'];
+    if (isset($_POST['btngabung'])) {
+      $kodekelas = $_POST['kodekelas'];
 
-    $pemeriksaan_kodekelas = (mysqli_query($connection, "SELECT kodekelas FROM kelas WHERE kodekelas='$_POST[kodekelas]'"));
-      if ($pemeriksaan_kodekelas > 0 ) {
-        echo "<script>location='forum.php';</script>";
-      } else{
-        echo "GAGAL";
-        }
+      $pemeriksaan_kodekelas= mysqli_num_rows(mysqli_query($connection, "SELECT kodekelas FROM kelas"));
+      if ($pemeriksaan_kodekelas> 0 ) {
+        $iduser=$_SESSION['iduser'];
+        $idkelas = mysqli_query($connection,"SELECT idkelas FROM kelas WHERE kodekelas='$kodekelas' ");
+        $rolestudentkedb= mysqli_query($connection, "INSERT INTO user_level (iduser, idkelas, level) VALUES ('$iduser','$idkelas', 'student')");
+        $ambildatakelas = mysqli_query($connection,"SELECT * FROM kelas WHERE kodekelas='$kodekelas'");
+
+        while($row = mysqli_fetch_array($ambildatakelas)){
+          $nama_user=$row['nama_user'];
+          $email=$row['email'];
+          $namakelas=$row['namakelas'];
+          $bagian=$row['bagian'];
+          $mapel=$row['mapel'];
+          $ruang=$row['ruang'];
+          $kodekelas=$row['kodekelas'];
+          $level=$row['level'];
       }
+          $_SESSION['nama_user'] = $nama_user;
+          $_SESSION['email'] = $email;
+          $_SESSION['namakelas'] = $namakelas;
+          $_SESSION['bagian'] = $bagian ;
+          $_SESSION['mapel'] = $mapel;
+          $_SESSION['ruang'] = $ruang;
+          $_SESSION['kodekelas'] = $kodekelas;
+          $_SESSION['level'] = $level;
+
+        ?>
+				echo "<script>location='forum.php';</script>"
+        <?php 
+			} else{
+    ?>
+				<script>
+            alert("Maaf, kode yang Anda masukkan tidak ditemukan");
+          </script>
+      <?php  
+      }
+    }
     ?>
 
     <!---SCRIPT-->
@@ -117,5 +145,16 @@ if(empty($_SESSION['username'])){
       src="https://kit.fontawesome.com/9c0c4e63c7.js"
       crossorigin="anonymous"
     ></script>
+    <script src="../js/bootstrap.min.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="../assets/demo/chart-area-demo.js"></script>
+    <script src="../assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="../assets/demo/datatables-demo.js"></script>
   </body>
 </html>
