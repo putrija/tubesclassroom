@@ -11,7 +11,6 @@ $user = show("SELECT * FROM user WHERE id = $userID")[0];
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="vn">
   <head>
@@ -188,7 +187,7 @@ $user = show("SELECT * FROM user WHERE id = $userID")[0];
               echo "
               <script>
                     alert('Kelas berhasil dibuat!');
-                    document.location.href = 'forumguru.php';
+                    document.location.href = 'dashboard.php';
               </script> ";
             }else {
               echo "
