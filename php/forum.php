@@ -162,7 +162,7 @@ if (empty($_SESSION['username'])) {
     <section class="d-flex flex-column gap-1 space-header banner text-white bg-secondary px-3 py-4 rounded ">
       <h1 class="banner__class"><?php echo $_SESSION['namakelas'] ?></h1>
       <div class="fs-4">
-        <span>Teacher: </span><span class="banner__teacher"><?php echo $_SESSION['nama_user'] ?></span>
+        <span>Teacher: </span><span class="banner__teacher"><?php echo $_SESSION['teacherr'] ?></span>
       </div>
       <div class="fs-4">
         <span>Subject: </span><span class="banner__subject"><?php echo $_SESSION['mapel'] ?></span>
@@ -277,7 +277,13 @@ if (empty($_SESSION['username'])) {
   <?php
   if (isset($_POST['btnisitugas'])) {
     $_SESSION['idtugas'] = $_POST['idtugas'];
-    echo "<script>location='isitugas.php';</script>";
+    if ($_SESSION['level'] == 'teacher') {
+      echo "<script>window.location.href='tugassiswa.php';</script>";
+      // header("location: tugassiswa.php");
+    } else {
+      echo "<script>window.location.href='isitugas.php';</script>";
+      // header("location: isitugas.php");
+    }
   }
   ?>
 

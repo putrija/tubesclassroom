@@ -159,15 +159,28 @@ $row = mysqli_fetch_assoc($result);
             <div class="card mt-3" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <button type="button" class="btn btn-light">Tambah atau buat</button>
-                    <button type="button" class="btn btn-primary">Tandai sebagai selesai</button>
-
+                    <form action="" method="post">
+                        <label for="">Masukkan Jawaban Anda</label>
+                        <textarea name="jawaban" class="form-control mb-3" rows="5"></textarea>
+                        <button type="submit" name="kumpul" class=" btn btn-primary">Tandai sebagai selesai</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
     </div>
+
+    <?php
+    if (isset($_POST['kumpul'])) {
+        $jawaban = $_POST['jawaban'];
+        $iduser = $_SESSION['iduser'];
+
+        $insertjawaban = mysqli_query($connection, "INSERT INTO pengumpulan_tugas (iduser, id_tugas, jwbn_siswa) values('$iduser', '$idtugas', '$jawaban')");
+
+        echo "<script>location='isitugas.php'</script>";
+    }
+    ?>
 
 
     <!---SCRIPT-->
