@@ -44,9 +44,9 @@ $row = mysqli_fetch_assoc($result);
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav justify-content-start">
           <li class="nav-item active">
-            <a class="nav-link" href="forumguru.html">
-              <b>Kelas SBD 21 </b><br>
-              Teknologi Informasi
+            <a class="nav-link" href="forum.php">
+              <b><?php echo $_SESSION['namakelas'] ?></b><br>
+              <?php echo $_SESSION['bagian'] ?>
               <span class="sr-only">(current)</span></a>
           </li>
         </ul>
@@ -89,61 +89,9 @@ $row = mysqli_fetch_assoc($result);
     </div>
   </nav>
 
-  <!------SIDEBAR----->
-  <!-- offcanvas -->
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="width: 350px;">
-    <!-- offcanvas-Body -->
-    <div class="offcanvas-body">
-      <!--isi-->
-      <ul class="nav nav-pills flex-column">
-        <li class="nav-item mb-3">
-          <a href="dashboardguru.html" class="nav-link text-black">
-            <i class="fa-solid fa-house me-3"></i>
-            Kelas</a>
-        </li>
-        <li class="nav-item mb-3">
-          <a href="kalender.html" class="nav-link text-black">
-            <i class="fa-regular fa-calendar me-3"></i>
-            Kalender
-          </a>
-        </li>
-        <li class="nav item border-top py-3">
-          Mengajar
-        </li>
-        <li class="nav item mb-2">
-          <a href="#" class="nav-link text-black">
-            <i class="fa-solid fa-table-list me-3"></i>
-            untuk diperiksa
-          </a>
-        </li>
-        <li class="nav item mb-3">
-          <a href="forumguru.html" class="nav-link text-black">
-            <i class="fa-solid fa-users-rectangle me-3"></i>
-            Kelas SBD 21
-          </a>
-        </li>
-        <li class="nav item mb-3">
-          <a href="#" class="nav-link text-black">
-            <i class="fa-solid fa-users-rectangle me-3"></i>
-            Kelas PWL 21
-          </a>
-        </li>
-        <li class="nav-item mb-3 border-top pt-3">
-          <a href="#" class="nav-link text-black">
-            <i class="fa-solid fa-box-archive me-3"></i>
-            Kelas yang diarsipkan
-          </a>
-        </li>
-        <li class="nav-item mb-3">
-          <a href="editprofil.html" class="nav-link text-black">
-            <i class="fa-solid fa-gear me-3"></i>
-            setelan
-          </a>
-        </li>
-      </ul>
+  <!---SIDEBAR--->
+<?php include 'sidebar.php' ?>
 
-    </div>
-  </div>
 
   <!----ISI--->
 
@@ -179,8 +127,8 @@ $row = mysqli_fetch_assoc($result);
     <div class="col-lg-6 container-right mt-5">
 
       <!-- DESCRIPTION BOX -->
-      <div class="task-desc shadow pt-1">
-        <h4 class="my-3">Tugas 1 SBD </h4>
+      <div class="task-desc shadow pt-1 ps-4">
+        <h4 class="my-3"><?php echo $row['nama']; ?> </h4>
 
         <!-- Description TUGAS -->
         <div class="description my-2 pb-2">

@@ -1,8 +1,14 @@
 <?php
-
-require_once 'function.php';
+require("function.php");
 error_reporting(0);
+if (empty($_SESSION['username'])) {
+  header("Location: ../html/error.html");
+}
 
+$idtugas = $_SESSION['idtugas'];
+$query = "SELECT * FROM tugas WHERE id_tugas = $idtugas";
+$result = mysqli_query($connection, $query);
+$row = mysqli_fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +18,7 @@ error_reporting(0);
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forum</title>
+  <title>Tugas 1 SBD</title>
   <!-- Styles -->
   <link rel="stylesheet" href="../css/bootstrap.min.css" />
   <link rel="stylesheet" href="../fontawesome/css/all.min.css">
@@ -38,7 +44,7 @@ error_reporting(0);
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav justify-content-start">
           <li class="nav-item active">
-            <a class="nav-link" href="forum.php">
+            <a class="nav-link" href="forumguru.html">
               <b>Kelas SBD 21 </b><br>
               Teknologi Informasi
               <span class="sr-only">(current)</span></a>
@@ -48,20 +54,19 @@ error_reporting(0);
       <!--NAV ACTIVE-->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav justify-content-between">
-          <li class="nav-item active">
-            <a class="nav-link" href="forum.php">Forum </a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link active text-primary" href="tugaskelassiswa.php">Tugas kelas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="anggotasiswa.php">Anggota</a>
+            <a class="nav-link active" href="tugaskelas.html">Tugas Siswa</a>
           </li>
         </ul>
       </div>
       <!---tambah dan akun-->
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="editkelas.html">
+              <i class="fa-solid fa-gear me-3"></i>
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fas fa-th"></i>
@@ -78,7 +83,6 @@ error_reporting(0);
               <a class="popup__link" href="logout.php">Log Out</a>
               <div class="popup__pseudo"></div>
             </div>
-
           </li>
         </ul>
       </div>
@@ -93,27 +97,27 @@ error_reporting(0);
       <!--isi-->
       <ul class="nav nav-pills flex-column">
         <li class="nav-item mb-3">
-          <a href="dashboardsiswa.php" class="nav-link text-black">
+          <a href="dashboardguru.html" class="nav-link text-black">
             <i class="fa-solid fa-house me-3"></i>
             Kelas</a>
         </li>
         <li class="nav-item mb-3">
-          <a href="kalender.php" class="nav-link text-black">
+          <a href="kalender.html" class="nav-link text-black">
             <i class="fa-regular fa-calendar me-3"></i>
             Kalender
           </a>
         </li>
         <li class="nav item border-top py-3">
-          Terdaftar
+          Mengajar
         </li>
         <li class="nav item mb-2">
-          <a href="daftartugas.php" class="nav-link text-black">
-            <i class="fa-solid fa-list-check me-3"></i>
-            Daftar tugas
+          <a href="#" class="nav-link text-black">
+            <i class="fa-solid fa-table-list me-3"></i>
+            untuk diperiksa
           </a>
         </li>
         <li class="nav item mb-3">
-          <a href="forum.php" class="nav-link text-black">
+          <a href="forumguru.html" class="nav-link text-black">
             <i class="fa-solid fa-users-rectangle me-3"></i>
             Kelas SBD 21
           </a>
@@ -131,7 +135,7 @@ error_reporting(0);
           </a>
         </li>
         <li class="nav-item mb-3">
-          <a href="editprofil.php" class="nav-link text-black">
+          <a href="editprofil.html" class="nav-link text-black">
             <i class="fa-solid fa-gear me-3"></i>
             setelan
           </a>
@@ -141,77 +145,109 @@ error_reporting(0);
     </div>
   </div>
 
-  <!---ISI-->
+  <!----ISI--->
 
-  <!----List tugas-->
-  <div class="list-tugas ">
-    <div class="accordion container py-2 bg-white col-8" id="accordionExample">
-      <!---list 1-->
-      <div class="accordion-item px-4 py-3" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <div class="d-flex justify-content-between">
-          <h6 class="accordion-header" id="headingOne">
-            <i class="fa-solid fa-clipboard-list me-3"></i>
-            Tugas 1 sbd
-          </h6>
-          <h6>
-            Tengat: 25 maret
-          </h6>
-        </div>
-        <!--isi collapse-->
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <div class="d-flex justify-content-between border-top">
-              <div class="p-2">
-                Kerjakan halaman 3
-              </div>
-            </div>
-            <div class="see-tugas p-2 border-top p-3">
-              <a href="">
-                <p>lihat tugas</p>
-              </a>
-            </div>
+  <div class="row">
+
+    <div class="col-lg-4 container-left ms-5">
+
+      <h5>Semua Siswa</h5>
+
+      <div class="my-4 list-student">
+
+        <h6>Diberikan</h6>
+
+        <ol class="list-group list-group-numbered shadow">
+
+          <div class="overflow-auto" style="height: 210px;">
+
+            <li class="list-group-item">
+              <i class="fa-solid fa-circle-user me-2"></i> Al Anhar Sufi
+            </li>
+            <li class="list-group-item">
+              <i class="fa-solid fa-circle-user me-2"></i> Reza Rahardian
+            </li>
+            <li class="list-group-item">
+              <i class="fa-solid fa-circle-user me-2"></i> Ronaldo
+            </li>
 
           </div>
+        </ol>
+      </div>
+    </div>
+
+    <div class="col-lg-6 container-right mt-5">
+
+      <!-- DESCRIPTION BOX -->
+      <div class="task-desc shadow pt-1">
+        <h4 class="my-3">Tugas 1 SBD </h4>
+
+        <!-- Description TUGAS -->
+        <div class="description my-2 pb-2">
+          <ul class="list-inline">
+            <li class="list-inline-item border-start px-3">
+              <h2>3</h2> diberikan
+            </li>
+            <li class="list-inline-item border-start px-3">
+              <h2>0</h2> dinilai
+            </li>
+          </ul>
         </div>
+
+
       </div>
 
-      <!---list 2-->
-      <div class="accordion-item px-4 py-3" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <div class="d-flex justify-content-between">
-          <h6 class="accordion-header" id="headingTwo">
-            <i class="fa-solid fa-clipboard-list me-3"></i>
-            Tugas 2 sbd
-          </h6>
-          <h6>
-            Tengat: 26 maret
-          </h6>
-        </div>
-        <!--isi collapse-->
-        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <div class="d-flex justify-content-between border-top">
-              <div class="p-2">
-                Kerjakan halaman 5
+      <!-- ASSIGNMENT BOX -->
+      <div class="assignment-box shadow border my-3">
+
+        <h4 class="text-center my-1">Jawaban Siswa</h4>
+
+        <div class="assignment-card px-3 py-1">
+
+          <div class="row">
+            <?php
+
+            $ambildata = mysqli_query($connection, "SELECT * FROM pengumpulan_tugas AS p INNER JOIN user AS u ON p.iduser = u.iduser");
+            while ($row = mysqli_fetch_assoc($ambildata)) {
+            ?>
+              <div class="col-lg-3 my-2">
+                <div class="card w-100 text-center">
+                  <div class="card-body">
+                    <h6 class="card-title"><?= $row['nama_user']; ?></h6>
+                    <a class="" href="" download=""><?= $row['jwbn_siswa']; ?></a>
+                    <form method="POST">
+                      <input type="number" name="inputnilai" class="form-control" placeholder="0" style="text-align: center;">
+                      <button name="nilai" class="mt-2 btn btn-primary">nilai</button>
+                    </form>
+                  </div>
+                </div>
+
               </div>
-            </div>
-            <div class="see-tugas p-2 border-top pt-3">
-              <a href="">
-                <p>lihat tugas</p>
-              </a>
-            </div>
+            <?php
+            }
+            ?>
 
           </div>
-        </div>
-      </div>
 
+        </div>
+
+      </div>
 
     </div>
+
   </div>
 
+  <?php
+  if (isset($_POST['nilai'])) {
+    $inputnilai = $_POST['inputnilai'];
+    $iduser = $_SESSION['iduser'];
 
+    $ambil_id_p_tugas = mysqli_query($connection, "SELECT * FROM pengumpulan_tugas WHERE iduser='{$iduser}' AND id_tugas='{$idtugas}' ");
+    $id_p_tugas = mysqli_fetch_array($ambil_id_p_tugas);
 
-
-
+    $nilaidb = mysqli_query($connection, "INSERT INTO nilai (nilai, id_p_tugas, id_tugas, status) values ('$inputnilai', '$id_p_tugas', '$idtugas','dinilai') ");
+  }
+  ?>
 
 
 
