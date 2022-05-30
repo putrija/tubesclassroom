@@ -40,8 +40,8 @@ error_reporting(0);
         <ul class="navbar-nav justify-content-start">
           <li class="nav-item active">
             <a class="nav-link" href="forum.php">
-              <b>Kelas SBD 21 </b><br>
-              Teknologi Informasi
+              <b><?php echo $_SESSION['namakelas'] ?></b><br>
+              <?php echo $_SESSION['bagian'] ?>
               <span class="sr-only">(current)</span></a>
           </li>
         </ul>
@@ -90,61 +90,8 @@ error_reporting(0);
     </div>
   </nav>
 
-  <!------SIDEBAR----->
-  <!-- offcanvas -->
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="width: 350px;">
-    <!-- offcanvas-Body -->
-    <div class="offcanvas-body">
-      <!--isi-->
-      <ul class="nav nav-pills flex-column">
-        <li class="nav-item mb-3">
-          <a href="forumguru.php" class="nav-link text-black">
-            <i class="fa-solid fa-house me-3"></i>
-            Kelas</a>
-        </li>
-        <li class="nav-item mb-3">
-          <a href="kalender.php" class="nav-link text-black">
-            <i class="fa-regular fa-calendar me-3"></i>
-            Kalender
-          </a>
-        </li>
-        <li class="nav item border-top py-3">
-          Mengajar
-        </li>
-        <li class="nav item mb-2">
-          <a href="#" class="nav-link text-black">
-            <i class="fa-solid fa-table-list me-3"></i>
-            untuk diperiksa
-          </a>
-        </li>
-        <li class="nav item mb-3">
-          <a href="forumguru.php" class="nav-link text-black">
-            <i class="fa-solid fa-users-rectangle me-3"></i>
-            Kelas SBD 21
-          </a>
-        </li>
-        <li class="nav item mb-3">
-          <a href="#" class="nav-link text-black">
-            <i class="fa-solid fa-users-rectangle me-3"></i>
-            Kelas PWL 21
-          </a>
-        </li>
-        <li class="nav-item mb-3 border-top pt-3">
-          <a href="#" class="nav-link text-black">
-            <i class="fa-solid fa-box-archive me-3"></i>
-            Kelas yang diarsipkan
-          </a>
-        </li>
-        <li class="nav-item mb-3">
-          <a href="editprofil.php" class="nav-link text-black">
-            <i class="fa-solid fa-gear me-3"></i>
-            setelan
-          </a>
-        </li>
-      </ul>
-
-    </div>
-  </div>
+<!---SIDEBAR--->
+<?php include 'sidebar.php' ?>
 
   <!---ISI-->
 

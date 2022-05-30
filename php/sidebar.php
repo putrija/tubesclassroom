@@ -102,6 +102,44 @@ $idkelass = $data['idkelas'];
     </div>
   </div>
 
+<!---BUAT SESSION--->
+
+  <?php
+  if (isset($_POST['btnbukakelas'])) {
+    $idkelas = $_POST['idkelas'];
+    $idUser = $_SESSION['iduser'];
+    $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas= '$idkelas' AND u.iduser='$idUser'";
+    $query = mysqli_query($connection, $innerjoinkelas);
+
+    $row = $query->fetch_assoc();
+    $nama_user = $row['nama_user'];
+    $email = $row['email'];
+    $namakelas = $row['namakelas'];
+    $bagian = $row['bagian'];
+    $mapel = $row['mapel'];
+    $ruang = $row['ruang'];
+    $kodekelas = $row['kodekelas'];
+    $level = $row['level'];
+    $teacher = $row['teacher'];
+
+
+    $_SESSION['nama_user'] = $nama_user;
+    $_SESSION['email'] = $email;
+    $_SESSION['namakelas'] = $namakelas;
+    $_SESSION['bagian'] = $bagian;
+    $_SESSION['mapel'] = $mapel;
+    $_SESSION['ruang'] = $ruang;
+    $_SESSION['kodekelas'] = $kodekelas;
+    $_SESSION['level'] = $level;
+    $_SESSION['idkelas'] = $idkelas;
+    $_SESSION['teacher'] = $teacher;
+
+
+    echo "<script>location='forum.php';</script>";
+  }
+
+  ?>
+
 
 
 
