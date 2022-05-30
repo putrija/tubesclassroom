@@ -140,7 +140,7 @@ function show($query) {
 
     $result = mysqli_query($connection, $query);
 
-    while($row = mysqli_fetch_assoc($result)) {
+    while($row = mysqli_fetch_array($result)) {
 
         $box[] = $row;
 
@@ -148,9 +148,6 @@ function show($query) {
 
     return $box;
 }
-
-
-
 
 function carikodekelas($data) {
 
@@ -163,5 +160,27 @@ function carikodekelas($data) {
 }
 
 //last savezone
+
+function addTugas($data) {
+
+    global $connection;
+
+    $kelasId = $data["kelasID"];
+    $guruId = $data["guruID"];
+    $judul = $data["nama"];
+    $deskripsi = $data["desc"];
+    $deadline = $data["date"];
+
+    if(empty($judul) || empty($deskripsi)) {
+        return false;
+    }
+
+    $query = mysqli_query($connection,"INSERT INTO tugas(id_kelas,id_guru,nama_tugas,deskripsi,deadline) VALUES('$kelasId','$guruId','$judul','$deskripsi','$deadline')");
+
+    return mysqli_affected_rows($connection);
+
+
+}
+
 
 ?>

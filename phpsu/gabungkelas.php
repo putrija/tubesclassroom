@@ -23,7 +23,7 @@ if( isset($_POST["add"]) ) {
       echo "
       <script>
             alert('berhasil gabung ke kelas!');
-            document.location.href = 'kelasforum.php' ;
+            document.location.href = 'dashboard.php' ;
       </script> ";
     }else {
       echo "
@@ -153,16 +153,19 @@ if( isset($_POST["add"]) ) {
                         </div>
                     </div>
                      <!--INSERT MURID KE DB--->
+                     <div class="card-body text-black">
+                                <button name="add" class="btn btn-primary">Gabung</button>
+                      </div>
                      <?php  $lek = $kls["id"] ?>
-                        <div style="visibility:hidden mb">
+                        <div style="visibility:hidden">
                                     <?php $query = mysqli_query($connection, "SELECT max(id) as maxMID FROM murid");
                                           $data = mysqli_fetch_array($query);
-                                        
+                                
                                           $tesm = $data["maxMID"];
-                                          $idm = (int)substr($tesm, 1, 3);
+                                          $idm = (int)($tesm);
                                           $idm++;
-                                          $ketm = "M";
-                                          $kodeM = $ketm . sprintf("%03s", $idm);
+                                          $ketm = "";
+                                          $kodeM = sprintf($idm);
                                           $kodeM;
                                       ?>
                                 <input name="muridid" Value="<?php echo $kodeM; ?>" class="form-control" readonly>
@@ -171,9 +174,6 @@ if( isset($_POST["add"]) ) {
                                 <input name="kelid" Value="<?php echo $lek; ?>" class="form-control" readonly>     
                             </div>
 
-                          <div class="card-body text-black">
-                                <button name="add" class="btn btn-primary">Gabung</button>
-                          </div>
             
 <?php endforeach;?>
 <?php else : ?>

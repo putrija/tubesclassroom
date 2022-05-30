@@ -9,7 +9,6 @@ if( !isset($_SESSION["login"]) ) {
 $userID = $_SESSION["userID"];
 $user = show("SELECT * FROM user WHERE id = $userID")[0];
 
-
 ?>
 
 <!DOCTYPE html>
@@ -107,27 +106,33 @@ $user = show("SELECT * FROM user WHERE id = $userID")[0];
               Kalender
              </a>
         </li>
-        <li class="nav item border-top py-3">
-          Terdaftar
-        </li>
-        <li class="nav item mb-2">
-            <a href="daftartugas.html" class="nav-link text-black">
-            <i class="fa-solid fa-list-check me-3"></i>
-            Daftar tugas
-           </a>
-        </li>
+<!---php side daftar kelas--->
+<?php 
+    $tes = $userID;
+    $query = "SELECT * FROM kelas 
+              INNER JOIN guru ON kelas.id_guru = guru.id WHERE id_user = $tes" ;                                                                                                                                                                                                                                                                                              
+    $sql_rm = mysqli_query($connection, $query) ; ?>
+
+    <li class="nav item border-top py-3">
+    Mengajar
+  </li>
+  <li class="nav item mb-2">
+      <a href="daftartugas.html" class="nav-link text-black">
+      <i class="fa-solid fa-list-check me-3"></i>
+      Untuk Diperiksa
+     </a>
+  </li>
+  
+   <?php while ($data = mysqli_fetch_array($sql_rm)) { ?>
+        <!--isi-->
         <li class="nav item mb-3">
-            <a href="forumsiswa.html" class="nav-link text-black">
+            <a href="forumguru.php" class="nav-link text-black">
             <i class="fa-solid fa-users-rectangle me-3"></i>
-            Kelas SBD 21
+            <?=$data['nama_kelas']?>
             </a>
         </li>
-        <li class="nav item mb-3">
-            <a href="#" class="nav-link text-black">
-            <i class="fa-solid fa-users-rectangle me-3"></i>
-            Kelas PWL 21
-            </a>
-        </li>
+<?php  } ?>
+<!------------------>
         <li class="nav-item mb-3 border-top pt-3">
             <a href="#" class="nav-link text-black">
               <i class="fa-solid fa-box-archive me-3"></i>
@@ -145,27 +150,74 @@ $user = show("SELECT * FROM user WHERE id = $userID")[0];
 </div>
 </div>
 
-<!------ISI-------->
- <!-- Kartu kelas -->
-<div class="container py-3 class-list">
-  <div class="list-class my-3">
-      <div class="row">
+<!-----PHP data KELAS GURU---->
+<?php 
+    $tes = $userID;
+    $query = "SELECT * FROM kelas 
+              JOIN guru ON kelas.id_guru = guru.id WHERE id_user = $tes" ; ?>
 
-          <div class="col-lg-4 col-md-4 my-3">
-              <div class="card text-white">
-                  <img src="../gambar/img_code.jpg" class="card-img-top" height="100px" width="200px">
-                  <div class="card-img-overlay">
-                    <h5 class="card-title mb-1">Kelas SBD 21</h5>
-                    <p class="card-text"> Teknologi Informasi <br>
-                                          Teacher
-                    </p>
-                  </div>
-                  <div class="card-body">
-                    <br><br><br>
-                    <a href="forumsiswa.html" class="btn btn-outline-primary">buka Kelas</a>
-                  </div>
-              </div>
-          </div>
+    <!-- Kartu kelas -->
+    <div class="container py-3 class-list ">
+      <div class="list-class">
+          <div class="row mt-1 mb-3" >
+                                                                                                                                                                                                                                                                                                                                          
+<?php    $sql_rm = mysqli_query($connection, $query) ;
+         while ($data = mysqli_fetch_array($sql_rm)) { ?>
+
+                <div class="col-lg-4 col-md-4 mx-1 my-4">
+                    <div class="card text-white">
+                        <img src="../gambar/img_code.jpg" class="card-img-top" height="100px" width="200px">
+                        <div class="card-img-overlay">
+                          <!--GET DATA KELAS--->
+                            <h5 class="card-title mb-1 text-white"> <?=$data['nama_kelas']?> </h5> <a>
+                            <p class="card-text text-white">        <?=$data['bagian']?> <br>
+                                                                    <?=$data['ruang']?>
+                            </p>
+                            <br><br>
+                            <a href="forumguru.php?kelas=<?=$data['id_kelas'];?>" class="btn btn-outline-primary" style="width : 50%;">
+                            Buka kelas
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+
+<?php  } ?>
+
+<!-----PHP data KELAS MURID---->
+<?php 
+    $tesm = $userID;
+    $query = "SELECT * FROM murid 
+              INNER JOIN kelas ON murid.id_kelas = kelas.id WHERE id_user = $tesm" ; ?>
+                                                                                                                                                                                                                                                                                                                                          
+<?php    $sql_rm = mysqli_query($connection, $query) ;
+         while ($data = mysqli_fetch_array($sql_rm)) { ?>
+
+                <div class="col-lg-4 col-md-4 mx-1 my-4">
+                    <div class="card text-white">
+                        <img src="../gambar/img_bookclub.jpg" class="card-img-top" height="100px" width="200px">
+                        <div class="card-img-overlay">
+                          <!--GET DATA KELAS--->
+                            <h5 class="card-title mb-1 text-white"> <?=$data['nama_kelas']?> </h5> <a>
+                            <p class="card-text text-white">        <?=$data['bagian']?> <br>
+                                                                    <?=$data['ruang']?>
+                            
+                            </p>
+                            <br><br>
+                            <a href="forumsiswa.php?kelas=<?=$data['id_kelas'];?>" class="btn btn-outline-primary" style="width : 50%;">
+                            Buka kelas
+                            </a>
+                        </div>
+                     
+
+                    </div>
+                </div>
+
+<?php  } ?>
+
+
+
+
 
 
 
