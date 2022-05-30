@@ -79,9 +79,8 @@ $row = mysqli_fetch_assoc($result);
             <!--ISI POPUP-->
             <div class="popup__content d-flex flex-column align-items-center shadow rounded-3 bg-white">
               <img class="popup__avatar cursor-pointer" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-              <p class="popup__email">youremail@gmail.com</p>
-              <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
-              <div class="popup__logout mt-auto cursor-pointer">Log Out</div>
+              <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
+              <a class="popup__link" href="logout.php">Log Out</a>
               <div class="popup__pseudo"></div>
             </div>
           </li>

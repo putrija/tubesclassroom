@@ -1,8 +1,9 @@
 <?php
-
+require("function.php");
 error_reporting(0);
-require_once 'function.php';
-
+if (empty($_SESSION['username'])) {
+  header("Location: ../html/error.html");
+}
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +81,6 @@ require_once 'function.php';
             <div class="popup__content d-flex flex-column align-items-center shadow rounded-3 bg-white">
               <img class="popup__avatar cursor-pointer" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
               <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
-              <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
               <a class="popup__link" href="logout.php">Log Out</a>
               <div class="popup__pseudo"></div>
             </div>
@@ -98,7 +98,7 @@ require_once 'function.php';
       <!--isi-->
       <ul class="nav nav-pills flex-column">
         <li class="nav-item mb-3">
-          <a href="dashboardguru.php" class="nav-link text-black">
+          <a href="dashboard.php" class="nav-link text-black">
             <i class="fa-solid fa-house me-3"></i>
             Kelas</a>
         </li>
@@ -149,11 +149,13 @@ require_once 'function.php';
   <!-----Isi---->
 
   <!---Buat tugas-->
-  <div class="create-tugas container py-2 bg-white col-8 ">
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      <i class="fa-solid fa-plus"></i> Buat
-    </button>
+  <?php if ($_SESSION['level'] == 'teacher') : ?>
+    <div class="create-tugas container py-2 bg-white col-8 ">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <i class="fa-solid fa-plus"></i> Buat
+      </button>
+    <?php endif; ?>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -229,114 +231,88 @@ require_once 'function.php';
       </div>
     </div>
 
-  </div>
+    </div>
 
-  <!----List tugas-->
-  <div class="list-tugas ">
-    <div class="accordion container py-2 bg-white col-8" id="accordionExample">
-      <!---list 1-->
-      <?php
-      $idkelas = $_SESSION['idkelas'];
-      $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
-      while ($data = mysqli_fetch_array($ambildata)) {
-      ?>
-        <div class="accordion-item px-4 py-3" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
-          <div class="d-flex justify-content-between">
-            <h6 class="accordion-header" id="headingOne">
-              <i class="fa-solid fa-clipboard-list me-3"></i>
-              <?= $data['nama']; ?>
-            </h6>
-            <h6>
-              Tenggat : <?= $data['date']; ?>
-            </h6>
-          </div>
-          <!--isi collapse-->
-          <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <div class="d-flex justify-content-between border-top">
-                <div class="p-2">
-                  <?= $data['description']; ?>
+    <!----List tugas-->
+    <div class="list-tugas ">
+      <div class="accordion container py-2 bg-white col-8" id="accordionExample">
+        <!---list 1-->
+        <?php
+        $idkelas = $_SESSION['idkelas'];
+        $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
+        while ($data = mysqli_fetch_array($ambildata)) {
+        ?>
+          <div class="accordion-item px-4 py-3" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
+            <div class="d-flex justify-content-between">
+              <h6 class="accordion-header" id="headingOne">
+                <i class="fa-solid fa-clipboard-list me-3"></i>
+                <?= $data['nama']; ?>
+              </h6>
+              <h6>
+                Tenggat : <?= $data['date']; ?>
+              </h6>
+            </div>
+            <!--isi collapse-->
+            <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <div class="d-flex justify-content-between border-top">
+                  <div class="p-2">
+                    <?= $data['description']; ?>
+                  </div>
+                  <div class="p-2">
+                    <ul class="list-inline">
+                      <li class="list-inline-item border-start px-3">
+                        <h3>1</h3> diserahkan
+                      </li>
+                      <li class="list-inline-item border-start px-3">
+                        <h3>2</h3> diberikan
+                      </li>
+                      <li class="list-inline-item border-start px-3">
+                        <h3>1</h3> dinilai
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div class="p-2">
-                  <ul class="list-inline">
-                    <li class="list-inline-item border-start px-3">
-                      <h3>1</h3> diserahkan
-                    </li>
-                    <li class="list-inline-item border-start px-3">
-                      <h3>2</h3> diberikan
-                    </li>
-                    <li class="list-inline-item border-start px-3">
-                      <h3>1</h3> dinilai
-                    </li>
-                  </ul>
+                <div class="see-tugas p-2 border-top p-3">
+                  <form method="POST">
+                    <input type="hidden" value="<?= $data['idtugas']; ?>" name="idtugas">
+                    <button name="btnlihattugas" type="submit" class="btn btn-primary">Lihat Tugas</button>
+                  </form>
                 </div>
-              </div>
-              <div class="see-tugas p-2 border-top p-3">
-                <form method="POST">
-                  <input type="hidden" value="<?= $data['idtugas']; ?>" name="idtugas">
-                  <button name="btnlihattugas" type="submit" class="btn btn-primary">Lihat Tugas</button>
-                </form>
-              </div>
 
+              </div>
             </div>
           </div>
-        </div>
 
-      <?php } ?>
+        <?php } ?>
 
 
+      </div>
     </div>
-  </div>
 
 
-  <?php
-  if (isset($_POST['btncreate'])) {
-    $nama = $_POST['nama'];
-    $description = $_POST['description'];
-    $date = $_POST['date'];
-    $idkelas = $_SESSION['idkelas'];
+    <?php
+    if (isset($_POST['btncreate'])) {
+      $nama = $_POST['nama'];
+      $description = $_POST['description'];
+      $date = $_POST['date'];
+      $idkelas = $_SESSION['idkelas'];
 
-    $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, date) values('$idkelas','$nama', '$description', '$date')");
+      $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, date) values('$idkelas','$nama', '$description', '$date')");
 
-    echo "<script>location='tugaskelas.php';</script>";
-  }
+      echo "<script>location='tugaskelas.php';</script>";
+    }
 
-  ?>
+    ?>
 
-  <?php
-  if (isset($_POST['btnlihattugas'])) {
-    $idtugas = $_POST['idtugas'];
+    <?php
+    if (isset($_POST['btnlihattugas'])) {
+      $_SESSION['idtugas'] = $_POST['idtugas'];
+      echo "<script>window.location.href='tugassiswa.php';</script>";
+    }
+    ?>
 
-    // $innerjoinkelas = "SELECT * FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas= '$idkelas' AND u.iduser='$idUser'";
-    // $query = mysqli_query($connection, $innerjoinkelas);
-
-    // $row = $query->fetch_assoc();
-    // $nama_user = $row['nama_user'];
-    // $email = $row['email'];
-    // $namakelas = $row['namakelas'];
-    // $bagian = $row['bagian'];
-    // $mapel = $row['mapel'];
-    // $ruang = $row['ruang'];
-    // $kodekelas = $row['kodekelas'];
-    // $level = $row['level'];
-    // $teacher = $row['teacher'];
-
-
-
-    // $_SESSION['nama_user'] = $nama_user;
-    // $_SESSION['email'] = $email;
-    // $_SESSION['namakelas'] = $namakelas;
-    // $_SESSION['bagian'] = $bagian;
-    // $_SESSION['mapel'] = $mapel;
-    $_SESSION['idtugas'] = $idtugas;
-
-    header("location:isitugas.php");
-
-
-    //echo "<script>location='isitugas.php';</script>";
-  }
-
-  ?>
+    ?>
 
 
 
@@ -346,9 +322,9 @@ require_once 'function.php';
 
 
 
-  <!---SCRIPT-->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/9c0c4e63c7.js" crossorigin="anonymous"></script>
+    <!---SCRIPT-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/9c0c4e63c7.js" crossorigin="anonymous"></script>
 
 </body>
 

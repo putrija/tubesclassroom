@@ -2,7 +2,7 @@
 require("function.php");
 error_reporting(0);
 if (empty($_SESSION['username'])) {
-  header("Location: ../html/error.html");
+  header("Location: ../php/error.php");
 }
 ?>
 
@@ -84,7 +84,6 @@ if (empty($_SESSION['username'])) {
             <div class="popup__content d-flex flex-column align-items-center shadow rounded-3 bg-white">
               <img class="popup__avatar cursor-pointer" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
               <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
-              <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
               <a class="popup__link" href="logout.php">Log Out</a>
               <div class="popup__pseudo"></div>
             </div>
@@ -157,7 +156,7 @@ if (empty($_SESSION['username'])) {
     <section class="d-flex flex-column gap-1 space-header banner text-white bg-secondary px-3 py-4 rounded ">
       <h1 class="banner__class"><?php echo $_SESSION['namakelas'] ?></h1>
       <div class="fs-4">
-        <span>Teacher: </span><span class="banner__teacher"><?php echo $_SESSION['teacherr'] ?></span>
+        <span>Teacher: </span><span class="banner__teacher"><?php echo $_SESSION['teacher'] ?></span>
       </div>
       <div class="fs-4">
         <span>Subject: </span><span class="banner__subject"><?php echo $_SESSION['mapel'] ?></span>
@@ -254,7 +253,7 @@ if (empty($_SESSION['username'])) {
                   <form action="" method="POST">
                     <input type="hidden" value="<?= $row['id_tugas']; ?>" name="idtugas">
                     <button name="btnisitugas" type="submit">
-                      <h3 class="fs-5"><?php echo $_SESSION['teacherr'] ?> memposting Tugas Baru </h3>
+                      <h3 class="fs-5"><?php echo $_SESSION['teacher'] ?> memposting Tugas Baru </h3>
                     </button>
                   </form>
                 </div>
@@ -274,10 +273,8 @@ if (empty($_SESSION['username'])) {
     $_SESSION['idtugas'] = $_POST['idtugas'];
     if ($_SESSION['level'] == 'teacher') {
       echo "<script>window.location.href='tugassiswa.php';</script>";
-      // header("location: tugassiswa.php");
     } else {
       echo "<script>window.location.href='isitugas.php';</script>";
-      // header("location: isitugas.php");
     }
   }
   ?>

@@ -70,9 +70,8 @@ $row = mysqli_fetch_assoc($result);
                         <!--ISI POPUP-->
                         <div class="popup__content d-flex flex-column align-items-center shadow rounded-3 bg-white">
                             <img class="popup__avatar cursor-pointer" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-                            <p class="popup__email"><?php echo $_SESSION['email'] ?></p>
-                            <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
-                            <div class="popup__logout mt-auto cursor-pointer">Log Out</div>
+                            <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
+                            <a class="popup__link" href="logout.php">Log Out</a>
                             <div class="popup__pseudo"></div>
                         </div>
                     </li>
@@ -142,7 +141,7 @@ $row = mysqli_fetch_assoc($result);
         <div class="col-md-8">
             <div class="container mt-3">
                 <h1><?php echo $row['nama']; ?></h1> <br>
-                <h5><?php echo $_SESSION['teacherr']; ?>, Created at: <?php echo $row['create']; ?></h5>
+                <h5><?php echo $_SESSION['teacher']; ?>, Created at: <?php echo $row['create']; ?></h5>
                 <div class="row mt-3">
                     <div class="col-md-10">
                         <h5>100 poin</h5>

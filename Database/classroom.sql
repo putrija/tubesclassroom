@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2022 at 04:06 AM
+-- Generation Time: May 30, 2022 at 03:21 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -36,6 +36,14 @@ CREATE TABLE `kelas` (
   `kodekelas` text NOT NULL,
   `teacher` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kelas`
+--
+
+INSERT INTO `kelas` (`idkelas`, `namakelas`, `bagian`, `mapel`, `ruang`, `kodekelas`, `teacher`) VALUES
+(68, 'Matematika', 'Semester 1', 'Trigonometri', 'XII MIA 12', 'inljdh9U', 'PUTRIJA BR MALAU'),
+(69, 'A', 'B', 'C', 'D', 'sldiJtr6', 'PUTRIJA BR MALAU');
 
 -- --------------------------------------------------------
 
@@ -95,6 +103,15 @@ CREATE TABLE `tugas` (
   `create` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tugas`
+--
+
+INSERT INTO `tugas` (`id_tugas`, `idkelas`, `nama`, `description`, `date`, `create`) VALUES
+(5, 68, 'TRIGONOMETRI TUGAS 1', 'Kerjakan tugas di halaman 11 di buku latihan', '2022-05-28', '2022-05-27 02:56:19'),
+(6, 68, 'LIMIT TUGAS 2', 'Kerjakan tugas berikut no 1-20', '2022-06-03', '2022-05-27 02:58:55'),
+(7, 68, 'A', 'HAKAJAHJX', '2022-06-02', '2022-05-30 13:17:57');
+
 -- --------------------------------------------------------
 
 --
@@ -110,6 +127,14 @@ CREATE TABLE `user` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`iduser`, `username`, `password`, `nama_user`, `email`, `created_at`) VALUES
+(13, 'putrija', '8dd79c49d0be6850d0c633f2c2435db2bacbd0cb', 'PUTRIJA BR MALAU', 'putrija@gmail.com', '2022-05-27 02:09:56'),
+(14, 'reza', 'b96dbf74436b3f73db2f27c2fb7c966eb1f47360', 'MUHAMMAD REZA', 'reza@gmail.com', '2022-05-27 02:19:14');
+
 -- --------------------------------------------------------
 
 --
@@ -122,6 +147,16 @@ CREATE TABLE `user_level` (
   `idkelas` int(11) NOT NULL,
   `level` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_level`
+--
+
+INSERT INTO `user_level` (`iduserlevel`, `iduser`, `idkelas`, `level`) VALUES
+(113, 13, 68, 'teacher'),
+(114, 14, 68, 'student'),
+(115, 13, 69, 'teacher'),
+(116, 14, 69, 'student');
 
 --
 -- Indexes for dumped tables
@@ -171,7 +206,7 @@ ALTER TABLE `user_level`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `idkelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `idkelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `nilai`
@@ -189,19 +224,19 @@ ALTER TABLE `pengumpulan_tugas`
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user_level`
 --
 ALTER TABLE `user_level`
-  MODIFY `iduserlevel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `iduserlevel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -80,8 +80,7 @@ error_reporting(0);
             <!--ISI POPUP-->
             <div class="popup__content d-flex flex-column align-items-center shadow rounded-3 bg-white">
               <img class="popup__avatar cursor-pointer" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-              <p class="popup__email"><?php echo $_SESSION['email'] ?></p>
-              <a class="popup__link" href="editprofil.html" target="_blank">Manage your account</a>
+              <p class="popup__email"><?php echo "$_SESSION[email]"; ?></p>
               <a class="popup__link" href="logout.php">Log Out</a>
               <div class="popup__pseudo"></div>
             </div>
@@ -156,8 +155,7 @@ error_reporting(0);
       <div class="d-flex align-items-center justify-content-between">
         <?php
         $idkelas = $_SESSION['idkelas'];
-        $idtugas =
-          $ambildata = mysqli_query($connection, "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas='$idkelas' AND ul.level='teacher' AND t.");
+        $ambildata = mysqli_query($connection, "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas='$idkelas' AND ul.level='teacher'");
 
         while ($data = mysqli_fetch_assoc($ambildata)) {
           $user = $data['nama_user'];
@@ -178,7 +176,7 @@ error_reporting(0);
   <!-- Anggota -->
   <section class="container mt-4 py-4 bg-white col-7">
     <div class="d-flex align-items-center justify-content-between border-bottom border-primary pb-3 mb-4">
-      <h2 class="text-primary ">Teman sekelas</h2>
+      <h2 class="text-primary ">Siswa</h2>
       <?php
       $idkelas = $_SESSION['idkelas'];
       $ambildata = mysqli_query($connection, "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher FROM user AS u INNER JOIN user_level AS ul ON u.iduser=ul.iduser INNER JOIN kelas AS k ON ul.idkelas=k.idkelas WHERE ul.idkelas='$idkelas' AND ul.level='student'");
