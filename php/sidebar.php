@@ -40,10 +40,13 @@ $idkelass = $data['idkelas'];
 ?>
         <!--isi-->
         <li class="nav item mb-3">
-            <a href="forumguru.php" class="nav-link text-black">
-            <i class="fa-solid fa-users-rectangle me-3"></i>
-            <?=$namakelas?>
-            </a>
+            <form method="POST">
+              <input type="hidden" value="<?= $idkelass ?>" name="idkelas">
+              <button name="btnbukakelas" type="submit" class="btn">
+                <i class="fa-solid fa-users-rectangle me-3"></i>
+                <?=$namakelas?>
+              </button>
+            </form>
         </li>
 <?php  }; ?>
 <!------------------>
@@ -72,10 +75,13 @@ $idkelass = $data['idkelas'];
 ?>
         <!--isi-->
         <li class="nav item mb-3">
-            <a href="forumguru.php" class="nav-link text-black">
-            <i class="fa-solid fa-users-rectangle me-3"></i>
-            <?=$namakelas?>
-            </a>
+            <form method="POST">
+              <input type="hidden" value="<?= $idkelass ?>" name="idkelas">
+              <button name="btnbukakelas" type="submit" class="btn">
+                <i class="fa-solid fa-users-rectangle me-3"></i>
+                <?=$namakelas?>
+              </button>
+            </form>
         </li>
 <?php  }; ?>
 <!------------------>
@@ -95,3 +101,7 @@ $idkelass = $data['idkelas'];
 
     </div>
   </div>
+
+
+
+
