@@ -9,9 +9,10 @@ if( !isset($_SESSION["login"]) ) {
 $userID = $_SESSION["userID"];
 $user = show("SELECT * FROM user WHERE id = $userID")[0];
 
-$tes = $userID;
-$kelas = show("SELECT * FROM kelas 
-          INNER JOIN guru ON kelas.id_guru = guru.id WHERE id_user = $tes")[0] ;
+//idKelas
+$kelasID = $_GET["kelas"];
+$kelas = show("SELECT * FROM kelas JOIN guru ON kelas.id = guru.id_kelas WHERE kelas.id = $kelasID")[0];
+
 
 ?>
 
@@ -33,6 +34,7 @@ $kelas = show("SELECT * FROM kelas
 </head>
 
 <body>
+
 <!----NAVBAR----->
     <nav class="navbar navbar-expand-lg navbar-light container-fluid sticky-top border mb-2 pb-1"
         style="background-color: white">
@@ -49,44 +51,36 @@ $kelas = show("SELECT * FROM kelas
                 </button>
             </div>
 <!--PHP ID KELAS---->
-<?php
-    $tes = $userID;
-    $query = "SELECT * FROM kelas 
-              INNER JOIN guru ON kelas.id_guru = guru.id WHERE id_user = $tes" ;
-                                                                                                                                                                                                                                                                                                                                       
-    $sql_rm = mysqli_query($connection, $query) ;
-    while ($data = mysqli_fetch_array($sql_rm)) { ?>
-
             <!----Nama kelas-->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav justify-content-start">
                     <li class="nav-item">
-                        <a class="nav-link" href="forumguru.php">
-                            <b> <?=$data['nama_kelas']?> </b><br>
-                            <?=$data['bagian']?>
+                        <a class="nav-link" href="forumguru.php?kelas=<?=$kelas['id'];?>">
+                            <b> <?=$kelas['nama_kelas']?> </b><br>
+                            <?=$kelas['bagian']?>
                             <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
-<?php  } ?>
 
             <!--NAV ACTIVE-->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav justify-content-between">
                 <li class="nav-item active">
-                    <a class="nav-link active" href="forumguru.php">Forum </a>
+                    <a class="nav-link active"  href="forumguru.php?kelas=<?=$kelas['id'];?>">Forum </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tugaskelasguru.php">Tugas kelas</a>
+                    <a class="nav-link" href="tugaskelasguru.php?kelas=<?=$kelas['id'];?>">Tugas kelas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="anggotaguru.php">Anggota</a>
+                    <a class="nav-link" href="anggotaguru.php?kelas=<?=$kelas['id'];?>">Anggota</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="nilaiguru.php">Nilai</a>
+                    <a class="nav-link" href="nilaiguru.php?kelas=<?=$kelas['id'];?>">Nilai</a>
                 </li>
                 </ul>
             </div>
+<!------------------>
             <!---tambah dan akun-->
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav">
@@ -155,12 +149,12 @@ $kelas = show("SELECT * FROM kelas
       <i class="fa-solid fa-list-check me-3"></i>
       Untuk Diperiksa
      </a>
-  </li> ?>
+  </li>
 
    <?php while ($data = mysqli_fetch_array($sql_rm)) { ?>
         <!--isi-->
         <li class="nav item mb-3">
-            <a href="forumguru.php" class="nav-link text-black">
+            <a href="forumguru.php?kelas=<?=$data['id_kelas'];?>" class="nav-link text-black">
             <i class="fa-solid fa-users-rectangle me-3"></i>
             <?=$data['nama_kelas']?>
             </a>
@@ -187,34 +181,21 @@ $kelas = show("SELECT * FROM kelas
 
 <!----ISI-->
  <!--PHP ID KELAS---->
- <?php
-    $tes = $userID;
-    $query = "SELECT * FROM kelas 
-              INNER JOIN guru ON kelas.id_guru = guru.id WHERE id_user = $tes" ;
-                                                                                                                                                                                                                                                                                                                                       
-    $sql_rm = mysqli_query($connection, $query) ;
-    while ($data = mysqli_fetch_array($sql_rm)) { ?>
 <!-- bio kelas -->
     <div class="justify-content-center mx-5">
         <div class="card mx-5 text-white">
             <img src="../gambar/img_code.jpg" class="card-img-top">
             <div class="card-img-overlay pt-3">
-                <h1 class="card-title mb-0">       <?=$data['nama_kelas']?>   </h1>
-                <p class="card-text my-1 ">   <h3> <?=$data['bagian']?>  </h3>
-                                              <br> <?=$data['mapel']?>
-                                              <br> <?=$data['ruang']?>
-                                              <br> <?=$data['id_kelas']?>
+                <h1 class="card-title mb-0">       <?=$kelas['nama_kelas']?>   </h1>
+                <p class="card-text my-1 ">   <h3> <?=$kelas['bagian']?>  </h3>
+                                              <br> <?=$kelas['mapel']?>
+                                              <br> <?=$kelas['ruang']?>
+                                              <br> <?=$kelas['id_kelas']?>
                 </p>
             </div>
         </div>
     </div>
-
-
-<?php  } ?>
 <!------------------>
-
-
-
 
 
     <!---SCRIPT-->

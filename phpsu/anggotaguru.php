@@ -9,6 +9,11 @@ if( !isset($_SESSION["login"]) ) {
 $userID = $_SESSION["userID"];
 $user = show("SELECT * FROM user WHERE id = $userID")[0];
 
+//idKelas
+$kelasID = $_GET["kelas"];
+$kelas = show("SELECT * FROM kelas JOIN guru ON kelas.id = guru.id_kelas WHERE kelas.id = $kelasID")[0];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -44,34 +49,37 @@ $user = show("SELECT * FROM user WHERE id = $userID")[0];
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
+<!--PHP ID KELAS---->
             <!----Nama kelas-->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav justify-content-start">
                     <li class="nav-item">
-                        <a class="nav-link" href="forumguru.php">
-                            <b> kls</b><br>
-                            bagian
+                        <a class="nav-link" href="forumguru.php?kelas=<?=$kelas['id'];?>">
+                            <b> <?=$kelas['nama_kelas']?> </b><br>
+                            <?=$kelas['bagian']?>
                             <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
             </div>
+
             <!--NAV ACTIVE-->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav justify-content-between">
                 <li class="nav-item active">
-                    <a class="nav-link" href="forumguru.php">Forum </a>
+                    <a class="nav-link"  href="forumguru.php?kelas=<?=$kelas['id'];?>">Forum </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tugaskelasguru.php">Tugas kelas</a>
+                    <a class="nav-link" href="tugaskelasguru.php?kelas=<?=$kelas['id'];?>">Tugas kelas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="anggotaguru.php">Anggota</a>
+                    <a class="nav-link active" href="anggotaguru.php?kelas=<?=$kelas['id'];?>">Anggota</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="nilaiguru.php">Nilai</a>
+                    <a class="nav-link" href="nilaiguru.php?kelas=<?=$kelas['id'];?>">Nilai</a>
                 </li>
                 </ul>
             </div>
+<!------------------>
             <!---tambah dan akun-->
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav">
@@ -124,22 +132,33 @@ $user = show("SELECT * FROM user WHERE id = $userID")[0];
               Kalender
              </a>
         </li>
-        <li class="nav item border-top py-3">
-          Mengajar
-        </li>
-        <li class="nav item mb-2">
-            <a href="daftartugas.html" class="nav-link text-black">
-            <i class="fa-solid fa-list-check me-3"></i>
-            Untuk Diperiksa
-           </a>
-        </li>
+<!---php side daftar kelas--->
+<?php 
+    $tes = $userID;
+    $query = "SELECT * FROM kelas 
+              INNER JOIN guru ON kelas.id_guru = guru.id WHERE id_user = $tes" ;                                                                                                                                                                                                                                                                                              
+    $sql_rm = mysqli_query($connection, $query) ; ?>
+
+    <li class="nav item border-top py-3">
+    Mengajar
+  </li>
+  <li class="nav item mb-2">
+      <a href="daftartugas.html" class="nav-link text-black">
+      <i class="fa-solid fa-list-check me-3"></i>
+      Untuk Diperiksa
+     </a>
+  </li>
+
+   <?php while ($data = mysqli_fetch_array($sql_rm)) { ?>
         <!--isi-->
         <li class="nav item mb-3">
-            <a href="forumguru.php" class="nav-link text-black">
+            <a href="forumguru.php?kelas=<?=$data['id_kelas'];?>" class="nav-link text-black">
             <i class="fa-solid fa-users-rectangle me-3"></i>
-          kls
+            <?=$data['nama_kelas']?>
             </a>
         </li>
+<?php  } ?>
+<!------------------>
         <li class="nav-item mb-3 border-top pt-3">
             <a href="#" class="nav-link text-black">
               <i class="fa-solid fa-box-archive me-3"></i>

@@ -114,10 +114,10 @@ $user = show("SELECT * FROM user WHERE id = $userID")[0];
             $data = mysqli_fetch_array($query);
            
             $tesg = $data["maxGID"];
-            $idg = (int)substr($tesg, 1, 3);
+            $idg = (int)($tesg);
             $idg++;
-            $ketg = "G";
-            $kodeG = $ketg . sprintf("%03s", $idg);
+            $ketg = "";
+            $kodeG = sprintf($idg);
             $kodeG;
             ?>
         <input class="form-control" readonly
@@ -130,10 +130,10 @@ $user = show("SELECT * FROM user WHERE id = $userID")[0];
             $data = mysqli_fetch_array($query);
            
             $tesk = $data["maxKID"];
-            $idk = (int)substr($tesk, 1, 3);
+            $idk =(int)($tesk);
             $idk++;
-            $ketk = "K";
-            $kodeK = $ketk . sprintf("%03s", $idk);
+            $ketk = "";
+            $kodeK = sprintf($idk);
             $kodeK;
             ?>
         <input class="form-control" readonly
