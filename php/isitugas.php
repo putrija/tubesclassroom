@@ -157,7 +157,7 @@ if(isset($_POST["upload"])) {
                                     <input type="hidden" name="jawaban" value="<?=$jawabanID?>">
                                     <button class="btn mx-auto btn-primary my-2" name="update">Update<i class="mx-2 fas fa-file-upload"></i></button>
                                 </form>
-                            <?= var_dump($jawabanID)?>
+                            <!-- ?= var_dump($jawabanID)?> -->
                             <?php endif ; ?>
                      
                         </div>
