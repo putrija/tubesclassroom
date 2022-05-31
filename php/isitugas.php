@@ -108,9 +108,9 @@ $row = mysqli_fetch_assoc($result);
                     <h5 class="card-title">Tugas Anda</h5>
                     <form action="" method="post">
                         <div align="center">
-                            <button type="submit" name="uploadtugas" class=" btn btn-light" style="padding: 12px 28px; border: 1px solid ">+ Tambah atau buat</button>
+                            <button type="file" name="upload_tugas" class="btn btn-light" style="padding: 12px 28px; border: 1px solid ">+ Tambah atau buat</button>
                             <br>
-                            <button type="submit" name="kumpul" class=" btn btn-primary" style="padding: 5%;">Tandai sebagai selesai</button>
+                            <button type="submit" name="selesai" class=" btn btn-primary" style="padding: 5%;">Tandai sebagai selesai</button>
                             <br>
                         </div>
                     </form>
@@ -122,7 +122,22 @@ $row = mysqli_fetch_assoc($result);
     </div>
 
     <?php
-    if (isset($_POST['kumpul'])) {
+    if (isset($_POST['selesai'])) {
+        $iduser = $_SESSION['iduser'];
+
+        $direktori = "berkas/";
+        //random angka agar foto dengan nama yang sama tidak terganti
+        $file_name = rand(1000, 10000) . "-" . $_FILES['upload_tugas']['name'];
+        move_uploaded_file($_FILES['upload_tugas']['tmp_name'], $direktori . $file_name);
+
+        $insertjawaban = mysqli_query($connection, "INSERT INTO pengumpulan_tugas (iduser, id_tugas, jwbn_siswa) values('$iduser', '$idtugas', '$jawaban')");
+
+        echo "<script>location='isitugas.php'</script>";
+    }
+    ?>
+
+    <?php
+    if (isset($_POST['aa'])) {
         $jawaban = $_POST['jawaban'];
         $iduser = $_SESSION['iduser'];
 
