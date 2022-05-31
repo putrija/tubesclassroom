@@ -118,4 +118,23 @@ function upload(){
     return $nama;
 
 }
+
+
+    function updateJawaban($data) {
+
+    global $connection;
+
+    $id = $data["jawaban"];
+    $file = upload();
+
+    if(!$file) {
+        return false;
+    }
+
+    mysqli_query($connection, "UPDATE jawaban set jwbn_siswa = '$file' WHERE id = $id");
+
+    return mysqli_affected_rows($connection);
+
+    }
+
 ?>
