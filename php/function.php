@@ -51,3 +51,71 @@ function daftar($data)
 
     return mysqli_affected_rows($connection);
 }
+
+
+function show($query) {
+
+    global $connection;
+
+    $box = [];
+
+    $result = mysqli_query($connection, $query);
+
+    while($row = mysqli_fetch_array($result)) {
+
+        $box[] = $row;
+
+    }
+
+    return $box;
+}
+
+function addJawaban($data) {
+
+    global $connection;
+
+    $idtugas = $data["tugas"];
+    $user = $data["user"];
+    $status = $data["status"];
+    $file = upload();
+
+    if(!$file) {
+        return false;
+    }
+
+    mysqli_query($connection, "INSERT INTO jawaban(id_tugas,iduser,jwbn_siswa,status) VALUES('$idtugas','$user','$file','$status')");
+
+    return mysqli_affected_rows($connection);
+    } 
+
+
+function upload(){
+    $nama = $_FILES["file"]["name"];
+    $type = $_FILES["file"]["type"];
+    $location = $_FILES["file"]["tmp_name"];
+    $error = $_FILES["file"]["error"];
+    $size = $_FILES["file"]["size"];
+
+    //file kosong
+    if($error == 4) {
+        echo "<script>alert('Sialhkan masukkan file terlebih dahulu')</script>";
+        return false;
+    }
+
+    $validFileExtension = ["jpg", "jpeg", "pdf"];
+    $fileExtension = explode('/', $type);
+    $fileExtension =strtolower( end($fileExtension));
+
+    //Format FIle
+    if( !in_array($fileExtension, $validFileExtension)) {
+        echo "<script>alert('Format file tidak dapat diterima')</script>";
+        return false;
+    }
+
+    //Lolos Pengecekan
+    move_uploaded_file($location, 'file/'.$nama) ;
+
+    return $nama;
+
+}
+?>

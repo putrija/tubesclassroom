@@ -132,23 +132,23 @@ error_reporting(0);
     </div>
 
     <ul class="d-flex flex-column gap-4">
+    <?php
+    while ($data = mysqli_fetch_assoc($ambildata)) {
+      $user = $data['nama_user'];
+    ?>
 
       <li class="d-flex align-items-center justify-content-between">
-        <?php
-
-        while ($data = mysqli_fetch_assoc($ambildata)) {
-          $user = $data['nama_user'];
-        ?>
+        
           <div class="d-flex align-items-center">
             <div class="avatar me-3">
               <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=400&h=400" alt="Avatar" />
             </div>
             <span class="fs-5"><?php echo $user; ?></span>
           </div>
-        <?php
+      </li>
+      <?php
         }
         ?>
-      </li>
     </ul>
   </section>
 

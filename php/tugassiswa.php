@@ -92,98 +92,110 @@ $row = mysqli_fetch_assoc($result);
   <!---SIDEBAR--->
 <?php include 'sidebar.php' ?>
 
-
-  <!----ISI--->
-
-  <div class="row">
-
+<div class="row">
+      <!----ISI--->
     <div class="col-lg-4 container-left ms-5">
+          <h5>Semua Siswa</h5>
+        <!---DIBERIKAN LIST--->
+          <div class="my-4 list-student">
+            <h6>Diberikan</h6>
+            <ol class="list-group list-group-numbered shadow">
+              <div class="overflow-auto" style="height: 210px;">
 
-      <h5>Semua Siswa</h5>
-
-      <div class="my-4 list-student">
-
-        <h6>Diberikan</h6>
-
-        <ol class="list-group list-group-numbered shadow">
-
-          <div class="overflow-auto" style="height: 210px;">
-
-            <li class="list-group-item">
-              <i class="fa-solid fa-circle-user me-2"></i> Al Anhar Sufi
-            </li>
-            <li class="list-group-item">
-              <i class="fa-solid fa-circle-user me-2"></i> Reza Rahardian
-            </li>
-            <li class="list-group-item">
-              <i class="fa-solid fa-circle-user me-2"></i> Ronaldo
-            </li>
-
-          </div>
-        </ol>
-      </div>
-    </div>
-
-    <div class="col-lg-6 container-right mt-5">
-
-      <!-- DESCRIPTION BOX -->
-      <div class="task-desc shadow pt-1 ps-4">
-        <h4 class="my-3"><?php echo $row['nama']; ?> </h4>
-
-        <!-- Description TUGAS -->
-        <div class="description my-2 pb-2">
-          <ul class="list-inline">
-            <li class="list-inline-item border-start px-3">
-              <h2>3</h2> diberikan
-            </li>
-            <li class="list-inline-item border-start px-3">
-              <h2>0</h2> dinilai
-            </li>
-          </ul>
-        </div>
-
-
-      </div>
-
-      <!-- ASSIGNMENT BOX -->
-      <div class="assignment-box shadow border my-3">
-
-        <h4 class="text-center my-1">Jawaban Siswa</h4>
-
-        <div class="assignment-card px-3 py-1">
-
-          <div class="row">
-            <?php
-
-            $ambildata = mysqli_query($connection, "SELECT * FROM pengumpulan_tugas AS p INNER JOIN user AS u ON p.iduser = u.iduser");
-            while ($row = mysqli_fetch_assoc($ambildata)) {
-            ?>
-              <div class="col-lg-3 my-2">
-                <div class="card w-100 text-center">
-                  <div class="card-body">
-                    <h6 class="card-title"><?= $row['nama_user']; ?></h6>
-                    <a class="" href="" download=""><?= $row['jwbn_siswa']; ?></a>
-                    <form method="POST">
-                      <input type="number" name="inputnilai" class="form-control" placeholder="0" style="text-align: center;">
-                      <button name="nilai" class="mt-2 btn btn-primary">nilai</button>
-                    </form>
-                  </div>
-                </div>
+                <li class="list-group-item">
+                  <i class="fa-solid fa-circle-user me-2"></i> Al Anhar Sufi
+                </li>
+                <li class="list-group-item">
+                  <i class="fa-solid fa-circle-user me-2"></i> Reza Rahardian
+                </li>
+                <li class="list-group-item">
+                  <i class="fa-solid fa-circle-user me-2"></i> Ronaldo
+                </li>
 
               </div>
-            <?php
-            }
-            ?>
-
+            </ol>
           </div>
 
-        </div>
+          <!---DISERAHKAN LIST--->
+          <div class="my-4 list-student">
+            <h6>Diserahkan</h6>
+            <ol class="list-group list-group-numbered shadow">
+              <div class="overflow-auto" style="height: 210px;">
+
+                <li class="list-group-item">
+                  <i class="fa-solid fa-circle-user me-2"></i> Al Anhar Sufi
+                </li>
+                <li class="list-group-item">
+                  <i class="fa-solid fa-circle-user me-2"></i> Reza Rahardian
+                </li>
+                <li class="list-group-item">
+                  <i class="fa-solid fa-circle-user me-2"></i> Ronaldo
+                </li>
+
+              </div>
+            </ol>
+          </div>
+
+    </div><!--Batas akhir container left--->
+
+
+    
+    <div class="col-lg-6 container-right mt-5">
+      <!-- DESCRIPTION BOX -->
+
+        <!---Nama tugas--->
+        <div class="task-desc shadow pt-1 ps-4">
+          
+          <h4 class="my-3"><?php echo $row['nama']; ?> </h4>
+          <!-- Description TUGAS -->
+          <div class="description my-2 pb-2">
+            <ul class="list-inline">
+              <li class="list-inline-item border-start px-3">
+                <h2>0</h2> diberikan
+              </li>
+              <li class="list-inline-item border-start px-3">
+                <h2>0</h2> dinilai
+              </li>
+            </ul>
+          </div>
 
       </div>
 
-    </div>
+        <!-- ASSIGNMENT BOX -->
+        <div class="assignment-box shadow border my-3">
+          <h4 class="text-center my-1">Jawaban Siswa</h4>
+          <div class="assignment-card px-3 py-1">
+            <div class="row">
 
-  </div>
+                <?php
+                $ambildata = mysqli_query($connection, "SELECT * FROM pengumpulan_tugas AS p INNER JOIN user AS u ON p.iduser = u.iduser");
+                while ($row = mysqli_fetch_assoc($ambildata)) {
+                ?>
+                  <div class="col-lg-3 my-2">
+                    <div class="card w-100 text-center">
+                      <div class="card-body">
+                        <h6 class="card-title"><?= $row['nama_user']; ?></h6>
+                        <a class="" href="" download=""><?= $row['jwbn_siswa']; ?></a>
+                        <form method="POST">
+                          <input type="number" name="inputnilai" class="form-control" placeholder="0" style="text-align: center;">
+                          <button name="nilai" class="mt-2 btn btn-primary">nilai</button>
+                        </form>
+                      </div>
+                    </div>
+
+                </div>
+                <?php
+                }
+                ?>
+
+            </div>
+          </div>
+        </div>
+
+    </div><!--Batas akhir container right--->
+
+</div>
+
 
   <?php
   if (isset($_POST['nilai'])) {
