@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2022 at 03:21 PM
+-- Generation Time: May 31, 2022 at 08:06 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -43,7 +43,8 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`idkelas`, `namakelas`, `bagian`, `mapel`, `ruang`, `kodekelas`, `teacher`) VALUES
 (68, 'Matematika', 'Semester 1', 'Trigonometri', 'XII MIA 12', 'inljdh9U', 'PUTRIJA BR MALAU'),
-(69, 'A', 'B', 'C', 'D', 'sldiJtr6', 'PUTRIJA BR MALAU');
+(69, 'A', 'B', 'C', 'D', 'sldiJtr6', 'PUTRIJA BR MALAU'),
+(70, 'Fisika', 'Semester 1', 'Gaya', 'XII MIA 12', '6g7m8wqE', 'Al Anhar Sulfi');
 
 -- --------------------------------------------------------
 
@@ -99,6 +100,7 @@ CREATE TABLE `tugas` (
   `idkelas` int(11) NOT NULL,
   `nama` text NOT NULL,
   `description` text NOT NULL,
+  `upload` text NOT NULL,
   `date` date NOT NULL,
   `create` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -107,10 +109,9 @@ CREATE TABLE `tugas` (
 -- Dumping data for table `tugas`
 --
 
-INSERT INTO `tugas` (`id_tugas`, `idkelas`, `nama`, `description`, `date`, `create`) VALUES
-(5, 68, 'TRIGONOMETRI TUGAS 1', 'Kerjakan tugas di halaman 11 di buku latihan', '2022-05-28', '2022-05-27 02:56:19'),
-(6, 68, 'LIMIT TUGAS 2', 'Kerjakan tugas berikut no 1-20', '2022-06-03', '2022-05-27 02:58:55'),
-(7, 68, 'A', 'HAKAJAHJX', '2022-06-02', '2022-05-30 13:17:57');
+INSERT INTO `tugas` (`id_tugas`, `idkelas`, `nama`, `description`, `upload`, `date`, `create`) VALUES
+(21, 70, 'Limit', 'Kerjakan no 1-10', '1657-Screenshot (14).png', '2022-07-01', '2022-05-31 17:43:01'),
+(22, 70, 'Tanpa upload', 'ini tanpa upload', '9605-', '2022-07-02', '2022-05-31 17:47:00');
 
 -- --------------------------------------------------------
 
@@ -133,7 +134,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`iduser`, `username`, `password`, `nama_user`, `email`, `created_at`) VALUES
 (13, 'putrija', '8dd79c49d0be6850d0c633f2c2435db2bacbd0cb', 'PUTRIJA BR MALAU', 'putrija@gmail.com', '2022-05-27 02:09:56'),
-(14, 'reza', 'b96dbf74436b3f73db2f27c2fb7c966eb1f47360', 'MUHAMMAD REZA', 'reza@gmail.com', '2022-05-27 02:19:14');
+(14, 'reza', 'b96dbf74436b3f73db2f27c2fb7c966eb1f47360', 'MUHAMMAD REZA', 'reza@gmail.com', '2022-05-27 02:19:14'),
+(15, 'anhar', '70879268f10667d8d30d272272e063976b3d8f9a', 'Al Anhar Sulfi', 'anhar@gmail.com', '2022-05-30 14:54:14');
 
 -- --------------------------------------------------------
 
@@ -156,7 +158,9 @@ INSERT INTO `user_level` (`iduserlevel`, `iduser`, `idkelas`, `level`) VALUES
 (113, 13, 68, 'teacher'),
 (114, 14, 68, 'student'),
 (115, 13, 69, 'teacher'),
-(116, 14, 69, 'student');
+(116, 14, 69, 'student'),
+(117, 15, 70, 'teacher'),
+(118, 13, 70, 'student');
 
 --
 -- Indexes for dumped tables
@@ -206,7 +210,7 @@ ALTER TABLE `user_level`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `idkelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `idkelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `nilai`
@@ -224,19 +228,19 @@ ALTER TABLE `pengumpulan_tugas`
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user_level`
 --
 ALTER TABLE `user_level`
-  MODIFY `iduserlevel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `iduserlevel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
