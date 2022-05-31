@@ -42,15 +42,15 @@ $row = mysqli_fetch_assoc($result);
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-           <!----Nama kelas-->
-           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!----Nama kelas-->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav justify-content-start">
-                <li class="nav-item active">
-                    <a class="nav-link" href="forum.php">
-                    <b><?php echo $_SESSION['namakelas'] ?></b><br>
-                    <?php echo $_SESSION['bagian'] ?>
-                    <span class="sr-only">(current)</span></a>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="forum.php">
+                            <b><?php echo $_SESSION['namakelas'] ?></b><br>
+                            <?php echo $_SESSION['bagian'] ?>
+                            <span class="sr-only">(current)</span></a>
+                    </li>
                 </ul>
             </div>
             <!---tambah dan akun-->
@@ -79,36 +79,40 @@ $row = mysqli_fetch_assoc($result);
             </div>
         </div>
     </nav>
-    
-<!---SIDEBAR--->
-<?php include 'sidebar.php' ?>
+
+    <!---SIDEBAR--->
+    <?php include 'sidebar.php' ?>
 
     <!------ISI---->
     <div class="row">
         <div class="col-md-8">
-            <div class="container mt-3">
+            <div class="container mt-3 ms-5">
                 <h1><?php echo $row['nama']; ?></h1> <br>
                 <h5><?php echo $_SESSION['teacher']; ?>, Created at: <?php echo $row['create']; ?></h5>
                 <div class="row mt-3">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <h5>100 poin</h5>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <h5>Tenggat: <?php echo $row['date'] ?></h5>
                     </div>
                 </div>
                 <hr class="solid">
                 <h4><?php echo $row['description'] ?></h4>
+                <object class="mt-3" data="berkas/<?php echo $row['upload']; ?>" width="400" height="200"></object>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card mt-3" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
+                    <h5 class="card-title">Tugas Anda</h5>
                     <form action="" method="post">
-                        <label for="">Masukkan Jawaban Anda</label>
-                        <textarea name="jawaban" class="form-control mb-3" rows="5"></textarea>
-                        <button type="submit" name="kumpul" class=" btn btn-primary">Tandai sebagai selesai</button>
+                        <div align="center">
+                            <button type="submit" name="uploadtugas" class=" btn btn-light" style="padding: 12px 28px; border: 1px solid ">+ Tambah atau buat</button>
+                            <br>
+                            <button type="submit" name="kumpul" class=" btn btn-primary" style="padding: 5%;">Tandai sebagai selesai</button>
+                            <br>
+                        </div>
                     </form>
                 </div>
             </div>

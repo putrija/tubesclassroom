@@ -36,8 +36,8 @@ if (empty($_SESSION['username'])) {
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
-     <!----Nama kelas-->
-     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!----Nama kelas-->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav justify-content-start">
           <li class="nav-item active">
             <a class="nav-link" href="forum.php">
@@ -91,8 +91,8 @@ if (empty($_SESSION['username'])) {
     </div>
   </nav>
 
-<!---SIDEBAR--->
-<?php include 'sidebar.php' ?>
+  <!---SIDEBAR--->
+  <?php include 'sidebar.php' ?>
 
 
   <!-----Isi---->
@@ -101,13 +101,20 @@ if (empty($_SESSION['username'])) {
   <?php if ($_SESSION['level'] == 'teacher') : ?>
     <div class="create-tugas container py-2 bg-white col-8 ">
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <i class="fa-solid fa-plus"></i> Buat
-      </button>
+      <div class="dropdown">
+        <button class="btn btn-primary mx-3 " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-plus"></i> Buat
+        </button>
+        <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalTugas">Tugas</a></li>
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalPertanyaan">Pertanyaan</a></li>
+          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalMateri">Materi</a></li>
+        </ul>
+      </div>
     <?php endif; ?>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Tugas -->
+    <div class="modal fade" id="ModalTugas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" style="max-width: 700px;">
         <div class="modal-content">
           <div class="modal-header">
@@ -115,7 +122,7 @@ if (empty($_SESSION['username'])) {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <form action="" method="POST">
+          <form action="" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
 
               <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -132,19 +139,6 @@ if (empty($_SESSION['username'])) {
 
               <table class="table table-borderless">
 
-                <tr>
-                  <td>
-                    <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
-                      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
-                        <use xlink:href="#check-circle-fill" />
-                      </svg>
-                      <div>
-                        Data Berhasil di input
-                      </div>
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                  </td>
-                </tr>
 
                 <tr>
                   <td>
@@ -167,6 +161,13 @@ if (empty($_SESSION['username'])) {
                   </td>
                 </tr>
 
+                <tr>
+                  <td>
+                    <label for="upload">Upload</label>
+                    <b>File Upload</b> <input type="file" name="NamaFile">
+                  </td>
+                </tr>
+
               </table>
 
             </div>
@@ -183,115 +184,116 @@ if (empty($_SESSION['username'])) {
     </div>
 
     <!----List tugas untuk GURU-->
-<?php if ($_SESSION['level'] == 'teacher') : ?>
+    <?php if ($_SESSION['level'] == 'teacher') : ?>
 
-    <div class="list-tugas ">
-      <div class="accordion container py-2 bg-white col-8" id="accordionExample">
-        <!---list 1-->
-        <?php
-        $idkelas = $_SESSION['idkelas'];
-        $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
-        while ($data = mysqli_fetch_array($ambildata)) {
-        ?>
-          <div class="accordion-item px-4 py-3 my-4" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
-            <div class="d-flex justify-content-between">
-              <h6 class="accordion-header" id="headingOne">
-                <i class="fa-solid fa-clipboard-list me-3" style="font-size: 20px;"></i>
-                <?= $data['nama']; ?>
-              </h6>
-              <h6>
-                Tenggat : <?= $data['date']; ?>
-              </h6>
-            </div>
-            <!--isi collapse-->
-            <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                <div class="d-flex justify-content-between border-top">
-                  <div class="p-2">
-                    <?= $data['description']; ?>
+      <div class="list-tugas ">
+        <div class="accordion container py-2 bg-white col-8" id="accordionExample">
+          <!---list 1-->
+          <?php
+          $idkelas = $_SESSION['idkelas'];
+          $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
+          while ($data = mysqli_fetch_array($ambildata)) {
+          ?>
+            <div class="accordion-item px-4 py-3 my-4" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
+              <div class="d-flex justify-content-between">
+                <h6 class="accordion-header" id="headingOne">
+                  <i class="fa-solid fa-clipboard-list me-3" style="font-size: 20px;"></i>
+                  <?= $data['nama']; ?>
+                </h6>
+                <h6>
+                  Tenggat : <?= $data['date']; ?>
+                </h6>
+              </div>
+              <!--isi collapse-->
+              <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="d-flex justify-content-between border-top">
+                    <div class="p-2">
+                      <?= $data['description']; ?>
+                    </div>
+                    <div class="p-2">
+                      <ul class="list-inline">
+                        <li class="list-inline-item border-start px-3">
+                          <h3>1</h3> diserahkan
+                        </li>
+                        <li class="list-inline-item border-start px-3">
+                          <h3>2</h3> diberikan
+                        </li>
+                        <li class="list-inline-item border-start px-3">
+                          <h3>1</h3> dinilai
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                  <div class="p-2">
-                    <ul class="list-inline">
-                      <li class="list-inline-item border-start px-3">
-                        <h3>1</h3> diserahkan
-                      </li>
-                      <li class="list-inline-item border-start px-3">
-                        <h3>2</h3> diberikan
-                      </li>
-                      <li class="list-inline-item border-start px-3">
-                        <h3>1</h3> dinilai
-                      </li>
-                    </ul>
+                  <div class="see-tugas p-2 border-top p-3">
+                    <form action="" method="POST">
+                      <input type="hidden" value="<?= $data['id_tugas']; ?>" name="idtugas">
+                      <button name="btnisitugas" type="submit" class="btn btn-primary">
+                        lihat tugas
+                      </button>
+                    </form>
                   </div>
-                </div>
-                <div class="see-tugas p-2 border-top p-3">
-                <form action="" method="POST">
-                        <input type="hidden" value="<?= $data['id_tugas']; ?>" name="idtugas">
-                        <button name="btnisitugas" type="submit" class="btn btn-primary">
-                          lihat tugas 
-                        </button>
-                </form>
-                </div>
 
+                </div>
               </div>
             </div>
-          </div>
 
-        <?php } ?>
+          <?php } ?>
 
-      </div>
-    </div>
-
-<?php endif; ?>
-
-<!----List tugas untuk MURID-->
-<?php if ($_SESSION['level'] == 'student') : ?>
-
-<div class="list-tugas ">
-  <div class="accordion container py-2 bg-white col-8" id="accordionExample">
-    <!---list 1-->
-    <?php
-    $idkelas = $_SESSION['idkelas'];
-    $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
-    while ($data = mysqli_fetch_array($ambildata)) {
-    ?>
-      <div class="accordion-item px-4 py-3 my-4" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
-        <div class="d-flex justify-content-between">
-          <h6 class="accordion-header" id="headingOne">
-            <i class="fa-solid fa-clipboard-list me-3" style="font-size: 20px;"></i>
-            <?= $data['nama']; ?>
-          </h6>
-          <h6>
-            Tenggat : <?= $data['date']; ?>
-          </h6>
-        </div>
-        <!--isi collapse-->
-        <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <div class="d-flex justify-content-between border-top">
-              <div class="p-2">
-                <?= $data['description']; ?>
-              </div>
-            </div>
-            <div class="see-tugas p-2 border-top p-3">
-            <form action="" method="POST">
-                    <input type="hidden" value="<?= $data['id_tugas']; ?>" name="idtugas">
-                    <button name="btnisitugas" type="submit" class="btn btn-primary">
-                       lihat tugas 
-                    </button>
-            </form>
-            </div>
-
-          </div>
         </div>
       </div>
 
-    <?php } ?>
+    <?php endif; ?>
 
-  </div>
-</div>
+    <!----List tugas untuk MURID-->
+    <?php if ($_SESSION['level'] == 'student') : ?>
 
-<?php endif; ?>
+      <div class="list-tugas ">
+        <div class="accordion container py-2 bg-white col-8" id="accordionExample">
+          <!---list 1-->
+          <?php
+          $idkelas = $_SESSION['idkelas'];
+          $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
+          while ($data = mysqli_fetch_array($ambildata)) {
+          ?>
+            <div class="accordion-item px-4 py-3 my-4" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
+              <div class="d-flex justify-content-between">
+                <h6 class="accordion-header" id="headingOne">
+                  <i class="fa-solid fa-clipboard-list me-3" style="font-size: 20px;"></i>
+                  <?= $data['nama']; ?>
+                </h6>
+                <h6>
+                  Tenggat : <?= $data['date']; ?>
+                </h6>
+              </div>
+              <!--isi collapse-->
+              <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="d-flex justify-content-between border-top">
+                    <div class="p-2">
+                      <?= $data['description']; ?>
+                    </div>
+                  </div>
+                  <div class="see-tugas p-2 border-top p-3">
+                    <form action="" method="POST">
+                      <input type="hidden" value="<?= $data['id_tugas']; ?>" name="idtugas">
+                      <button name="btnisitugas" type="submit" class="btn btn-primary">
+                        lihat tugas
+                      </button>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          <?php } ?>
+
+        </div>
+      </div>
+
+    <?php endif; ?>
+
 
 
 
@@ -302,7 +304,16 @@ if (empty($_SESSION['username'])) {
       $date = $_POST['date'];
       $idkelas = $_SESSION['idkelas'];
 
-      $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, date) values('$idkelas','$nama', '$description', '$date')");
+      $direktori = "berkas/";
+      //random angka agar foto dengan nama yang sama tidak terganti
+      $file_name = rand(1000, 10000) . "-" . $_FILES['NamaFile']['name'];
+      move_uploaded_file($_FILES['NamaFile']['tmp_name'], $direktori . $file_name);
+
+
+      $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date) values('$idkelas','$nama', '$description', '$file_name', '$date')");
+
+
+
 
       echo "<script>location='tugaskelas.php';</script>";
     }
@@ -311,14 +322,14 @@ if (empty($_SESSION['username'])) {
 
     <?php
     if (isset($_POST['btnisitugas'])) {
-    $_SESSION['idtugas'] = $_POST['idtugas'];
-    if ($_SESSION['level'] == 'teacher') {
-      echo "<script>window.location.href='tugassiswa.php';</script>";
-    } else {
-      echo "<script>window.location.href='isitugas.php';</script>";
+      $_SESSION['idtugas'] = $_POST['idtugas'];
+      if ($_SESSION['level'] == 'teacher') {
+        echo "<script>window.location.href='tugassiswa.php';</script>";
+      } else {
+        echo "<script>window.location.href='isitugas.php';</script>";
+      }
     }
-  }
-  ?>
+    ?>
 
 
 
