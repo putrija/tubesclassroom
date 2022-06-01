@@ -343,29 +343,33 @@ if (empty($_SESSION['username'])) {
               <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <div class="d-flex justify-content-between border-top">
-                          <div class="p-2">
-                            <?= $data['description']; ?>
-                          </div>
-                          <!---Data Tugas--->
+                    <div class="p-2">
+                      <?= $data['description']; ?>
+                    </div>
+                    <!---Data Tugas--->
 
-                          <!---DITUGASKAN LIST--->
-                           <?php
-                            $idkelas = $_SESSION['idkelas'];
-                            $idtugas = $data['id_tugas'];
-                            $dataditugaskan = mysqli_query($connection,
-                            "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                    <!---DITUGASKAN LIST--->
+                    <?php
+                    $idkelas = $_SESSION['idkelas'];
+                    $idtugas = $data['id_tugas'];
+                    $dataditugaskan = mysqli_query(
+                      $connection,
+                      "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                               FROM user AS u 
                               JOIN user_level AS ul 
                               ON u.iduser=ul.iduser 
                               JOIN kelas AS k 
                               ON ul.idkelas=k.idkelas 
                               WHERE ul.idkelas='$idkelas' AND ul.level='student' 
-                              ");
-                            ?><!--Batas--->
-                            <!---DISERAHKAN LIST--->
-                            <?php
-                            $datadiserahkan = mysqli_query($connection,
-                              "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                              "
+                    );
+                    ?>
+                    <!--Batas--->
+                    <!---DISERAHKAN LIST--->
+                    <?php
+                    $datadiserahkan = mysqli_query(
+                      $connection,
+                      "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                                 FROM user AS u 
                                 JOIN user_level AS ul 
                                 ON u.iduser=ul.iduser 
@@ -376,12 +380,15 @@ if (empty($_SESSION['username'])) {
                                 JOIN jawaban as j
                                 ON u.iduser=j.iduser
                                 WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
-                                AND j.status='diserahkan'");
-                            ?><!--Batas--->
-                            <!---DINILAI LIST--->
-                            <?php
-                              $datadinilai = mysqli_query($connection,
-                              "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                                AND j.status='diserahkan'"
+                    );
+                    ?>
+                    <!--Batas--->
+                    <!---DINILAI LIST--->
+                    <?php
+                    $datadinilai = mysqli_query(
+                      $connection,
+                      "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                                 FROM user AS u 
                                 JOIN user_level AS ul 
                                 ON u.iduser=ul.iduser 
@@ -392,24 +399,26 @@ if (empty($_SESSION['username'])) {
                                 JOIN jawaban as j
                                 ON u.iduser=j.iduser
                                 WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
-                                AND j.status='dinilai'");
-                              ?><!--Batas--->
+                                AND j.status='dinilai'"
+                    );
+                    ?>
+                    <!--Batas--->
 
-                          <div class="p-2">
-                            <ul class="list-inline">
-                              <li class="list-inline-item border-start px-3">
-                                <h3> <?= $dataditugaskan->num_rows
-                                      - $datadiserahkan->num_rows
-                                      - $datadinilai->num_rows; ?> </h3>  ditugaskan
-                              </li>
-                              <li class="list-inline-item border-start px-3">
-                                <h3><?= $datadiserahkan->num_rows; ?></h3>  diserahkan
-                              </li>
-                              <li class="list-inline-item border-start px-3">
-                                <h3><?= $datadinilai->num_rows; ?></h3>  dinilai
-                              </li>
-                            </ul>
-                          </div>
+                    <div class="p-2">
+                      <ul class="list-inline">
+                        <li class="list-inline-item border-start px-3">
+                          <h3> <?= $dataditugaskan->num_rows
+                                  - $datadiserahkan->num_rows
+                                  - $datadinilai->num_rows; ?> </h3> ditugaskan
+                        </li>
+                        <li class="list-inline-item border-start px-3">
+                          <h3><?= $datadiserahkan->num_rows; ?></h3> diserahkan
+                        </li>
+                        <li class="list-inline-item border-start px-3">
+                          <h3><?= $datadinilai->num_rows; ?></h3> dinilai
+                        </li>
+                      </ul>
+                    </div>
                   </div>
 
                   <div class="see-tugas p-2 border-top p-3">
@@ -501,7 +510,7 @@ if (empty($_SESSION['username'])) {
       move_uploaded_file($_FILES['NamaFile']['tmp_name'], $direktori . $file_name);
 
 
-      $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date) values('$idkelas','$nama', '$description', '$file_name', '$date')");
+      $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date, jenis) values('$idkelas','$nama', '$description', '$file_name', '$date', 'tugas')");
 
       echo "<script>location='tugaskelas.php';</script>";
     }
@@ -519,7 +528,7 @@ if (empty($_SESSION['username'])) {
       $file_name1 = rand(1000, 10000) . "-" . $_FILES['NamaFile1']['name'];
       move_uploaded_file($_FILES['NamaFile1']['tmp_name'], $direktori1 . $file_name1);
 
-      $buatPertanyaan = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date) values('$idkelas','$nama1', '$description1', '$file_name1', '$date')");
+      $buatPertanyaan = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date, jenis) values('$idkelas','$nama1', '$description1', '$file_name1', '$date', 'pertanyaan')");
 
       echo "<script>location='tugaskelas.php';</script>";
     }
@@ -538,7 +547,7 @@ if (empty($_SESSION['username'])) {
       move_uploaded_file($_FILES['NamaFile2']['tmp_name'], $direktori2 . $file_name2);
 
 
-      $buatMateri = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload) values('$idkelas','$nama2', '$description2', '$file_name2')");
+      $buatMateri = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, jenis) values('$idkelas','$nama2', '$description2', '$file_name2', 'materi')");
 
       echo "<script>location='tugaskelas.php';</script>";
     }

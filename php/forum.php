@@ -202,7 +202,7 @@ if (empty($_SESSION['username'])) {
                 <form action="" method="POST">
                   <input type="hidden" value="<?= $row['id_tugas']; ?>" name="idtugas">
                   <button name="btnisitugas" type="submit">
-                    <h3 class="fs-5"><?php echo $_SESSION['teacher'] ?> memposting tugas baru : <?= $row['nama']; ?> </h3>
+                    <h3 class="fs-5"><?php echo $_SESSION['teacher'] ?> memposting <?= $row['jenis']; ?> baru : <?= $row['nama']; ?> </h3>
                   </button>
                 </form>
               </div>

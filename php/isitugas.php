@@ -4,9 +4,10 @@ error_reporting(0);
 if (empty($_SESSION['username'])) {
     header("Location: ../html/error.html");
 }
-
+$idKelas = $_SESSION['idkelas'];
+$idUser = $_SESSION['iduser'];
 $idtugas = $_SESSION['idtugas'];
-$query = "SELECT * FROM tugas WHERE id_tugas = $idtugas";
+$query = "SELECT * FROM tugas AS t INNER JOIN jawaban AS j WHERE t.id_tugas = $idtugas AND j.iduser = $idUser  AND t.idkelas = $idKelas";
 $result = mysqli_query($connection, $query);
 $row = mysqli_fetch_assoc($result);
 
@@ -121,59 +122,85 @@ if (isset($_POST["update"])) {
                 </div>
 
                 <hr class="solid">
+
+                <h4><?php echo $row['status'] ?></h4>
                 <h4><?php echo $row['description'] ?></h4>
                 <object class="mt-3" data="berkas/<?php echo $row['upload']; ?>" width="400" height="200"></object>
+                <?php
+                if ($row['jenis'] == 'pertanyaan') :
+                ?>
+                    <form action="" method="POST">
+                        <div class="card mt-3" style="width: 90%;">
+                            <div class="card-body">
+                                <h5 class="card-title">Jawaban Anda</h5>
+                                <textarea name="jawaban_pertanyaan" id="jawaban_pertanyaan" cols="100%" rows="7"></textarea>
+                                <button type="submit" class="btn btn-primary" name="btnserahkan">Serahkan</button>
+                            </div>
+                        </div>
+                    </form>
+                <?php endif; ?>
             </div>
         </div>
 
         <div class="col-md-4">
 
-            <div class="sbmt-task px-3 my-4">
-                <div class="box-sbmt border shadow px-3 py-3">
+            <?php
+            $jenis = $row['jenis'];
+            if ($jenis == 'tugas') :
+            ?>
+                <div class="sbmt-task px-3 my-4">
+                    <div class="box-sbmt border shadow px-3 py-3">
+                        <h5 class="card-title">Tugas Anda</h5>
+                        <?php
 
-                    <?php
-                    $userID = $_SESSION['iduser'];
-                    $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas");
-                    $checkJawaban = mysqli_num_rows($check);
-                    if ($checkJawaban > 0) {
-                        $jawaban = show("SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas")[0];
-                        $jawabanID = $jawaban["id"];
-                    }
-                    ?>
+                        if ($row['status'] == 'diserahkan') :
+                        ?>
+                            <h5 class="card-title"><?php echo $row['status'] ?></h5>
+                            <p><?php echo $row['jwbn_siswa'] ?></p>
+                            <form action="" method="POST"><button type="submit" name="btnbatal">Batalkan pengiriman</button></form>
 
-                    <?php if ($checkJawaban == 0) : ?>
-                        <form method="POST" enctype="multipart/form-data">
-                            <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
-                            <input type="file" id="formFile" class="form-control-sm form-control" name="file">
-                            <input type="hidden" name="tugas" value="<?= $idtugas ?>">
-                            <input type="hidden" name="user" value="<?= $userID ?>">
-                            <input type="hidden" name="status" value="diserahkan">
-                            <button class="btn mx-auto btn-outline-primary my-2" name="upload">Upload<i class="mx-2 fas fa-file-upload"></i></button>
-                        </form>
-                    <?php else : ?>
-                        <form method="POST" enctype="multipart/form-data">
-                            <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
-                            <input type="file" id="formFile" class="form-control-sm form-control" name="file">
-                            <input type="hidden" name="jawaban" value="<?= $jawabanID ?>">
-                            <button class="btn mx-auto btn-primary my-2" name="update">Update<i class="mx-2 fas fa-file-upload"></i></button>
-                        </form>
-                        <!-- ?= var_dump($jawabanID)?> -->
-                    <?php endif; ?>
+                        <?php
+                        elseif ($row['status'] == 'dinilai') :
+                        ?>
+                            <h5 class="card-title"><?php echo $row['status'] ?></h5>
+                            <p><?php echo $row['jwbn_siswa'] ?></p>
 
+                        <?php
+                        else :
+                        ?>
+                            <?php
+                            $userID = $_SESSION['iduser'];
+                            $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas");
+                            $checkJawaban = mysqli_num_rows($check);
+                            if ($checkJawaban > 0) {
+                                $jawaban = show("SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas")[0];
+                                $jawabanID = $jawaban["id"];
+                            }
+                            ?>
+
+                            <?php if ($checkJawaban == 0) : ?>
+                                <form method="POST" enctype="multipart/form-data">
+                                    <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
+                                    <input type="file" id="formFile" class="form-control-sm form-control" name="file">
+                                    <input type="hidden" name="tugas" value="<?= $idtugas ?>">
+                                    <input type="hidden" name="user" value="<?= $userID ?>">
+                                    <input type="hidden" name="status" value="diserahkan">
+                                    <button class="btn mx-auto btn-outline-primary my-2" name="upload">Upload Tugas<i class="mx-2 fas fa-file-upload"></i></button>
+                                </form>
+                            <?php else : ?>
+                                <form method="POST" enctype="multipart/form-data">
+                                    <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
+                                    <input type="file" id="formFile" class="form-control-sm form-control" name="file">
+                                    <input type="hidden" name="jawaban" value="<?= $jawabanID ?>">
+                                    <button class="btn mx-auto btn-primary my-2" name="update">Update<i class="mx-2 fas fa-file-upload"></i></button>
+                                </form>
+                                <!-- ?= var_dump($jawabanID)?> -->
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
 
-            <div class="card mt-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Tugas Anda</h5>
-                    <form action="" method="post">
-                        <div align="center">
-                            <button type="submit" name="selesai" class=" btn btn-primary" style="padding: 5%;">Tandai sebagai selesai</button>
-                            <br>
-                        </div>
-                    </form>
-                </div>
-            </div>
 
         </div>
 
@@ -184,6 +211,18 @@ if (isset($_POST["update"])) {
     <!----FUNGSI PHP--->
 
     <?php
+    ?>
+
+    <?php
+    if (isset($_POST['btnserahkan'])) {
+        $iduser = $_SESSION['iduser'];
+        $jawaban = $_POST['jawaban_pertanyaan'];
+
+        $insertjawaban = mysqli_query($connection, "INSERT INTO jawaban (iduser, id_tugas, jwbn_siswa, status) values('$iduser', '$idtugas', '$jawaban', 'diserahkan')");
+    }
+    ?>
+
+    <?php
     if (isset($_POST['selesai'])) {
         $iduser = $_SESSION['iduser'];
 
@@ -192,7 +231,7 @@ if (isset($_POST["update"])) {
         $file_name = rand(1000, 10000) . "-" . $_FILES['upload_tugas']['name'];
         move_uploaded_file($_FILES['upload_tugas']['tmp_name'], $direktori . $file_name);
 
-        $insertjawaban = mysqli_query($connection, "INSERT INTO pengumpulan_tugas (iduser, id_tugas, jwbn_siswa) values('$iduser', '$idtugas', '$jawaban')");
+        $insertjawaban = mysqli_query($connection, "INSERT INTO jawaban (iduser, id_tugas, jwbn_siswa, status) values('$iduser', '$idtugas', '$jawaban', 'diserahkan')");
 
         echo "<script>location='isitugas.php'</script>";
     }
