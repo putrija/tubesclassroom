@@ -99,7 +99,7 @@ if (empty($_SESSION['username'])) {
 
   <!---Buat tugas-->
   <?php if ($_SESSION['level'] == 'teacher') : ?>
-    <div class="create-tugas container py-2 bg-white col-8 ">
+    <div class="create-tugas container py-2 bg-white col-7 ">
       <!-- Button trigger modal -->
       <div class="dropdown">
         <button class="btn btn-primary mx-3 " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -197,13 +197,18 @@ if (empty($_SESSION['username'])) {
             <div class="accordion-item px-4 py-3 my-4" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
               <div class="d-flex justify-content-between">
                 <h6 class="accordion-header" id="headingOne">
-                  <i class="fa-solid fa-clipboard-list me-3" style="font-size: 20px;"></i>
-                  <?= $data['nama']; ?>
+                <span class="fa-stack" style="font-size: 18px;">
+                  <i class="fa-solid fa-circle fa-stack-2x text-primary"></i>
+                  <i class="fa-solid fa-clipboard-list fa-stack-1x text-white"></i>
+                </span>
+                  <?= $data['nama']; ?><!--nama tugas--->
                 </h6>
                 <h6>
-                  Tenggat : <?= $data['date']; ?>
+                  <?php $tengat = date('d M',strtotime($data["date"]));?>
+                  Tenggat : <?= $tengat ?>
                 </h6>
               </div>
+
               <!--isi collapse-->
               <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
@@ -214,13 +219,13 @@ if (empty($_SESSION['username'])) {
                     <div class="p-2">
                       <ul class="list-inline">
                         <li class="list-inline-item border-start px-3">
-                          <h3>1</h3> diserahkan
+                          <h3>0</h3> diserahkan
                         </li>
                         <li class="list-inline-item border-start px-3">
-                          <h3>2</h3> diberikan
+                          <h3>0</h3> diberikan
                         </li>
                         <li class="list-inline-item border-start px-3">
-                          <h3>1</h3> dinilai
+                          <h3>0</h3> dinilai
                         </li>
                       </ul>
                     </div>
@@ -228,7 +233,7 @@ if (empty($_SESSION['username'])) {
                   <div class="see-tugas p-2 border-top p-3">
                     <form action="" method="POST">
                       <input type="hidden" value="<?= $data['id_tugas']; ?>" name="idtugas">
-                      <button name="btnisitugas" type="submit" class="btn btn-primary">
+                      <button name="btnisitugas" type="submit" class="btn text-primary">
                         lihat tugas
                       </button>
                     </form>
@@ -259,13 +264,18 @@ if (empty($_SESSION['username'])) {
             <div class="accordion-item px-4 py-3 my-4" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
               <div class="d-flex justify-content-between">
                 <h6 class="accordion-header" id="headingOne">
-                  <i class="fa-solid fa-clipboard-list me-3" style="font-size: 20px;"></i>
-                  <?= $data['nama']; ?>
+                <span class="fa-stack" style="font-size: 18px;">
+                  <i class="fa-solid fa-circle fa-stack-2x text-secondary"></i>
+                  <i class="fa-solid fa-clipboard-list fa-stack-1x text-white"></i>
+                </span>
+                  <?= $data['nama']; ?> <!--nama tugas--->
                 </h6>
                 <h6>
-                  Tenggat : <?= $data['date']; ?>
+                  <?php $tengat = date('d M',strtotime($data["date"]));?>
+                  Tenggat : <?= $tengat ?>
                 </h6>
               </div>
+
               <!--isi collapse-->
               <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
@@ -277,7 +287,7 @@ if (empty($_SESSION['username'])) {
                   <div class="see-tugas p-2 border-top p-3">
                     <form action="" method="POST">
                       <input type="hidden" value="<?= $data['id_tugas']; ?>" name="idtugas">
-                      <button name="btnisitugas" type="submit" class="btn btn-primary">
+                      <button name="btnisitugas" type="submit" class="btn text-primary">
                         lihat tugas
                       </button>
                     </form>
