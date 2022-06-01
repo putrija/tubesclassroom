@@ -174,7 +174,136 @@ if (empty($_SESSION['username'])) {
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" name="btncreate" class="btn btn-primary">Create</button>
+              <button type="submit" name="btncreateTugas" class="btn btn-primary">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Pertanyaan -->
+    <div class="modal fade" id="ModalPertanyaan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="max-width: 700px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form action="" method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
+
+              <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </symbol>
+                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                </symbol>
+                <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </symbol>
+              </svg>
+
+              <table class="table table-borderless">
+
+
+                <tr>
+                  <td>
+                    <label for="nama">Pertanyaan</label>
+                    <input class="form-control" placeholder="Masukkan Judul Pertanyaan" type="text" name="nama1" id="nama1">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label for="description1">Deskripsi Tugas</label>
+                    <textarea class="form-control" placeholder="Masukkan Deskripsi Pertanyaan" id="description1" name="description1"></textarea>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label for="date1">Tanggal Deadline</label>
+                    <input class="form-control" type="date" id="date1" name="date1">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label for="upload1">Upload</label>
+                    <b>File Upload</b> <input type="file" name="NamaFile1">
+                  </td>
+                </tr>
+
+              </table>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" name="btncreatePertanyaan" class="btn btn-primary">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Materi -->
+    <div class="modal fade" id="ModalMateri" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="max-width: 700px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form action="" method="POST" enctype="multipart/form-data">
+            <div class="modal-body">
+
+              <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </symbol>
+                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                </symbol>
+                <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </symbol>
+              </svg>
+
+              <table class="table table-borderless">
+
+
+                <tr>
+                  <td>
+                    <label for="nama">Nama Materi</label>
+                    <input class="form-control" placeholder="Masukkan Judul Materi" type="text" name="nama2" id="nama2">
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label for="description">Deskripsi Tugas</label>
+                    <textarea class="form-control" placeholder="Masukkan Deskripsi Materi" id="description2" name="description2"></textarea>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <label for="upload">Upload</label>
+                    <b>File Upload</b> <input type="file" name="NamaFile2">
+                  </td>
+                </tr>
+
+              </table>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" name="btncreateMateri" class="btn btn-primary">Create</button>
             </div>
           </form>
         </div>
@@ -197,14 +326,15 @@ if (empty($_SESSION['username'])) {
             <div class="accordion-item px-4 py-3 my-4" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
               <div class="d-flex justify-content-between">
                 <h6 class="accordion-header" id="headingOne">
-                <span class="fa-stack" style="font-size: 18px;">
-                  <i class="fa-solid fa-circle fa-stack-2x text-primary"></i>
-                  <i class="fa-solid fa-clipboard-list fa-stack-1x text-white"></i>
-                </span>
-                  <?= $data['nama']; ?><!--nama tugas--->
+                  <span class="fa-stack" style="font-size: 18px;">
+                    <i class="fa-solid fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fa-solid fa-clipboard-list fa-stack-1x text-white"></i>
+                  </span>
+                  <?= $data['nama']; ?>
+                  <!--nama tugas--->
                 </h6>
                 <h6>
-                  <?php $tengat = date('d M',strtotime($data["date"]));?>
+                  <?php $tengat = date('d M', strtotime($data["date"])); ?>
                   Tenggat : <?= $tengat ?>
                 </h6>
               </div>
@@ -264,14 +394,15 @@ if (empty($_SESSION['username'])) {
             <div class="accordion-item px-4 py-3 my-4" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
               <div class="d-flex justify-content-between">
                 <h6 class="accordion-header" id="headingOne">
-                <span class="fa-stack" style="font-size: 18px;">
-                  <i class="fa-solid fa-circle fa-stack-2x text-secondary"></i>
-                  <i class="fa-solid fa-clipboard-list fa-stack-1x text-white"></i>
-                </span>
-                  <?= $data['nama']; ?> <!--nama tugas--->
+                  <span class="fa-stack" style="font-size: 18px;">
+                    <i class="fa-solid fa-circle fa-stack-2x text-secondary"></i>
+                    <i class="fa-solid fa-clipboard-list fa-stack-1x text-white"></i>
+                  </span>
+                  <?= $data['nama']; ?>
+                  <!--nama tugas--->
                 </h6>
                 <h6>
-                  <?php $tengat = date('d M',strtotime($data["date"]));?>
+                  <?php $tengat = date('d M', strtotime($data["date"])); ?>
                   Tenggat : <?= $tengat ?>
                 </h6>
               </div>
@@ -305,10 +436,8 @@ if (empty($_SESSION['username'])) {
     <?php endif; ?>
 
 
-
-
     <?php
-    if (isset($_POST['btncreate'])) {
+    if (isset($_POST['btncreateTugas'])) {
       $nama = $_POST['nama'];
       $description = $_POST['description'];
       $date = $_POST['date'];
@@ -322,12 +451,45 @@ if (empty($_SESSION['username'])) {
 
       $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date) values('$idkelas','$nama', '$description', '$file_name', '$date')");
 
+      echo "<script>location='tugaskelas.php';</script>";
+    }
+    ?>
 
+    <?php
+    if (isset($_POST['btncreatePertanyaan'])) {
+      $nama = $_POST['nama1'];
+      $description = $_POST['description1'];
+      $date = $_POST['date1'];
+      $idkelas = $_SESSION['idkelas'];
 
+      $direktori = "berkas/";
+      //random angka agar foto dengan nama yang sama tidak terganti
+      $file_name = rand(1000, 10000) . "-" . $_FILES['NamaFile1']['name'];
+      move_uploaded_file($_FILES['NamaFile1']['tmp_name'], $direktori . $file_name);
+
+      $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date) values('$idkelas','$nama', '$description', '$file_name', '$date')");
 
       echo "<script>location='tugaskelas.php';</script>";
     }
+    ?>
 
+    <?php
+    if (isset($_POST['btncreateMateri'])) {
+      $nama = $_POST['nama'];
+      $description = $_POST['description'];
+      $date = $_POST['date'];
+      $idkelas = $_SESSION['idkelas'];
+
+      $direktori = "berkas/";
+      //random angka agar foto dengan nama yang sama tidak terganti
+      $file_name = rand(1000, 10000) . "-" . $_FILES['NamaFile']['name'];
+      move_uploaded_file($_FILES['NamaFile']['tmp_name'], $direktori . $file_name);
+
+
+      $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date) values('$idkelas','$nama', '$description', '$file_name', '$date')");
+
+      echo "<script>location='tugaskelas.php';</script>";
+    }
     ?>
 
     <?php
