@@ -115,6 +115,7 @@ if(isset($_POST["nilaiTugas"])) {
           <div class="my-4 list-student">
             <?php
               $idkelas = $_SESSION['idkelas'];
+              $idtugas = $row['id_tugas'];
               $datadiserahkan = mysqli_query($connection,
                "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                 FROM user AS u 
@@ -126,7 +127,7 @@ if(isset($_POST["nilaiTugas"])) {
                 ON k.idkelas=t.idkelas 
                 JOIN jawaban as j
                 ON u.iduser=j.iduser
-                WHERE ul.idkelas='$idkelas' AND ul.level='student'
+                WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
                 AND j.status='diserahkan'");
               ?><!--Batas--->
               <h6>Diserahkan  <?= $datadiserahkan->num_rows; ?> </h6>
@@ -154,6 +155,7 @@ if(isset($_POST["nilaiTugas"])) {
           <div class="my-4 list-student">
             <?php
               $idkelas = $_SESSION['idkelas'];
+              $idtugas = $row['id_tugas'];
               $datadinilai = mysqli_query($connection,
                "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                 FROM user AS u 
@@ -165,7 +167,7 @@ if(isset($_POST["nilaiTugas"])) {
                 ON k.idkelas=t.idkelas 
                 JOIN jawaban as j
                 ON u.iduser=j.iduser
-                WHERE ul.idkelas='$idkelas' AND ul.level='student'
+                WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
                 AND j.status='dinilai'");
               ?><!--Batas--->
               <h6>Dinilai  <?= $datadinilai->num_rows; ?> </h6>
@@ -193,6 +195,7 @@ if(isset($_POST["nilaiTugas"])) {
           <div class="my-4 list-student">
               <?php
                 $idkelas = $_SESSION['idkelas'];
+                $idtugas = $row['id_tugas'];
                 $dataditugaskan = mysqli_query($connection,
                 "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                   FROM user AS u 
@@ -200,7 +203,7 @@ if(isset($_POST["nilaiTugas"])) {
                   ON u.iduser=ul.iduser 
                   JOIN kelas AS k 
                   ON ul.idkelas=k.idkelas 
-                  WHERE ul.idkelas='$idkelas' AND ul.level='student'
+                  WHERE ul.idkelas='$idkelas' AND ul.level='student' 
                   ");
                 ?><!--Batas--->
                 <h6>ditugaskan <?= $dataditugaskan->num_rows - $datadiserahkan->num_rows -$datadinilai->num_rows; ?> </h6>
@@ -260,7 +263,8 @@ if(isset($_POST["nilaiTugas"])) {
             <div class="row">
 
                 <?php
-                $ambildata = mysqli_query($connection, "SELECT * FROM jawaban AS j INNER JOIN user AS u ON j.iduser = u.iduser");
+                $idtugas = $row['id_tugas'];
+                $ambildata = mysqli_query($connection, "SELECT * FROM jawaban AS j INNER JOIN user AS u ON j.iduser = u.iduser WHERE j.id_tugas = $idtugas");
                 while ($row = mysqli_fetch_assoc($ambildata)) {
                 ?>
                   <div class="col-lg-3 my-2">
