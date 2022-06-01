@@ -11,21 +11,20 @@ $result = mysqli_query($connection, $query);
 $row = mysqli_fetch_assoc($result);
 
 //Upload tugas
-if(isset($_POST["upload"])) {
-    
+if (isset($_POST["upload"])) {
+
     //var_dump($_FILES);
-    if(addJawaban($_POST) > 0) {
+    if (addJawaban($_POST) > 0) {
         header("Location: isitugas.php");
     }
-
 }
 
- if(isset($_POST["update"])) {
+if (isset($_POST["update"])) {
 
-     if(updateJawaban($_POST) > 0) {
-         header("Location: isitugas.php");
-     }
- }
+    if (updateJawaban($_POST) > 0) {
+        header("Location: isitugas.php");
+    }
+}
 
 ?>
 
@@ -103,20 +102,21 @@ if(isset($_POST["upload"])) {
 
     <!------ISI---->
     <div class="row">
-        
+
         <div class="col-md-8">
             <div class="container mt-3 ms-5">
-                <h1><?php echo $row['nama']; ?></h1> <br> <!--nama tugas--->
-                <?php $date = date('d M Y',strtotime($row["create"]));?>
-                <h5><?php echo $_SESSION['teacher']; ?>, dibuat pada: <?=$date?> </h5>
-               
+                <h1><?php echo $row['nama']; ?></h1> <br>
+                <!--nama tugas--->
+                <?php $date = date('d M Y', strtotime($row["create"])); ?>
+                <h5><?php echo $_SESSION['teacher']; ?>, dibuat pada: <?= $date ?> </h5>
+
                 <div class="row mt-3">
                     <div class="col-md-9">
                         <h5>100 poin</h5>
                     </div>
                     <div class="col-md-3">
-                        <?php $tengat = date('d M',strtotime($row["date"]));?>
-                        <h5>Tenggat: <?=$tengat?> </h5>
+                        <?php $tengat = date('d M', strtotime($row["date"])); ?>
+                        <h5>Tenggat: <?= $tengat ?> </h5>
                     </div>
                 </div>
 
@@ -128,64 +128,62 @@ if(isset($_POST["upload"])) {
 
         <div class="col-md-4">
 
-                    <div class="sbmt-task px-3 my-4">
-                        <div class="box-sbmt border shadow px-3 py-3">
+            <div class="sbmt-task px-3 my-4">
+                <div class="box-sbmt border shadow px-3 py-3">
 
-                            <?php
-                            $userID = $_SESSION['iduser'];
-                            $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas");
-                            $checkJawaban = mysqli_num_rows($check);
-                            if($checkJawaban > 0 ) {
-                                $jawaban = show("SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas")[0];
-                                $jawabanID = $jawaban["id"];
-                             }  
-                            ?>
+                    <?php
+                    $userID = $_SESSION['iduser'];
+                    $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas");
+                    $checkJawaban = mysqli_num_rows($check);
+                    if ($checkJawaban > 0) {
+                        $jawaban = show("SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas")[0];
+                        $jawabanID = $jawaban["id"];
+                    }
+                    ?>
 
-                            <?php if($checkJawaban == 0) : ?>
-                                <form method="POST" enctype="multipart/form-data">
-                                    <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
-                                    <input  type="file" id="formFile" class="form-control-sm form-control" name="file">
-                                    <input type="hidden" name="tugas" value="<?=$idtugas?>">
-                                    <input type="hidden" name="user" value="<?=$userID?>">
-                                    <input type="hidden" name="status" value="diserahkan">
-                                    <button class="btn mx-auto btn-outline-primary my-2" name="upload">Upload<i class="mx-2 fas fa-file-upload"></i></button>
-                                </form>
-                            <?php else : ?>
-                                <form method="POST" enctype="multipart/form-data">
-                                    <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
-                                    <input  type="file" id="formFile" class="form-control-sm form-control" name="file">
-                                    <input type="hidden" name="jawaban" value="<?=$jawabanID?>">
-                                    <button class="btn mx-auto btn-primary my-2" name="update">Update<i class="mx-2 fas fa-file-upload"></i></button>
-                                </form>
-                            <!-- ?= var_dump($jawabanID)?> -->
-                            <?php endif ; ?>
-                     
-                        </div>
-                    </div>
+                    <?php if ($checkJawaban == 0) : ?>
+                        <form method="POST" enctype="multipart/form-data">
+                            <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
+                            <input type="file" id="formFile" class="form-control-sm form-control" name="file">
+                            <input type="hidden" name="tugas" value="<?= $idtugas ?>">
+                            <input type="hidden" name="user" value="<?= $userID ?>">
+                            <input type="hidden" name="status" value="diserahkan">
+                            <button class="btn mx-auto btn-outline-primary my-2" name="upload">Upload<i class="mx-2 fas fa-file-upload"></i></button>
+                        </form>
+                    <?php else : ?>
+                        <form method="POST" enctype="multipart/form-data">
+                            <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
+                            <input type="file" id="formFile" class="form-control-sm form-control" name="file">
+                            <input type="hidden" name="jawaban" value="<?= $jawabanID ?>">
+                            <button class="btn mx-auto btn-primary my-2" name="update">Update<i class="mx-2 fas fa-file-upload"></i></button>
+                        </form>
+                        <!-- ?= var_dump($jawabanID)?> -->
+                    <?php endif; ?>
+
+                </div>
+            </div>
 
             <div class="card mt-3" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Tugas Anda</h5>
                     <form action="" method="post">
                         <div align="center">
-                            <button type="file" name="upload_tugas" class="btn btn-light" style="padding: 12px 28px; border: 1px solid ">+ Tambah atau buat</button>
-                            <br>
                             <button type="submit" name="selesai" class=" btn btn-primary" style="padding: 5%;">Tandai sebagai selesai</button>
                             <br>
                         </div>
                     </form>
                 </div>
             </div>
-        
+
         </div>
 
     </div>
 
 
 
-<!----FUNGSI PHP--->
+    <!----FUNGSI PHP--->
 
-<?php
+    <?php
     if (isset($_POST['selesai'])) {
         $iduser = $_SESSION['iduser'];
 
@@ -199,7 +197,7 @@ if(isset($_POST["upload"])) {
         echo "<script>location='isitugas.php'</script>";
     }
     ?>
-   
+
 
     <!---SCRIPT-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

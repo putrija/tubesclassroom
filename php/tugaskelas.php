@@ -457,17 +457,17 @@ if (empty($_SESSION['username'])) {
 
     <?php
     if (isset($_POST['btncreatePertanyaan'])) {
-      $nama = $_POST['nama1'];
-      $description = $_POST['description1'];
-      $date = $_POST['date1'];
+      $nama1 = $_POST['nama1'];
+      $description1 = $_POST['description1'];
+      $date1 = $_POST['date1'];
       $idkelas = $_SESSION['idkelas'];
 
-      $direktori = "berkas/";
+      $direktori1 = "berkas/";
       //random angka agar foto dengan nama yang sama tidak terganti
-      $file_name = rand(1000, 10000) . "-" . $_FILES['NamaFile1']['name'];
-      move_uploaded_file($_FILES['NamaFile1']['tmp_name'], $direktori . $file_name);
+      $file_name1 = rand(1000, 10000) . "-" . $_FILES['NamaFile1']['name'];
+      move_uploaded_file($_FILES['NamaFile1']['tmp_name'], $direktori1 . $file_name1);
 
-      $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date) values('$idkelas','$nama', '$description', '$file_name', '$date')");
+      $buatPertanyaan = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date) values('$idkelas','$nama1', '$description1', '$file_name1', '$date')");
 
       echo "<script>location='tugaskelas.php';</script>";
     }
@@ -475,18 +475,18 @@ if (empty($_SESSION['username'])) {
 
     <?php
     if (isset($_POST['btncreateMateri'])) {
-      $nama = $_POST['nama'];
-      $description = $_POST['description'];
-      $date = $_POST['date'];
+      $nama2 = $_POST['nama2'];
+      $description2 = $_POST['description2'];
+      $date2 = $_POST['date2'];
       $idkelas = $_SESSION['idkelas'];
 
-      $direktori = "berkas/";
+      $direktori2 = "berkas/";
       //random angka agar foto dengan nama yang sama tidak terganti
-      $file_name = rand(1000, 10000) . "-" . $_FILES['NamaFile']['name'];
-      move_uploaded_file($_FILES['NamaFile']['tmp_name'], $direktori . $file_name);
+      $file_name2 = rand(1000, 10000) . "-" . $_FILES['NamaFile2']['name'];
+      move_uploaded_file($_FILES['NamaFile2']['tmp_name'], $direktori2 . $file_name2);
 
 
-      $buattugas = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload, date) values('$idkelas','$nama', '$description', '$file_name', '$date')");
+      $buatMateri = mysqli_query($connection, "INSERT INTO tugas (idkelas, nama, description, upload) values('$idkelas','$nama2', '$description2', '$file_name2')");
 
       echo "<script>location='tugaskelas.php';</script>";
     }
