@@ -22,7 +22,11 @@ if (empty($_SESSION['username'])) {
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/reset.css" />
   <link rel="stylesheet" href="../css/components.css" />
-
+  <style>
+        body {
+          background-color: white;
+        }
+  </style>
 </head>
 
 <body>
@@ -98,66 +102,61 @@ if (empty($_SESSION['username'])) {
 
   <!------ISI---->
 
-  <div class="container pt-1">
-    <!-- Banner -->
-    <section class="d-flex flex-column gap-1 space-header banner text-white bg-secondary px-3 py-4 rounded ">
-      <h1 class="banner__class"><?php echo $_SESSION['namakelas'] ?></h1>
-      <div class="fs-4">
-        <span>Teacher: </span><span class="banner__teacher"><?php echo $_SESSION['teacher'] ?></span>
-      </div>
-      <div class="fs-4">
-        <span>Subject: </span><span class="banner__subject"><?php echo $_SESSION['mapel'] ?></span>
-      </div>
-      <div class="fs-4">
-        <span>Room: </span><span class="banner__room"><?php echo $_SESSION['ruang'] ?></span>
-      </div>
-    </section>
+<!-- bio kelas -->
+<div class="justify-content-center mx-5 mt-4">
+        <div class="card mx-5 text-white">
+            <img src="../gambar/img_code.jpg" class="card-img-top">
+            <div class="card-img-overlay pt-3"> <br><br><br>
+                <h1 class="card-title mb-0">  <?php echo $_SESSION['namakelas'] ?>  </h1>
+                <p class="card-text my-1 ">  <h3> Teacher : <?php echo $_SESSION['teacher'] ?> </h3>  </p>
+                                             <h3> Mapel   : <?php echo $_SESSION['mapel'] ?>   </h3>  </p>
+                                             <h3> Ruang   : <?php echo $_SESSION['ruang'] ?>   </h3>  </p>
+                                        
+               
+            </div>
+        </div>
+    </div>
+<!------------------>
 
-    <!-- Class Code -->
 
-    <div class="row">
-      <div class="col-md-3 mt-3">
-        <div class="card" style="width: 18rem;">
+
+   
+
+<div class="row">
+       <!-- Class Code -->
+      <div class="col-md-3 mt-4 ms-5 ps-5">
+        <div class="card ms-2" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">Class Code</h5>
-            <h1 class="mb-6"><?php echo $_SESSION['kodekelas'] ?></h1>
+            <h5 class="card-title py-1">Kode kelas</h5>
+            <h1 class="mb-6 py-2"><?php echo $_SESSION['kodekelas'] ?></h1>
           </div>
         </div>
-        <div class="card" style="width: 18rem;">
+        <div class="card ms-2" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">Upcoming</h5>
-            <h6 class="card-subtitle mb-2 text-muted">No work due soon</h6>
+            <h5 class="card-title">Mendatang</h5>
+            <h6 class="card-subtitle mb-2 text-muted py-3">Tidak ada tugas yang perlu segera diselesaikan</h6>
           </div>
         </div>
       </div>
-      <div class="col-md-9 mt-3">
+      <!---KOLOM KOMENTAR KELAS-->
+      <div class="col-md-8 mt-4">
         <!-- Click to show input area -->
-        <button class="
-            d-flex
-            align-items-center
-            shadow
-            rounded
-            px-3
-            py-4
-            bg-success
-            text-primary
-            cursor-pointer
-            w-100
-            mb-4
-          " data-bs-toggle="modal" data-bs-target="#modal-input">
+        <button class="d-flex align-items-center shadow rounded px-3 py-4 bg-primary cursor-pointer w-100 mb-4"
+               data-bs-toggle="modal" data-bs-target="#modal-input">
+          
           <div class="avatar me-3">
             <img src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
           </div>
-          <span class="text-white">Announce something to your class</span>
+          <span class="text-white">Umumkan sesuatu ke kelas anda </span>
         </button>
-
+        <!---modal--->
         <div class="modal fade" id="modal-input" tabindex="-1" style="display: none" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header mb-3">
                 <div class="d-flex align-items-center">
                   <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-                  <div class="text-success">Write your announcement</div>
+                  <div class="text-primary">Write your announcement</div>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
@@ -188,32 +187,36 @@ if (empty($_SESSION['username'])) {
             </div>
           </div>
         </div>
-        <ul>
-          <?php
-          $query = "SELECT * FROM tugas WHERE idkelas = '$_SESSION[idkelas]'";
-          $result = mysqli_query($connection, $query);
-          while ($row = mysqli_fetch_assoc($result)) { ?>
-            <li class="bg-white px-3 py-4 rounded shadow">
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center mb-3">
-                  <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-                  <form action="" method="POST">
-                    <input type="hidden" value="<?= $row['id_tugas']; ?>" name="idtugas">
-                    <button name="btnisitugas" type="submit">
-                      <h3 class="fs-5"><?php echo $_SESSION['teacher'] ?> memposting Tugas Baru </h3>
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </li>
-            <br>
 
-          <?php } ?>
-        </ul>
+          <!--KOLOM PENGUMUMAN KELAS-->
+          <ul>
+            <?php
+            $query = "SELECT * FROM tugas WHERE idkelas = '$_SESSION[idkelas]'";
+            $result = mysqli_query($connection, $query);
+            while ($row = mysqli_fetch_assoc($result)) { ?>
+              <li class="bg-white px-3 py-4 rounded shadow">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center mb-3">
+                    <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
+                    <form action="" method="POST">
+                      <input type="hidden" value="<?= $row['id_tugas']; ?>" name="idtugas">
+                      <button name="btnisitugas" type="submit">
+                        <h3 class="fs-5"><?php echo $_SESSION['teacher'] ?> memposting tugas baru : <?= $row['nama']; ?> </h3>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </li>
+              <br>
+
+            <?php } ?>
+          </ul>
+
       </div>
-    </div>
-  </div>
-  </div>
+
+</div>
+
+
 
   <?php
   if (isset($_POST['btnisitugas'])) {
