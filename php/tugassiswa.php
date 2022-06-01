@@ -206,12 +206,29 @@ if(isset($_POST["nilaiTugas"])) {
                   WHERE ul.idkelas='$idkelas' AND ul.level='student' 
                   ");
                 ?><!--Batas--->
+              <?php
+                $databelum = mysqli_query($connection,
+               "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                FROM user AS u 
+                JOIN user_level AS ul 
+                ON u.iduser=ul.iduser 
+                JOIN kelas AS k 
+                ON ul.idkelas=k.idkelas 
+                JOIN tugas AS t
+                ON k.idkelas=t.idkelas 
+                JOIN jawaban as j
+                ON u.iduser=j.iduser
+                WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
+                AND j.status='dinilai' OR j.status='diserahkan' ");
+              ?><!--Batas--->
                 <h6>ditugaskan <?= $dataditugaskan->num_rows - $datadiserahkan->num_rows -$datadinilai->num_rows; ?> </h6>
                   
                   <ol class="list-group list-group-numbered shadow pt-3">
                   <div class="overflow-auto" style="height: 210px;">
                     <?php
                       while ($data = mysqli_fetch_assoc($dataditugaskan)) {
+                      $checknilai = mysqli_fetch_assoc($databelum);
+                      if($checknilai == 0) :
                       $user = $data['nama_user'];
                       ?>   
                         <li class="d-flex align-items-center justify-content-between">
@@ -221,7 +238,7 @@ if(isset($_POST["nilaiTugas"])) {
                               </div>
                               <span class="fs-5"><?php echo $user; ?></span>
                             </div>
-                        </li> 
+                        </li> <?php endif ; ?>
                       <?php } ?>
                   </div>  
                   </ol>
