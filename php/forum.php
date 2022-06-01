@@ -106,16 +106,16 @@ if (empty($_SESSION['username'])) {
 <div class="justify-content-center mx-5 mt-4">
         <div class="card mx-5 text-white">
             <img src="../gambar/img_code.jpg" class="card-img-top">
-            <div class="card-img-overlay pt-3"> <br><br><br>
-                <h1 class="card-title mb-0">  <?php echo $_SESSION['namakelas'] ?>  </h1>
-                <p class="card-text my-1 ">  <h3> Teacher : <?php echo $_SESSION['teacher'] ?> </h3>  </p>
-                                             <h3> Mapel   : <?php echo $_SESSION['mapel'] ?>   </h3>  </p>
-                                             <h3> Ruang   : <?php echo $_SESSION['ruang'] ?>   </h3>  </p>
+            <div class="card-img-overlay pt-5 mx-3 mt-5"> 
+                <h1 class="card-title mt-3">  <?php echo $_SESSION['namakelas'] ?>  </h1>
+                <h4 class="card-text mt-4 mb-1"> Teacher : <?php echo $_SESSION['teacher'] ?>      </h4>
+                <h4 class="card-text mt-2 mb-1"> Mapel   : <?php echo $_SESSION['mapel'] ?>   </h4>
+                <h4 class="card-text mt-2 mb-1"> Ruang   : <?php echo $_SESSION['ruang'] ?>   </h4>  
                                         
                
             </div>
         </div>
-    </div>
+</div>
 <!------------------>
 
 
@@ -125,7 +125,7 @@ if (empty($_SESSION['username'])) {
 <div class="row">
        <!-- Class Code -->
       <div class="col-md-3 mt-4 ms-5 ps-5">
-        <div class="card ms-2" style="width: 18rem;">
+        <div class="card ms-2 mb-4" style="width: 18rem;">
           <div class="card-body">
             <h5 class="card-title py-1">Kode kelas</h5>
             <h1 class="mb-6 py-2"><?php echo $_SESSION['kodekelas'] ?></h1>
@@ -156,7 +156,7 @@ if (empty($_SESSION['username'])) {
               <div class="modal-header mb-3">
                 <div class="d-flex align-items-center">
                   <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-                  <div class="text-primary">Write your announcement</div>
+                  <div class="text-primary">Tulis pengumuman anda</div>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
@@ -164,7 +164,7 @@ if (empty($_SESSION['username'])) {
               <div class="px-3 mb-3">
                 <div class="form-floating">
                   <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                  <label for="floatingTextarea2" class="text-black-50">Announcement</label>
+                  <label for="floatingTextarea2" class="text-black-50">Pengumuman</label>
                 </div>
               </div>
 

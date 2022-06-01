@@ -187,7 +187,7 @@ if (empty($_SESSION['username'])) {
     <?php if ($_SESSION['level'] == 'teacher') : ?>
 
       <div class="list-tugas ">
-        <div class="accordion container py-2 bg-white col-8" id="accordionExample">
+        <div class="accordion container py-2 bg-white col-7" id="accordionExample">
           <!---list 1-->
           <?php
           $idkelas = $_SESSION['idkelas'];
@@ -249,7 +249,7 @@ if (empty($_SESSION['username'])) {
     <?php if ($_SESSION['level'] == 'student') : ?>
 
       <div class="list-tugas ">
-        <div class="accordion container py-2 bg-white col-8" id="accordionExample">
+        <div class="accordion container py-2 bg-white col-7" id="accordionExample">
           <!---list 1-->
           <?php
           $idkelas = $_SESSION['idkelas'];
