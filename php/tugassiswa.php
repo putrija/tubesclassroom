@@ -9,6 +9,14 @@ $idtugas = $_SESSION['idtugas'];
 $query = "SELECT * FROM tugas WHERE id_tugas = $idtugas";
 $result = mysqli_query($connection, $query);
 $row = mysqli_fetch_assoc($result);
+
+//nilaiTugas
+if(isset($_POST["nilaiTugas"])) {
+    if(editNilai($_POST) > 0) {
+        header("Location: tugassiswa.php");    
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -96,9 +104,9 @@ $row = mysqli_fetch_assoc($result);
       <!----ISI--->
     <div class="col-lg-4 container-left ms-5">
           <h5>Semua Siswa</h5>
-        <!---DIBERIKAN LIST--->
+        <!---DISERAHKAN LIST--->
           <div class="my-4 list-student">
-            <h6>Diberikan</h6>
+            <h6>Diserahkan</h6>
             <ol class="list-group list-group-numbered shadow">
               <div class="overflow-auto" style="height: 210px;">
 
@@ -116,9 +124,29 @@ $row = mysqli_fetch_assoc($result);
             </ol>
           </div>
 
-          <!---DISERAHKAN LIST--->
+          <!---DITUGASKAN LIST--->
           <div class="my-4 list-student">
-            <h6>Diserahkan</h6>
+            <h6>Ditugaskan</h6>
+            <ol class="list-group list-group-numbered shadow">
+              <div class="overflow-auto" style="height: 210px;">
+
+                <li class="list-group-item">
+                  <i class="fa-solid fa-circle-user me-2"></i> Al Anhar Sufi
+                </li>
+                <li class="list-group-item">
+                  <i class="fa-solid fa-circle-user me-2"></i> Reza Rahardian
+                </li>
+                <li class="list-group-item">
+                  <i class="fa-solid fa-circle-user me-2"></i> Ronaldo
+                </li>
+
+              </div>
+            </ol>
+          </div>
+
+          <!---DINILAI LIST--->
+          <div class="my-4 list-student">
+            <h6>Dinilai</h6>
             <ol class="list-group list-group-numbered shadow">
               <div class="overflow-auto" style="height: 210px;">
 
@@ -168,22 +196,24 @@ $row = mysqli_fetch_assoc($result);
             <div class="row">
 
                 <?php
-                $ambildata = mysqli_query($connection, "SELECT * FROM pengumpulan_tugas AS p INNER JOIN user AS u ON p.iduser = u.iduser");
+                $ambildata = mysqli_query($connection, "SELECT * FROM jawaban AS j INNER JOIN user AS u ON j.iduser = u.iduser");
                 while ($row = mysqli_fetch_assoc($ambildata)) {
                 ?>
                   <div class="col-lg-3 my-2">
                     <div class="card w-100 text-center">
                       <div class="card-body">
                         <h6 class="card-title"><?= $row['nama_user']; ?></h6>
-                        <a class="" href="" download=""><?= $row['jwbn_siswa']; ?></a>
+                        <a class="" href="file/<?=$row['jwbn_siswa']?>" download="<?=$row['jwbn_siswa']?>"> <?= $row['jwbn_siswa']; ?></a>
                         <form method="POST">
-                          <input type="number" name="inputnilai" class="form-control" placeholder="0" style="text-align: center;">
-                          <button name="nilai" class="mt-2 btn btn-primary">nilai</button>
+                          <input type="hidden" name="status" value="dinilai">
+                          <input type="hidden" name="id" value="<?=$row["id"]?>">
+                          <input type="number" name="nilai" class="form-control" value="<?=$row["nilai"]?>" style="text-align: center;">
+                          <button name="nilaiTugas" class="mt-2 btn btn-primary">nilai</button>
                         </form>
                       </div>
-                    </div>
+                    </div>                    
+                  </div>
 
-                </div>
                 <?php
                 }
                 ?>
@@ -197,24 +227,12 @@ $row = mysqli_fetch_assoc($result);
 </div>
 
 
-  <?php
-  if (isset($_POST['nilai'])) {
-    $inputnilai = $_POST['inputnilai'];
-    $iduser = $_SESSION['iduser'];
-
-    $ambil_id_p_tugas = mysqli_query($connection, "SELECT * FROM pengumpulan_tugas WHERE iduser='{$iduser}' AND id_tugas='{$idtugas}' ");
-    $id_p_tugas = mysqli_fetch_array($ambil_id_p_tugas);
-
-    $nilaidb = mysqli_query($connection, "INSERT INTO nilai (nilai, id_p_tugas, id_tugas, status) values ('$inputnilai', '$id_p_tugas', '$idtugas','dinilai') ");
-  }
-  ?>
-
 
 
   <!---SCRIPT-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/9c0c4e63c7.js" crossorigin="anonymous"></script>
-
+  
 </body>
 
 </html>

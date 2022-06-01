@@ -222,7 +222,7 @@ if (empty($_SESSION['username'])) {
                           <h3>0</h3> diserahkan
                         </li>
                         <li class="list-inline-item border-start px-3">
-                          <h3>0</h3> diberikan
+                          <h3>0</h3> ditugaskan
                         </li>
                         <li class="list-inline-item border-start px-3">
                           <h3>0</h3> dinilai

@@ -137,4 +137,18 @@ function upload(){
 
     }
 
+
+function editNilai($data) {
+    
+    global $connection;
+    
+    $id = $data["id"];
+    $nilai = $data["nilai"];
+    $status = $data["status"];
+    
+    mysqli_query($connection, "UPDATE jawaban SET nilai = '$nilai', status = '$status' WHERE id = $id");
+    
+    return mysqli_affected_rows($connection);
+    
+    } 
 ?>
