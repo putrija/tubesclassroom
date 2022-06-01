@@ -33,6 +33,12 @@ if(isset($_POST["nilaiTugas"])) {
   <link rel="stylesheet" href="../css/common.css" />
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <style>
+        body {
+          background-color: white;
+        }
+  </style>
 
 </head>
 
@@ -102,67 +108,121 @@ if(isset($_POST["nilaiTugas"])) {
 
 <div class="row">
       <!----ISI--->
-    <div class="col-lg-4 container-left ms-5">
+    <div class="col-lg-4 container-left ms-5 ps-5">
           <h5>Semua Siswa</h5>
-        <!---DISERAHKAN LIST--->
+
+         <!---DISERAHKAN LIST--->
           <div class="my-4 list-student">
-            <h6>Diserahkan</h6>
-            <ol class="list-group list-group-numbered shadow">
-              <div class="overflow-auto" style="height: 210px;">
-
-                <li class="list-group-item">
-                  <i class="fa-solid fa-circle-user me-2"></i> Al Anhar Sufi
-                </li>
-                <li class="list-group-item">
-                  <i class="fa-solid fa-circle-user me-2"></i> Reza Rahardian
-                </li>
-                <li class="list-group-item">
-                  <i class="fa-solid fa-circle-user me-2"></i> Ronaldo
-                </li>
-
-              </div>
-            </ol>
-          </div>
-
-          <!---DITUGASKAN LIST--->
-          <div class="my-4 list-student">
-            <h6>Ditugaskan</h6>
-            <ol class="list-group list-group-numbered shadow">
-              <div class="overflow-auto" style="height: 210px;">
-
-                <li class="list-group-item">
-                  <i class="fa-solid fa-circle-user me-2"></i> Al Anhar Sufi
-                </li>
-                <li class="list-group-item">
-                  <i class="fa-solid fa-circle-user me-2"></i> Reza Rahardian
-                </li>
-                <li class="list-group-item">
-                  <i class="fa-solid fa-circle-user me-2"></i> Ronaldo
-                </li>
-
-              </div>
-            </ol>
+            <?php
+              $idkelas = $_SESSION['idkelas'];
+              $datadiserahkan = mysqli_query($connection,
+               "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                FROM user AS u 
+                JOIN user_level AS ul 
+                ON u.iduser=ul.iduser 
+                JOIN kelas AS k 
+                ON ul.idkelas=k.idkelas 
+                JOIN tugas AS t
+                ON k.idkelas=t.idkelas 
+                JOIN jawaban as j
+                ON u.iduser=j.iduser
+                WHERE ul.idkelas='$idkelas' AND ul.level='student'
+                AND j.status='diserahkan'");
+              ?><!--Batas--->
+              <h6>Diserahkan  <?= $datadiserahkan->num_rows; ?> </h6>
+                
+                <ol class="list-group list-group-numbered shadow pt-3">
+                 <div class="overflow-auto" style="height: 210px;">
+                  <?php
+                    while ($data = mysqli_fetch_assoc($datadiserahkan)) {
+                    $user = $data['nama_user'];
+                    ?>   
+                      <li class="d-flex align-items-center justify-content-between">
+                          <div class="d-flex align-items-center">
+                            <div class="avatar ms-3 me-2 my-2">
+                              <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
+                            </div>
+                            <span class="fs-5"><?php echo $user; ?></span>
+                          </div>
+                      </li> 
+                    <?php } ?>
+                 </div>  
+                </ol>
           </div>
 
           <!---DINILAI LIST--->
           <div class="my-4 list-student">
-            <h6>Dinilai</h6>
-            <ol class="list-group list-group-numbered shadow">
-              <div class="overflow-auto" style="height: 210px;">
-
-                <li class="list-group-item">
-                  <i class="fa-solid fa-circle-user me-2"></i> Al Anhar Sufi
-                </li>
-                <li class="list-group-item">
-                  <i class="fa-solid fa-circle-user me-2"></i> Reza Rahardian
-                </li>
-                <li class="list-group-item">
-                  <i class="fa-solid fa-circle-user me-2"></i> Ronaldo
-                </li>
-
-              </div>
-            </ol>
+            <?php
+              $idkelas = $_SESSION['idkelas'];
+              $datadinilai = mysqli_query($connection,
+               "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                FROM user AS u 
+                JOIN user_level AS ul 
+                ON u.iduser=ul.iduser 
+                JOIN kelas AS k 
+                ON ul.idkelas=k.idkelas 
+                JOIN tugas AS t
+                ON k.idkelas=t.idkelas 
+                JOIN jawaban as j
+                ON u.iduser=j.iduser
+                WHERE ul.idkelas='$idkelas' AND ul.level='student'
+                AND j.status='dinilai'");
+              ?><!--Batas--->
+              <h6>Dinilai  <?= $datadinilai->num_rows; ?> </h6>
+                
+                <ol class="list-group list-group-numbered shadow pt-3">
+                 <div class="overflow-auto" style="height: 210px;">
+                  <?php
+                    while ($data = mysqli_fetch_assoc($datadinilai)) {
+                    $user = $data['nama_user'];
+                    ?>   
+                      <li class="d-flex align-items-center justify-content-between">
+                          <div class="d-flex align-items-center">
+                            <div class="avatar ms-3 me-2 my-2">
+                              <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
+                            </div>
+                            <span class="fs-5"><?php echo $user; ?></span>
+                          </div>
+                      </li> 
+                    <?php } ?>
+                 </div>  
+                </ol>
           </div>
+
+          <!---DITUGASKAN LIST--->
+          <div class="my-4 list-student">
+              <?php
+                $idkelas = $_SESSION['idkelas'];
+                $dataditugaskan = mysqli_query($connection,
+                "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                  FROM user AS u 
+                  JOIN user_level AS ul 
+                  ON u.iduser=ul.iduser 
+                  JOIN kelas AS k 
+                  ON ul.idkelas=k.idkelas 
+                  WHERE ul.idkelas='$idkelas' AND ul.level='student'
+                  ");
+                ?><!--Batas--->
+                <h6>ditugaskan <?= $dataditugaskan->num_rows - $datadiserahkan->num_rows -$datadinilai->num_rows; ?> </h6>
+                  
+                  <ol class="list-group list-group-numbered shadow pt-3">
+                  <div class="overflow-auto" style="height: 210px;">
+                    <?php
+                      while ($data = mysqli_fetch_assoc($dataditugaskan)) {
+                      $user = $data['nama_user'];
+                      ?>   
+                        <li class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                              <div class="avatar ms-3 me-2 my-2">
+                                <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
+                              </div>
+                              <span class="fs-5"><?php echo $user; ?></span>
+                            </div>
+                        </li> 
+                      <?php } ?>
+                  </div>  
+                  </ol>
+            </div>  
 
     </div><!--Batas akhir container left--->
 
@@ -179,10 +239,14 @@ if(isset($_POST["nilaiTugas"])) {
           <div class="description my-2 pb-2">
             <ul class="list-inline">
               <li class="list-inline-item border-start px-3">
-                <h2>0</h2> diberikan
+                <h2> <?= $datadiserahkan->num_rows; ?> </h2> diserahkan
               </li>
               <li class="list-inline-item border-start px-3">
-                <h2>0</h2> dinilai
+                <h2><?= $dataditugaskan->num_rows - $datadiserahkan->num_rows -$datadinilai->num_rows; ?>
+                    </h2> ditugaskan
+              </li>
+              <li class="list-inline-item border-start px-3">
+                <h2> <?= $datadinilai->num_rows; ?> </h2> dinilai
               </li>
             </ul>
           </div>
