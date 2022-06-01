@@ -343,23 +343,75 @@ if (empty($_SESSION['username'])) {
               <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <div class="d-flex justify-content-between border-top">
-                    <div class="p-2">
-                      <?= $data['description']; ?>
-                    </div>
-                    <div class="p-2">
-                      <ul class="list-inline">
-                        <li class="list-inline-item border-start px-3">
-                          <h3>0</h3> diserahkan
-                        </li>
-                        <li class="list-inline-item border-start px-3">
-                          <h3>0</h3> ditugaskan
-                        </li>
-                        <li class="list-inline-item border-start px-3">
-                          <h3>0</h3> dinilai
-                        </li>
-                      </ul>
-                    </div>
+                          <div class="p-2">
+                            <?= $data['description']; ?>
+                          </div>
+                          <!---Data Tugas--->
+
+                          <!---DITUGASKAN LIST--->
+                           <?php
+                            $idkelas = $_SESSION['idkelas'];
+                            $idtugas = $data['id_tugas'];
+                            $dataditugaskan = mysqli_query($connection,
+                            "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                              FROM user AS u 
+                              JOIN user_level AS ul 
+                              ON u.iduser=ul.iduser 
+                              JOIN kelas AS k 
+                              ON ul.idkelas=k.idkelas 
+                              WHERE ul.idkelas='$idkelas' AND ul.level='student' 
+                              ");
+                            ?><!--Batas--->
+                            <!---DISERAHKAN LIST--->
+                            <?php
+                            $datadiserahkan = mysqli_query($connection,
+                              "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                                FROM user AS u 
+                                JOIN user_level AS ul 
+                                ON u.iduser=ul.iduser 
+                                JOIN kelas AS k 
+                                ON ul.idkelas=k.idkelas 
+                                JOIN tugas AS t
+                                ON k.idkelas=t.idkelas 
+                                JOIN jawaban as j
+                                ON u.iduser=j.iduser
+                                WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
+                                AND j.status='diserahkan'");
+                            ?><!--Batas--->
+                            <!---DINILAI LIST--->
+                            <?php
+                              $datadinilai = mysqli_query($connection,
+                              "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                                FROM user AS u 
+                                JOIN user_level AS ul 
+                                ON u.iduser=ul.iduser 
+                                JOIN kelas AS k 
+                                ON ul.idkelas=k.idkelas 
+                                JOIN tugas AS t
+                                ON k.idkelas=t.idkelas 
+                                JOIN jawaban as j
+                                ON u.iduser=j.iduser
+                                WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
+                                AND j.status='dinilai'");
+                              ?><!--Batas--->
+
+                          <div class="p-2">
+                            <ul class="list-inline">
+                              <li class="list-inline-item border-start px-3">
+                                <h3> <?= $dataditugaskan->num_rows
+                                      - $datadiserahkan->num_rows
+                                      - $datadinilai->num_rows; ?> </h3>  ditugaskan
+                              </li>
+                              <li class="list-inline-item border-start px-3">
+                                <h3><?= $datadiserahkan->num_rows; ?></h3>  diserahkan
+                              </li>
+                              <li class="list-inline-item border-start px-3">
+                                <h3><?= $datadinilai->num_rows; ?></h3>  dinilai
+                              </li>
+                            </ul>
+                          </div>
                   </div>
+
                   <div class="see-tugas p-2 border-top p-3">
                     <form action="" method="POST">
                       <input type="hidden" value="<?= $data['id_tugas']; ?>" name="idtugas">
