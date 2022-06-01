@@ -293,7 +293,7 @@ if(isset($_POST["nilaiTugas"])) {
                           <input type="hidden" name="status" value="dinilai">
                           <input type="hidden" name="id" value="<?=$row["id"]?>">
                           <input type="number" name="nilai" class="form-control" value="<?=$row["nilai"]?>" style="text-align: center;">
-                          <button name="nilaiTugas" class="mt-2 btn btn-primary">nilai</button>
+                          <button name="nilaiTugas" class="mt-2 ms-4 btn btn-primary">nilai</button>
                         </form>
                       </div>
                     </div>                    
