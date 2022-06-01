@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2022 at 09:25 PM
+-- Generation Time: Jun 01, 2022 at 10:50 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -32,8 +32,8 @@ CREATE TABLE `jawaban` (
   `id_tugas` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
   `jwbn_siswa` varchar(200) NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `nilai` int(11) DEFAULT NULL
+  `status` varchar(10) NOT NULL DEFAULT 'diserahkan',
+  `nilai` int(11) UNSIGNED DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -41,8 +41,8 @@ CREATE TABLE `jawaban` (
 --
 
 INSERT INTO `jawaban` (`id`, `id_tugas`, `iduser`, `jwbn_siswa`, `status`, `nilai`) VALUES
-(1, 24, 17, 'bellman1.pdf', 'diserahkan', NULL),
-(2, 24, 18, 'BAB_I_docc.pdf', 'diserahkan', NULL);
+(1, 24, 17, 'bellman1.pdf', 'dinilai', 100),
+(4, 24, 19, '4813-CETAK KRS.pdf', 'diserahkan', 0);
 
 -- --------------------------------------------------------
 
@@ -180,7 +180,7 @@ ALTER TABLE `user_level`
 -- AUTO_INCREMENT for table `jawaban`
 --
 ALTER TABLE `jawaban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kelas`
