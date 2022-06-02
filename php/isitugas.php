@@ -154,29 +154,41 @@ if (isset($_POST["update"])) {
                 print_r($idTugas);
                 echo "id kelas:";
                 print_r($idKelas);
-                $ambildata = mysqli_query($connection, "SELECT * FROM tugas AS t INNER JOIN jawaban as j ON t.id_tugas = j.id_tugas WHERE t.id_tugas = '$idTugas' AND t.idkelas = '$idKelas' AND j.iduser = '$idUser' ");
-                while ($data = mysqli_fetch_assoc($ambildata)) {
+
+                $pemeriksaan_jawaban = mysqli_num_rows(mysqli_query($connection, "SELECT * FROM tugas AS t INNER JOIN jawaban as j ON t.id_tugas = j.id_tugas WHERE t.id_tugas = '$idTugas' AND t.idkelas = '$idKelas' AND j.iduser = '$idUser' "));
+
+                if ($pemeriksaan_jawaban > 0) {
+                    $ambildata = mysqli_query($connection, "SELECT * FROM tugas AS t INNER JOIN jawaban as j ON t.id_tugas = j.id_tugas WHERE t.id_tugas = '$idTugas' AND t.idkelas = '$idKelas' AND j.iduser = '$idUser' ");
+                    while ($data = mysqli_fetch_assoc($ambildata)) {
                 ?>
-                    <div class="sbmt-task px-3 my-4">
-                        <div class="box-sbmt border shadow px-3 py-3">
-                            <h5 class="card-title">Tugas Anda</h5>
-                            <?php
+                        <div class="sbmt-task px-3 my-4">
+                            <div class="box-sbmt border shadow px-3 py-3">
+                                <h5 class="card-title">Tugas Anda</h5>
 
-                            if ($data['status'] == 'diserahkan') :
-                            ?>
-                                <h5 class="card-title"><?php echo $data['status'] ?></h5>
-                                <p><?php echo $data['jwbn_siswa'] ?></p>
-                                <form action="" method="POST"><button type="submit" name="btnbatal">Batalkan pengiriman</button></form>
+                                <?php
 
-                            <?php
-                            elseif ($data['status'] == 'dinilai') :
-                            ?>
-                                <h5 class="card-title"><?php echo $data['status'] ?></h5>
-                                <p><?php echo $data['jwbn_siswa'] ?></p>
+                                if ($data['status'] == 'diserahkan') :
+                                ?>
+                                    <h5 class="card-title"><?php echo $data['status'] ?></h5>
+                                    <p><?php echo $data['jwbn_siswa'] ?></p>
+                                    <form action="" method="POST"><button type="submit" name="btnbatal">Batalkan pengiriman</button></form>
 
-                            <?php
-                            else :
-                            ?>
+                                <?php
+                                elseif ($data['status'] == 'dinilai') :
+                                ?>
+                                    <h5 class="card-title"><?php echo $data['status'] ?></h5>
+                                    <p><?php echo $data['jwbn_siswa'] ?></p>
+
+                                <?php endif; ?>
+                            <?php } ?>
+
+                            </div>
+                        </div>
+
+                    <?php } else { ?>
+                        <div class="sbmt-task px-3 my-4">
+                            <div class="box-sbmt border shadow px-3 py-3">
+                                <h5 class="card-title">Tugas Anda</h5>
                                 <?php
                                 $userID = $_SESSION['iduser'];
                                 $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas");
@@ -205,13 +217,13 @@ if (isset($_POST["update"])) {
                                     </form>
                                     <!-- ?= var_dump($jawabanID)?> -->
                                 <?php endif; ?>
-                            <?php endif; ?>
+                            </div>
                         </div>
-                    </div>
-                <?php
+                    <?php
                 }
-                ?>
-            <?php endif; ?>
+                    ?>
+
+                <?php endif; ?>
 
 
         </div>
