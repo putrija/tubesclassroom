@@ -1,9 +1,6 @@
 <?php
 require("function.php");
 error_reporting(0);
-if (empty($_SESSION['username'])) {
-  header("Location: ../html/error.html");
-}
 ?>
 
 
@@ -217,43 +214,42 @@ if (empty($_SESSION['username'])) {
               </div>
               <form method="post">
 
-              <div class="px-3 mb-3">
-                <div class="form-floating">
-                  <textarea name="postingan" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                  <label for="floatingTextarea2" class="text-black-50">Announcement</label>
+                <div class="px-3 mb-3">
+                  <div class="form-floating">
+                    <textarea name="postingan" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2" class="text-black-50">Announcement</label>
+                  </div>
                 </div>
-              </div>
 
-              <div class="modal-footer d-flex justify-content-between">
-                <div>
-                  <label class="upload cursor-pointer" for="upload">
-                    <img class="img-cover" src="svgs/upload.svg" alt="Upload" />
-                  </label>
-                  <input id="upload" type="file" />
+                <div class="modal-footer d-flex justify-content-between">
+                  <div>
+                    <label class="upload cursor-pointer" for="upload">
+                      <img class="img-cover" src="svgs/upload.svg" alt="Upload" />
+                    </label>
+                    <input id="upload" type="file" />
+                  </div>
+                  <div class="d-flex">
+                    <button type="button" class="btn btn-secondary py-2 me-2" data-bs-dismiss="modal">
+                      Cancel
+                    </button>
+                    <button name="btnadd" type="submit" class="btn btn-primary py-2" data-bs-dismiss="modal">
+                      Post
+                    </button>
+                  </div>
                 </div>
-                <div class="d-flex">
-                  <button type="button" class="btn btn-secondary py-2 me-2" data-bs-dismiss="modal">
-                    Cancel
-                  </button>
-                  <button name="btnadd" type="submit" class="btn btn-primary py-2" data-bs-dismiss="modal">
-                    Post
-                  </button>
-                </div>
-              </div>
-            </form>
-            <?php
-            if (isset($_POST['btnadd'])){
-              $id = $_SESSION['iduser'];
-              $postingan = $_POST['postingan'];
-              $sql = "INSERT INTO posting (postingan, iduser) values ('$postingan', '$id')";
-              if ($connection->query($sql)===TRUE){
-                echo "";
-              }else{
-                echo "Terjadi kesalahan";
+              </form>
+              <?php
+              if (isset($_POST['btnadd'])) {
+                $id = $_SESSION['iduser'];
+                $postingan = $_POST['postingan'];
+                $sql = "INSERT INTO posting (postingan, iduser) values ('$postingan', '$id')";
+                if ($connection->query($sql) === TRUE) {
+                  echo "";
+                } else {
+                  echo "Terjadi kesalahan";
+                }
               }
-        
-            }
-            ?>
+              ?>
             </div>
           </div>
         </div>
@@ -279,132 +275,112 @@ if (empty($_SESSION['username'])) {
 
           <?php } ?>
         </ul>
-       
+
         <?php
         $query = mysqli_query($connection, "SELECT * FROM posting JOIN user ON posting.iduser = user.iduser ORDER BY tgl_posting DESC");
-        foreach ($query as $row){
+        foreach ($query as $row) {
         ?>
-        <ul>
+          <ul>
             <li class="bg-white px-3 py-4 rounded shadow">
               <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center mb-3">
-                  <img
-                    class="avatar me-3"
-                    src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg"
-                    alt="Avatar"
-                  />
+                  <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
                   <div>
-                        <h3 class="fs-6"><?php echo $row['nama_user'] ?></h3>
-                        <time class="text-black-50"><?php echo strftime("%H.%M", strtotime($row['tgl_posting'])) ?></time>
+                    <h3 class="fs-6"><?php echo $row['nama_user'] ?></h3>
+                    <time class="text-black-50"><?php echo strftime("%H.%M", strtotime($row['tgl_posting'])) ?></time>
                   </div>
                 </div>
                 <form method="post" onsubmit="return confirm ('Are you sure want to delete this data?');">
                   <input hidden name="id_posting" type="text" value="<?php echo $row['id_posting']  ?>">
-                <button name="btnhapus" type="submit" class="btn btn-dark text-white">&#x2716;</button>
+                  <button name="btnhapus" type="submit" class="btn btn-dark text-white">&#x2716;</button>
                 </form>
-                <?php 
-                 if (isset($_POST['btnhapus'])){
+                <?php
+                if (isset($_POST['btnhapus'])) {
                   $id = $_post['id_posting'];
                   print_r($id);
-                  if ($connection){
-                   $sql = "DELETE FROM posting WHERE id_posting = $id";
-                   mysqli_query ($connection, $sql);
-                  }else{
+                  if ($connection) {
+                    $sql = "DELETE FROM posting WHERE id_posting = $id";
+                    mysqli_query($connection, $sql);
+                  } else {
                     echo "Terjadi kesalahan";
                   }
-            
                 }
                 ?>
               </div>
 
-              <p class="border-bottom pb-3"><?php echo $row['postingan']?></p>
+              <p class="border-bottom pb-3"><?php echo $row['postingan'] ?></p>
               <form>
-             
-              <div class="fw-bold text-decoration-underline mb-4">
-                Comments:
-              </div>
 
-              <?php 
-              $id_posting = $row['id_posting'];
-               $queryy = mysqli_query($connection, "SELECT * FROM komentar WHERE id_posting = $id_posting");
-               foreach ($queryy as $roww){
-               ?>
-              <ul class="mt-2 border-bottom">
-                <li>
-                  <div
-                    class="
+                <div class="fw-bold text-decoration-underline mb-4">
+                  Comments:
+                </div>
+
+                <?php
+                $id_posting = $row['id_posting'];
+                $queryy = mysqli_query($connection, "SELECT * FROM komentar WHERE id_posting = $id_posting");
+                foreach ($queryy as $roww) {
+                ?>
+                  <ul class="mt-2 border-bottom">
+                    <li>
+                      <div class="
                       d-flex
                       align-items-center
                       justify-content-between
                       mb-3
-                    "
-                  >
-                    <div class="d-flex align-items-center">
-                      <img
-                        class="avatar me-3"
-                        src="https://avatars.dicebear.com/api/adventurer-neutral/12345.svg"
-                        alt="Avatar"
-                      />
-                      <div>
-                        <h3 class="fs-6"><?php echo $row['nama_user']?></h3>
-                        <time class="text-black-50"><?php echo strftime("%H.%M", strtotime($row['tgl_posting'])) ?></time>
+                    ">
+                        <div class="d-flex align-items-center">
+                          <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/12345.svg" alt="Avatar" />
+                          <div>
+                            <h3 class="fs-6"><?php echo $row['nama_user'] ?></h3>
+                            <time class="text-black-50"><?php echo strftime("%H.%M", strtotime($row['tgl_posting'])) ?></time>
+                          </div>
+                        </div>
+                        <div class="btn btn-dark text-white">&#x2716;</div>
                       </div>
-                    </div>
-                    <div class="btn btn-dark text-white">&#x2716;</div>
-                  </div>
-                  <p><?php echo $roww['komentar']?></p>
-                </li>
-              </ul>
-              <?php
-              }
-              ?>
+                      <p><?php echo $roww['komentar'] ?></p>
+                    </li>
+                  </ul>
+                <?php
+                }
+                ?>
 
-              <form method="post" class="d-flex align-items-center mt-4">
-              <input type="hidden" name="id_posting" value="<?php echo $row['id_posting'] ?>">
-             
-                <img
-                  class="avatar me-3 mt-2"
-                  src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg"
-                  alt="Avatar"
-                />
-                
-                <input
-                  class="flex-grow-1 border me-2 p-2 mt-2"
-                  placeholder="Write your comment..."
-                />
-                
-                <button name="btnkomentar" type="submit" class="btn btn-primary mt-2">Send</button>
-               </li>
-              </form>
-              </form>
-             
+                <form method="post" class="d-flex align-items-center mt-4">
+                  <input type="hidden" name="id_posting" value="<?php echo $row['id_posting'] ?>">
+
+                  <img class="avatar me-3 mt-2" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
+
+                  <input class="flex-grow-1 border me-2 p-2 mt-2" placeholder="Write your comment..." />
+
+                  <button name="btnkomentar" type="submit" class="btn btn-primary mt-2">Send</button>
+            </li>
+            </form>
+            </form>
+
             </li>
           </ul>
           <br>
-          <?php
-           }
-          ?>
-        </div>
+        <?php
+        }
+        ?>
       </div>
+    </div>
     </section>
-    </div>
-      </div>
-    </div>
+  </div>
+  </div>
+  </div>
   </div>
   </div>
 
-            <?php
-            if (isset($_POST['btnkomentar'])){
-              $id = $_SESSION['iduser'];
-              $id_posting =  $_POST['id_posting'];
-              $komentar = $_POST['komentar'];
-              mysqli_query($connection, "INSERT INTO komentar (komentar, iduser, id_posting) VALUES ('$komentar', '$id', '$id_posting')");
+  <?php
+  if (isset($_POST['btnkomentar'])) {
+    $id = $_SESSION['iduser'];
+    $id_posting =  $_POST['id_posting'];
+    $komentar = $_POST['komentar'];
+    mysqli_query($connection, "INSERT INTO komentar (komentar, iduser, id_posting) VALUES ('$komentar', '$id', '$id_posting')");
 
-              header("Location:forum.php");
-              
-        
-            }
-            ?>
+    header("Location:forum.php");
+  }
+  ?>
 
   <?php
   if (isset($_POST['btnisitugas'])) {
@@ -417,7 +393,7 @@ if (empty($_SESSION['username'])) {
   }
   ?>
 
-  
+
 
 
   <!---SCRIPT-->
