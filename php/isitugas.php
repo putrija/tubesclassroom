@@ -7,10 +7,31 @@ if (empty($_SESSION['username'])) {
 $idKelas = $_SESSION['idkelas'];
 $idUser = $_SESSION['iduser'];
 $idTugas = $_SESSION['idtugas'];
-$query = "SELECT * FROM tugas AS t INNER JOIN jawaban AS j  WHERE t.id_tugas = $idTugas AND j.iduser = $idUser AND t.idkelas = $idKelas";
-$result = mysqli_query($connection, $query);
+// echo "id tugas = $idTugas";
+// echo "</br>";
+// echo "id user = $idUser";
+// echo "</br>";
+// echo "id kelas = $idKelas";
+// echo "</br>";
+// SELECT * FROM tugas AS t INNER JOIN jawaban AS j WHERE t.id_tugas = '38' AND j.iduser = '24' AND t.idkelas = '75'
+// SELECT * FROM tugas AS t LEFT JOIN jawaban AS j ON t.id_tugas = j.id_tugas WHERE t.id_tugas = '38' AND j.iduser = '24' AND t.idkelas = '75';
+$query1 = "SELECT * FROM tugas AS t LEFT JOIN jawaban AS j ON t.id_tugas = j.id_tugas WHERE t.id_tugas = '$idTugas' AND j.iduser = '$idUser'";
+// $query = "SELECT * FROM tugas AS t INNER JOIN jawaban AS j WHERE t.id_tugas = $idTugas AND j.iduser = $idUser AND t.idkelas = $idKelas";
+$result = mysqli_query($connection, $query1);
+if ($result->num_rows == 0) {
+    $query = "SELECT * FROM tugas AS t WHERE t.id_tugas = $idTugas";
+    $result = mysqli_query($connection, $query);
+}
+// echo "oke";
+// echo "<pre>";
+// print_r($result);
+// echo "</pre>";
 $row = mysqli_fetch_assoc($result);
-
+// while ($row = mysqli_fetch_assoc($result)) {
+//     echo "<pre>";
+//     print_r($row);
+//     echo "</pre>";
+// }
 //Upload tugas
 if (isset($_POST["upload"])) {
 
@@ -108,7 +129,7 @@ if (isset($_POST["update"])) {
             <div class="container mt-3 ms-5">
                 <h1><?php echo $row['nama']; ?></h1> <br>
                 <!--nama tugas--->
-                <?php $date = date('d M Y', strtotime($row["create"])); ?>
+                <?php $date = date('d M Y', strtotime($row["created_at"])); ?>
                 <h5><?php echo $_SESSION['teacher']; ?>, dibuat pada: <?= $date ?> </h5>
 
                 <div class="row mt-3">
@@ -126,18 +147,54 @@ if (isset($_POST["update"])) {
                 <h4><?php echo $row['description'] ?></h4>
                 <object class="mt-3" data="berkas/<?php echo $row['upload']; ?>" width="400" height="200"></object>
                 <?php
-                if ($row['jenis'] == 'pertanyaan') :
+                if ($row['jenis'] == 'pertanyaan') {
                 ?>
-                    <form action="" method="POST">
-                        <div class="card mt-3" style="width: 90%;">
-                            <div class="card-body">
-                                <h5 class="card-title">Jawaban Anda</h5>
-                                <textarea name="jawaban_pertanyaan" id="jawaban_pertanyaan" cols="100%" rows="7"></textarea>
-                                <button type="submit" class="btn btn-primary" name="btnserahkan">Serahkan</button>
+                    <?php
+
+                    $pemeriksaan_jawaban2 = mysqli_num_rows(mysqli_query($connection, "SELECT * FROM tugas AS t INNER JOIN jawaban as j ON t.id_tugas = j.id_tugas WHERE t.id_tugas = '$idTugas' AND t.idkelas = '$idKelas' AND j.iduser = '$idUser' "));
+
+                    if ($pemeriksaan_jawaban2 > 0) {
+                        $ambildata = mysqli_query($connection, "SELECT * FROM tugas AS t INNER JOIN jawaban as j ON t.id_tugas = j.id_tugas WHERE t.id_tugas = '$idTugas' AND t.idkelas = '$idKelas' AND j.iduser = '$idUser' ");
+                        while ($data = mysqli_fetch_assoc($ambildata)) {
+                    ?>
+                            <!-- <form action="" method="POST"> -->
+                            <div class="card mt-3" style="width: 90%;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Jawaban Anda</h5>
+
+                                    <?php
+
+                                    if ($data['status'] == 'diserahkan') {
+                                    ?>
+                                        <h5 class="card-title"><?php echo $data['status'] ?></h5>
+                                        <p><?php echo $data['jwbn_siswa'] ?></p>
+                                        <form action="" method="POST"><button type="submit" name="btnbatal" class="btn btn-danger">Batalkan pengiriman</button></form>
+
+                                    <?php
+                                    } else if ($data['status'] == 'dinilai') {
+                                    ?>
+                                        <h5 class="card-title"><?php echo $data['status'] ?></h5>
+                                        <p><?php echo $data['jwbn_siswa'] ?></p>
+
+                                    <?php } ?>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                <?php endif; ?>
+                        <?php } //while 
+                        ?>
+                        <!-- </form> -->
+                    <?php } else { //if paling awal 
+                    ?>
+                        <form action="" method="POST">
+                            <div class="card mt-3" style="width: 90%;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Jawaban Anda</h5>
+                                    <textarea name="jawaban_pertanyaan" id="jawaban_pertanyaan" cols="100%" rows="7"></textarea>
+                                    <button type="submit" class="btn btn-primary" name="btnserahkan">Serahkan</button>
+                                </div>
+                            </div>
+                        </form>
+                <?php }
+                } ?>
             </div>
         </div>
 
@@ -165,7 +222,7 @@ if (isset($_POST["update"])) {
                                 ?>
                                     <h5 class="card-title"><?php echo $data['status'] ?></h5>
                                     <p><?php echo $data['jwbn_siswa'] ?></p>
-                                    <form action="" method="POST"><button type="submit" name="btnbatal">Batalkan pengiriman</button></form>
+                                    <form action="" method="POST"><button type="submit" name="btnbatal" class="btn btn-danger">Batalkan pengiriman</button></form>
 
                                 <?php
                                 elseif ($data['status'] == 'dinilai') :
@@ -211,10 +268,10 @@ if (isset($_POST["update"])) {
 
     <?php
     if (isset($_POST['btnserahkan'])) {
-        $iduser = $_SESSION['iduser'];
         $jawaban = $_POST['jawaban_pertanyaan'];
 
-        $insertjawaban = mysqli_query($connection, "INSERT INTO jawaban (iduser, id_tugas, jwbn_siswa, status) values('$iduser', '$idtugas', '$jawaban', 'diserahkan')");
+        $insertjawaban = mysqli_query($connection, "INSERT INTO jawaban (iduser, id_tugas, jwbn_siswa, status) values('$iduser', '$idTugas', '$jawaban', 'diserahkan')");
+        echo "<meta http-equiv='refresh' content='0'>";
     }
     ?>
 
@@ -229,7 +286,9 @@ if (isset($_POST["update"])) {
 
         $insertjawaban2 = mysqli_query($connection, "INSERT INTO jawaban (iduser, id_tugas, jwbn_siswa, status) values('$iduser', '$idTugas', '$file_name', 'diserahkan')");
 
-        echo "<script>location='isitugas.php'</script>";
+
+        // echo "<script>location='isitugas.php'</script>";
+        echo "<meta http-equiv='refresh' content='0'>";
     }
     ?>
 
@@ -237,6 +296,8 @@ if (isset($_POST["update"])) {
     if (isset($_POST['btnbatal'])) {
         $iduser = $_SESSION['iduser'];
         $delete_jawaban = mysqli_query($connection, "DELETE FROM jawaban WHERE id_tugas=$idTugas AND iduser=$iduser");
+
+        echo "<meta http-equiv='refresh' content='0'>";
     }
     ?>
 

@@ -186,8 +186,8 @@ if (empty($_SESSION['username'])) {
       <!--KOLOM PENGUMUMAN KELAS-->
       <ul>
         <?php
-
-        $query = "SELECT * FROM v_forum ORDER BY created_at DESC";
+        $idkelas = $_SESSION['idkelas'];
+        $query = "SELECT * FROM v_forum WHERE idkelas = '$idkelas' ORDER BY created_at DESC ";
         $result = mysqli_query($connection, $query);
         while ($row = mysqli_fetch_assoc($result)) { ?>
           <li class="bg-white px-3 py-4 rounded shadow">

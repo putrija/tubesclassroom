@@ -42,8 +42,8 @@ $row = mysqli_fetch_assoc($result);
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
-       <!----Nama kelas-->
-       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!----Nama kelas-->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav justify-content-start">
           <li class="nav-item active">
             <a class="nav-link" href="forum.php">
@@ -95,59 +95,92 @@ $row = mysqli_fetch_assoc($result);
     </div>
   </nav>
 
-<!---SIDEBAR--->
-<?php include 'sidebar.php' ?>
+  <!---SIDEBAR--->
+  <?php include 'sidebar.php' ?>
 
   <!---ISI-->
+  <div>
+    <div class="list-tugas ">
+      <div class="accordion container py-2 bg-white col-7" id="accordionExample">
+        <!---list 1-->
+        <?php
+        $idkelas = $_SESSION['idkelas'];
+        $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
+        while ($data = mysqli_fetch_array($ambildata)) {
+        ?>
+          <div class="accordion-item px-4 py-3 my-4" data-bs-toggle="collapse" data-bs-target="#collapse<?= $data['id_tugas']; ?>" aria-expanded="true" aria-controls="collapse<?= $data['id_tugas']; ?>">
+            <div class="d-flex justify-content-between">
+              <h6 class="accordion-header" id="headingOne">
+                <span class="fa-stack" style="font-size: 18px;">
+                  <i class="fa-solid fa-circle fa-stack-2x text-primary"></i>
+                  <i class="fa-solid fa-clipboard-list fa-stack-1x text-white"></i>
+                </span>
+                <?= $data['nama']; ?>
+                <!--nama tugas--->
+              </h6>
+            </div>
 
+            <!--isi collapse-->
+            <div id="collapse<?= $data['id_tugas']; ?>" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
 
-  <div class="">
-    <table class="table table-bordered">
+                <!---DINILAI LIST--->
+                <div class="my-4 list-student">
+                  <?php
+                  $idkelas = $_SESSION['idkelas'];
+                  $idtugas = $row['id_tugas'];
+                  // $query123 = "SELECT * FROM jawaban WHERE id_tugas = $idtugas AND status='dinilai'";
+                  // $datadinilai = mysqli_query($connection, $query123);
+                  $datadinilai = mysqli_query(
+                    $connection,
+                    "SELECT DISTINCT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher, j.nilai, j.id_tugas
+                FROM user AS u 
+                JOIN user_level AS ul 
+                ON u.iduser=ul.iduser 
+                JOIN kelas AS k 
+                ON ul.idkelas=k.idkelas 
+                JOIN tugas AS t
+                ON k.idkelas=t.idkelas 
+                JOIN jawaban as j
+                ON u.iduser=j.iduser
+                WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
+                AND j.status='dinilai'"
+                  );
+                  ?>
+                  <!--Batas--->
 
-            <thead>
-              <tr>
-                    <th>
-                      .  
-                    </th>
-                    <?php
-                      $idkelas = $_SESSION['idkelas'];
-                      $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
-                      while ($data = mysqli_fetch_array($ambildata)) { ?>
-                    <th>
-                      <div>
-                         <?= $data['nama']; ?>
-                        <hr>
-                        dari 100
-                      </div>
-                    </th>
-          <?php } ?>
-              </tr>
-            </thead>
-          
-          <tbody> 
-                <?php
-                $ambildata = mysqli_query($connection, "SELECT * FROM jawaban AS j INNER JOIN user AS u ON j.iduser = u.iduser INNER JOIN user_level AS ul ON ul.iduser=u.iduser WHERE ul.level='student' AND ul.idkelas='$idkelas' ");
-                while ($row = mysqli_fetch_assoc($ambildata)) {
-                ?>
-                <tr>
-                  <td>
-                  <div class="d-flex">
-                    <div class="avatar">
-                      <img src="https://avatars.dicebear.com/api/micah/<?= $row['nama_user']?>.svg?w=400&h=400" alt="Avatar" />
+                  <ol class="list-group list-group-numbered shadow pt-3">
+                    <div class="overflow-auto" style="height: 210px;">
+                      <?php
+                      while ($data = mysqli_fetch_assoc($datadinilai)) {
+                        $user = $data['nama_user'];
+                        $nilai = $data['nilai'];
+                      ?>
+                        <li class="d-flex align-items-center justify-content-between">
+                          <div class="d-flex align-items-center">
+                            <div class="avatar ms-3 me-2 my-2">
+                              <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
+                            </div>
+                            <span class="fs-5"><?php echo $user; ?></span>
+                            <span class="fs-5">=</span>
+                            <span class="fs-5"><?php echo $nilai; ?></span>
+                          </div>
+                        </li>
+                      <?php } ?>
                     </div>
-                    <span class="fs-5"><?= $row['nama_user']?></span>
-                  </div> 
-                 </td>
-                  <td><?=$row["nilai"]?></td>
-                </tr>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                <?php
-                }
-                ?>
+        <?php } ?>
 
-          </tbody>
-      
-  </table>
+      </div>
+    </div>
+
+
+  </div>
 
   <!---SCRIPT-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

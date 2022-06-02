@@ -73,8 +73,8 @@ if (empty($_SESSION['username'])) {
     </div>
   </nav>
 
-<!---SIDEBAR--->
-<?php include 'sidebar.php' ?>
+  <!---SIDEBAR--->
+  <?php include 'sidebar.php' ?>
 
   <!------ISI-------->
   <!-- Kartu kelas -->

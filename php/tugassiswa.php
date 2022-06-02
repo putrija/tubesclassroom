@@ -11,10 +11,10 @@ $result = mysqli_query($connection, $query);
 $row = mysqli_fetch_assoc($result);
 
 //nilaiTugas
-if(isset($_POST["nilaiTugas"])) {
-    if(editNilai($_POST) > 0) {
-        header("Location: tugassiswa.php");    
-    }
+if (isset($_POST["nilaiTugas"])) {
+  if (editNilai($_POST) > 0) {
+    header("Location: tugassiswa.php");
+  }
 }
 
 ?>
@@ -35,9 +35,9 @@ if(isset($_POST["nilaiTugas"])) {
   <link rel="stylesheet" href="../css/components.css" />
   <link rel="stylesheet" href="../css/reset.css" />
   <style>
-        body {
-          background-color: white;
-        }
+    body {
+      background-color: white;
+    }
   </style>
 
 </head>
@@ -104,20 +104,21 @@ if(isset($_POST["nilaiTugas"])) {
   </nav>
 
   <!---SIDEBAR--->
-<?php include 'sidebar.php' ?>
+  <?php include 'sidebar.php' ?>
 
-<div class="row">
-      <!----ISI--->
+  <div class="row">
+    <!----ISI--->
     <div class="col-lg-4 container-left ms-5 ps-5">
-          <h5>Semua Siswa</h5>
+      <h5>Semua Siswa</h5>
 
-         <!---DISERAHKAN LIST--->
-          <div class="my-4 list-student">
-            <?php
-              $idkelas = $_SESSION['idkelas'];
-              $idtugas = $row['id_tugas'];
-              $datadiserahkan = mysqli_query($connection,
-               "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+      <!---DISERAHKAN LIST--->
+      <div class="my-4 list-student">
+        <?php
+        $idkelas = $_SESSION['idkelas'];
+        $idtugas = $row['id_tugas'];
+        $datadiserahkan = mysqli_query(
+          $connection,
+          "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                 FROM user AS u 
                 JOIN user_level AS ul 
                 ON u.iduser=ul.iduser 
@@ -128,36 +129,41 @@ if(isset($_POST["nilaiTugas"])) {
                 JOIN jawaban as j
                 ON u.iduser=j.iduser
                 WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
-                AND j.status='diserahkan'");
-              ?><!--Batas--->
-              <h6>Diserahkan  <?= $datadiserahkan->num_rows; ?> </h6>
-                
-                <ol class="list-group list-group-numbered shadow pt-3">
-                 <div class="overflow-auto" style="height: 210px;">
-                  <?php
-                    while ($data = mysqli_fetch_assoc($datadiserahkan)) {
-                    $user = $data['nama_user'];
-                    ?>   
-                      <li class="d-flex align-items-center justify-content-between">
-                          <div class="d-flex align-items-center">
-                            <div class="avatar ms-3 me-2 my-2">
-                              <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
-                            </div>
-                            <span class="fs-5"><?php echo $user; ?></span>
-                          </div>
-                      </li> 
-                    <?php } ?>
-                 </div>  
-                </ol>
-          </div>
+                AND j.status='diserahkan'"
+        );
+        ?>
+        <!--Batas--->
+        <h6>Diserahkan <?= $datadiserahkan->num_rows; ?> </h6>
 
-          <!---DINILAI LIST--->
-          <div class="my-4 list-student">
+        <ol class="list-group list-group-numbered shadow pt-3">
+          <div class="overflow-auto" style="height: 210px;">
             <?php
-              $idkelas = $_SESSION['idkelas'];
-              $idtugas = $row['id_tugas'];
-              $datadinilai = mysqli_query($connection,
-               "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+            while ($data = mysqli_fetch_assoc($datadiserahkan)) {
+              $user = $data['nama_user'];
+            ?>
+              <li class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                  <div class="avatar ms-3 me-2 my-2">
+                    <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
+                  </div>
+                  <span class="fs-5"><?php echo $user; ?></span>
+                </div>
+              </li>
+            <?php } ?>
+          </div>
+        </ol>
+      </div>
+
+      <!---DINILAI LIST--->
+      <div class="my-4 list-student">
+        <?php
+        $idkelas = $_SESSION['idkelas'];
+        $idtugas = $row['id_tugas'];
+        // $query123 = "SELECT * FROM jawaban WHERE id_tugas = $idtugas AND status='dinilai'";
+        // $datadinilai = mysqli_query($connection, $query123);
+        $datadinilai = mysqli_query(
+          $connection,
+          "SELECT DISTINCT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                 FROM user AS u 
                 JOIN user_level AS ul 
                 ON u.iduser=ul.iduser 
@@ -168,47 +174,53 @@ if(isset($_POST["nilaiTugas"])) {
                 JOIN jawaban as j
                 ON u.iduser=j.iduser
                 WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
-                AND j.status='dinilai'");
-              ?><!--Batas--->
-              <h6>Dinilai  <?= $datadinilai->num_rows; ?> </h6>
-                
-                <ol class="list-group list-group-numbered shadow pt-3">
-                 <div class="overflow-auto" style="height: 210px;">
-                  <?php
-                    while ($data = mysqli_fetch_assoc($datadinilai)) {
-                    $user = $data['nama_user'];
-                    ?>   
-                      <li class="d-flex align-items-center justify-content-between">
-                          <div class="d-flex align-items-center">
-                            <div class="avatar ms-3 me-2 my-2">
-                              <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
-                            </div>
-                            <span class="fs-5"><?php echo $user; ?></span>
-                          </div>
-                      </li> 
-                    <?php } ?>
-                 </div>  
-                </ol>
-          </div>
+                AND j.status='dinilai'"
+        );
+        ?>
+        <!--Batas--->
+        <h6>Dinilai <?= $datadinilai->num_rows; ?> </h6>
 
-          <!---DITUGASKAN LIST--->
-          <div class="my-4 list-student">
-              <?php
-                $idkelas = $_SESSION['idkelas'];
-                $idtugas = $row['id_tugas'];
-                $dataditugaskan = mysqli_query($connection,
-                "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+        <ol class="list-group list-group-numbered shadow pt-3">
+          <div class="overflow-auto" style="height: 210px;">
+            <?php
+            while ($data = mysqli_fetch_assoc($datadinilai)) {
+              $user = $data['nama_user'];
+            ?>
+              <li class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                  <div class="avatar ms-3 me-2 my-2">
+                    <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
+                  </div>
+                  <span class="fs-5"><?php echo $user; ?></span>
+                </div>
+              </li>
+            <?php } ?>
+          </div>
+        </ol>
+      </div>
+
+      <!---DITUGASKAN LIST--->
+      <div class="my-4 list-student">
+        <?php
+        $idkelas = $_SESSION['idkelas'];
+        $idtugas = $row['id_tugas'];
+        $dataditugaskan = mysqli_query(
+          $connection,
+          "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                   FROM user AS u 
                   JOIN user_level AS ul 
                   ON u.iduser=ul.iduser 
                   JOIN kelas AS k 
                   ON ul.idkelas=k.idkelas 
                   WHERE ul.idkelas='$idkelas' AND ul.level='student' 
-                  ");
-                ?><!--Batas--->
-              <?php
-                $databelum = mysqli_query($connection,
-               "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                  "
+        );
+        ?>
+        <!--Batas--->
+        <?php
+        $databelum = mysqli_query(
+          $connection,
+          "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
                 FROM user AS u 
                 JOIN user_level AS ul 
                 ON u.iduser=ul.iduser 
@@ -219,97 +231,101 @@ if(isset($_POST["nilaiTugas"])) {
                 JOIN jawaban as j
                 ON u.iduser=j.iduser
                 WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
-                AND j.status='dinilai' OR j.status='diserahkan' ");
-              ?><!--Batas--->
-                <h6>ditugaskan <?= $dataditugaskan->num_rows - $datadiserahkan->num_rows -$datadinilai->num_rows; ?> </h6>
-                  
-                  <ol class="list-group list-group-numbered shadow pt-3">
-                  <div class="overflow-auto" style="height: 210px;">
-                    <?php
-                      while ($data = mysqli_fetch_assoc($dataditugaskan)) {
-                      $checknilai = mysqli_fetch_assoc($databelum);
-                      if($checknilai == 0) :
-                      $user = $data['nama_user'];
-                      ?>   
-                        <li class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                              <div class="avatar ms-3 me-2 my-2">
-                                <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
-                              </div>
-                              <span class="fs-5"><?php echo $user; ?></span>
-                            </div>
-                        </li> <?php endif ; ?>
-                      <?php } ?>
-                  </div>  
-                  </ol>
-            </div>  
+                AND j.status='dinilai' OR j.status='diserahkan' "
+        );
+        ?>
+        <!--Batas--->
+        <h6>ditugaskan <?= $dataditugaskan->num_rows - $datadiserahkan->num_rows - $datadinilai->num_rows; ?> </h6>
 
-    </div><!--Batas akhir container left--->
+        <ol class="list-group list-group-numbered shadow pt-3">
+          <div class="overflow-auto" style="height: 210px;">
+            <?php
+            while ($data = mysqli_fetch_assoc($dataditugaskan)) {
+              $checknilai = mysqli_fetch_assoc($databelum);
+              if ($checknilai == 0) :
+                $user = $data['nama_user'];
+            ?>
+                <li class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar ms-3 me-2 my-2">
+                      <img src="https://avatars.dicebear.com/api/micah/<?= $user; ?>.svg?w=350&h=350" alt="Avatar" />
+                    </div>
+                    <span class="fs-5"><?php echo $user; ?></span>
+                  </div>
+                </li> <?php endif; ?>
+            <?php } ?>
+          </div>
+        </ol>
+      </div>
+
+    </div>
+    <!--Batas akhir container left--->
 
 
-    
+
     <div class="col-lg-6 container-right mt-5">
       <!-- DESCRIPTION BOX -->
 
-        <!---Nama tugas--->
-        <div class="task-desc shadow pt-1 ps-4">
-          
-          <h4 class="my-3"><?php echo $row['nama']; ?> </h4>
-          <!-- Description TUGAS -->
-          <div class="description my-2 pb-2">
-            <ul class="list-inline">
-              <li class="list-inline-item border-start px-3">
-                <h2> <?= $datadiserahkan->num_rows; ?> </h2> diserahkan
-              </li>
-              <li class="list-inline-item border-start px-3">
-                <h2><?= $dataditugaskan->num_rows - $datadiserahkan->num_rows -$datadinilai->num_rows; ?>
-                    </h2> ditugaskan
-              </li>
-              <li class="list-inline-item border-start px-3">
-                <h2> <?= $datadinilai->num_rows; ?> </h2> dinilai
-              </li>
-            </ul>
-          </div>
+      <!---Nama tugas--->
+      <div class="task-desc shadow pt-1 ps-4">
+
+        <h4 class="my-3"><?php echo $row['nama']; ?> </h4>
+        <!-- Description TUGAS -->
+        <div class="description my-2 pb-2">
+          <ul class="list-inline">
+            <li class="list-inline-item border-start px-3">
+              <h2> <?= $datadiserahkan->num_rows; ?> </h2> diserahkan
+            </li>
+            <li class="list-inline-item border-start px-3">
+              <h2><?= $dataditugaskan->num_rows - $datadiserahkan->num_rows - $datadinilai->num_rows; ?>
+              </h2> ditugaskan
+            </li>
+            <li class="list-inline-item border-start px-3">
+              <h2> <?= $datadinilai->num_rows; ?> </h2> dinilai
+            </li>
+          </ul>
+        </div>
 
       </div>
 
-        <!-- ASSIGNMENT BOX -->
-        <div class="assignment-box shadow border my-3">
-          <h4 class="text-center my-1">Jawaban Siswa</h4>
-          <div class="assignment-card px-3 py-1">
-            <div class="row">
+      <!-- ASSIGNMENT BOX -->
+      <div class="assignment-box shadow border my-3">
+        <h4 class="text-center my-1">Jawaban Siswa</h4>
+        <div class="assignment-card px-3 py-1">
+          <div class="row">
 
-                <?php
-                $idtugas = $row['id_tugas'];
-                $ambildata = mysqli_query($connection, "SELECT * FROM jawaban AS j INNER JOIN user AS u ON j.iduser = u.iduser WHERE j.id_tugas = $idtugas");
-                while ($row = mysqli_fetch_assoc($ambildata)) {
-                ?>
-                  <div class="col-lg-3 my-2">
-                    <div class="card w-100 text-center">
-                      <div class="card-body">
-                        <h6 class="card-title"><?= $row['nama_user']; ?></h6>
-                        <a class="" href="file/<?=$row['jwbn_siswa']?>" download="<?=$row['jwbn_siswa']?>"> <?= $row['jwbn_siswa']; ?></a>
-                        <form method="POST">
-                          <input type="hidden" name="status" value="dinilai">
-                          <input type="hidden" name="id" value="<?=$row["id"]?>">
-                          <input type="number" name="nilai" class="form-control" value="<?=$row["nilai"]?>" style="text-align: center;">
-                          <button name="nilaiTugas" class="mt-2 ms-4 btn btn-primary">nilai</button>
-                        </form>
-                      </div>
-                    </div>                    
+            <?php
+            $idtugas = $row['id_tugas'];
+            $ambildata = mysqli_query($connection, "SELECT * FROM jawaban AS j INNER JOIN user AS u ON j.iduser = u.iduser WHERE j.id_tugas = $idtugas");
+            while ($row = mysqli_fetch_assoc($ambildata)) {
+            ?>
+              <div class="col-lg-3 my-2">
+                <div class="card w-100 text-center">
+                  <div class="card-body">
+                    <h6 class="card-title"><?= $row['nama_user']; ?></h6>
+                    <a class="" href="jawaban/<?= $row['jwbn_siswa'] ?>" download="jawaban/<?= $row['jwbn_siswa'] ?>"> <?= $row['jwbn_siswa']; ?></a>
+                    <form method="POST">
+                      <input type="hidden" name="status" value="dinilai">
+                      <input type="hidden" name="id" value="<?= $row["id"] ?>">
+                      <input type="number" name="nilai" class="form-control" value="<?= $row["nilai"] ?>" style="text-align: center;">
+                      <button name="nilaiTugas" class="mt-2 ms-4 btn btn-primary">nilai</button>
+                    </form>
                   </div>
+                </div>
+              </div>
 
-                <?php
-                }
-                ?>
+            <?php
+            }
+            ?>
 
-            </div>
           </div>
         </div>
+      </div>
 
-    </div><!--Batas akhir container right--->
+    </div>
+    <!--Batas akhir container right--->
 
-</div>
+  </div>
 
 
 
@@ -317,7 +333,7 @@ if(isset($_POST["nilaiTugas"])) {
   <!---SCRIPT-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/9c0c4e63c7.js" crossorigin="anonymous"></script>
-  
+
 </body>
 
 </html>

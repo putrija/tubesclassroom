@@ -386,30 +386,35 @@ if (empty($_SESSION['username'])) {
                     <!--Batas--->
                     <!---DINILAI LIST--->
                     <?php
-                    $datadinilai = mysqli_query(
-                      $connection,
-                      "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
-                                FROM user AS u 
-                                JOIN user_level AS ul 
-                                ON u.iduser=ul.iduser 
-                                JOIN kelas AS k 
-                                ON ul.idkelas=k.idkelas 
-                                JOIN tugas AS t
-                                ON k.idkelas=t.idkelas 
-                                JOIN jawaban as j
-                                ON u.iduser=j.iduser
-                                WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
-                                AND j.status='dinilai'"
-                    );
+                    $query123 = "SELECT * FROM jawaban WHERE id_tugas = $idtugas AND status='dinilai'";
+                    $datadinilai = mysqli_query($connection, $query123);
+                    // $datadinilai = mysqli_query(
+                    //   $connection,
+                    //   "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher
+                    //             FROM user AS u 
+                    //             JOIN user_level AS ul 
+                    //             ON u.iduser=ul.iduser 
+                    //             JOIN kelas AS k 
+                    //             ON ul.idkelas=k.idkelas 
+                    //             JOIN tugas AS t
+                    //             ON k.idkelas=t.idkelas 
+                    //             JOIN jawaban as j
+                    //             ON u.iduser=j.iduser
+                    //             WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
+                    //             AND j.status='dinilai'"
+                    // );
                     ?>
                     <!--Batas--->
 
                     <div class="p-2">
                       <ul class="list-inline">
                         <li class="list-inline-item border-start px-3">
-                          <h3> <?= $dataditugaskan->num_rows
-                                  - $datadiserahkan->num_rows
-                                  - $datadinilai->num_rows; ?> </h3> ditugaskan
+                          <p>
+                            ditugaskan : <?= mysqli_num_rows($dataditugaskan); ?> <br>
+                            diserahkan : <?= mysqli_num_rows($datadiserahkan); ?> <br>
+                            dinilai : <?= mysqli_num_rows($datadinilai); ?>
+                          </p>
+                          <h3> <?= $dataditugaskan->num_rows; ?> </h3> ditugaskan
                         </li>
                         <li class="list-inline-item border-start px-3">
                           <h3><?= $datadiserahkan->num_rows; ?></h3> diserahkan
