@@ -165,7 +165,7 @@ if (empty($_SESSION['username'])) {
 
               <div class="px-3 mb-3">
                 <div class="form-floating">
-                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                  <textarea name="textarea_p" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                   <label for="floatingTextarea2" class="text-black-50">Pengumuman</label>
                 </div>
               </div>
@@ -186,19 +186,28 @@ if (empty($_SESSION['username'])) {
       <!--KOLOM PENGUMUMAN KELAS-->
       <ul>
         <?php
-        $query = "SELECT * FROM tugas WHERE idkelas = '$_SESSION[idkelas]'";
+
+        $query = "SELECT * FROM v_forum ORDER BY created_at DESC";
         $result = mysqli_query($connection, $query);
         while ($row = mysqli_fetch_assoc($result)) { ?>
           <li class="bg-white px-3 py-4 rounded shadow">
             <div class="d-flex align-items-center justify-content-between">
               <div class="d-flex align-items-center mb-3">
                 <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-                <form action="" method="POST">
-                  <input type="hidden" value="<?= $row['id_tugas']; ?>" name="idtugas">
-                  <button name="btnisitugas" type="submit">
-                    <h3 class="fs-5"><?php echo $_SESSION['teacher'] ?> memposting <?= $row['jenis']; ?> baru : <?= $row['nama']; ?> </h3>
-                  </button>
-                </form>
+                <?php
+                if ($row['jenis'] == 'pengumuman') {
+                ?>
+                  <h3 class="fs-5">
+                    <?php echo $_SESSION['teacher'] ?> memposting <?= $row['jenis']; ?> baru : <?= $row['nama']; ?>
+                  </h3>
+                <?php } else { ?>
+                  <form action="" method="POST">
+                    <input type="hidden" value="<?= $row['id_tugas']; ?>" name="idtugas">
+                    <button name="btnisitugas" type="submit">
+                      <h3 class="fs-5"><?php echo $_SESSION['teacher'] ?> memposting <?= $row['jenis']; ?> baru : <?= $row['nama']; ?> </h3>
+                    </button>
+                  </form>
+                <?php } ?>
               </div>
             </div>
           </li>
@@ -226,6 +235,12 @@ if (empty($_SESSION['username'])) {
 
   <?php
   if (isset($_POST['btnPosting'])) {
+    $textarea_p = $_POST['textarea_p'];
+    $idKelas = $_SESSION['idkelas'];
+    $idUser = $_SESSION['iduser'];
+
+    $insert_p = mysqli_query($connection, "INSERT INTO posting (postingan, iduser, id_kelas) values ('$textarea_p', '$idUser', '$idKelas')");
+    echo "<meta http-equiv='refresh' content='0'>";
   }
   ?>
 

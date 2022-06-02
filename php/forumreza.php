@@ -278,6 +278,10 @@ error_reporting(0);
 
         <?php
         $query = mysqli_query($connection, "SELECT * FROM posting JOIN user ON posting.iduser = user.iduser ORDER BY tgl_posting DESC");
+        //         CREATE VIEW v_forum AS
+        // SELECT tugas.id_tugas, tugas.idkelas, tugas.nama, tugas.jenis, tugas.created_at FROM tugas
+        //     UNION
+        // SELECT posting.id_posting, posting.id_kelas, posting.postingan, 'pengumuman', posting.created_at FROM posting;
         foreach ($query as $row) {
         ?>
           <ul>
@@ -287,7 +291,8 @@ error_reporting(0);
                   <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
                   <div>
                     <h3 class="fs-6"><?php echo $row['nama_user'] ?></h3>
-                    <time class="text-black-50"><?php echo strftime("%H.%M", strtotime($row['tgl_posting'])) ?></time>
+                    <time class="text-black-50"><?php // echo strftime("%H.%M", strtotime($row['tgl_posting'])) 
+                                                ?></time>
                   </div>
                 </div>
                 <form method="post" onsubmit="return confirm ('Are you sure want to delete this data?');">
