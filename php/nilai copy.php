@@ -103,51 +103,85 @@ $row = mysqli_fetch_assoc($result);
 
   <div class="">
     <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>.</th>
+          <?php for ($i = 0; $i < 5; $i++) { ?>
+            <th>
+              <div>
 
-            <thead>
-              <tr>
-                    <th>
-                      .  
-                    </th>
-                    <?php
-                      $idkelas = $_SESSION['idkelas'];
-                      $ambildata = mysqli_query($connection, "SELECT * FROM tugas WHERE idkelas='$idkelas'");
-                      while ($data = mysqli_fetch_array($ambildata)) { ?>
-                    <th>
-                      <div>
-                         <?= $data['nama']; ?>
-                        <hr>
-                        dari 100
-                      </div>
-                    </th>
+                <hr>
+                dari 100
+              </div>
+            </th>
           <?php } ?>
-              </tr>
-            </thead>
-          
-          <tbody> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rata-Rata Kelas</td>
+          <?php for ($o = 0; $o < 5; $o++) { ?>
+            <td>Nilai ke <?= $o; ?></td>
+          <?php } ?>
+        </tr>
+        <?php
+        $idkelas = $_SESSION['idkelas'];
+        $ambildata = mysqli_query($connection, "SELECT ul.idkelas, u.nama_user, ul.iduser, ul.level, k.teacher 
+                                                FROM user AS u 
+                                                INNER JOIN user_level AS ul ON u.iduser=ul.iduser 
+                                                INNER JOIN kelas AS k ON ul.idkelas=k.idkelas 
+                                                JOIN jawaban as j ON u.iduser=j.iduser
+                                                WHERE ul.idkelas='$idkelas' AND ul.level='student'");
+
+        while ($data = mysqli_fetch_assoc($ambildata)) {
+          $user = $data['nama_user'];
+        ?>
+          <?php for ($j = 0; $j < 1; $j++) { ?>
+            <tr>
+              <td><?= $user ?></td>
+
+              <?php for ($k = 0; $k < 5; $k++) { ?>
+                <td> <?php $data['level']; ?><?= $k; ?></td>
+              <?php } ?>
+            </tr>
+          <?php } ?>
+        <?php
+        }
+        ?>
+      </tbody>
+    </table>
+
+
+    <div class="row">
+
                 <?php
                 $ambildata = mysqli_query($connection, "SELECT * FROM jawaban AS j INNER JOIN user AS u ON j.iduser = u.iduser");
                 while ($row = mysqli_fetch_assoc($ambildata)) {
                 ?>
-                <tr>
-                  <td>
-                  <div class="d-flex">
-                    <div class="avatar">
-                      <img src="https://avatars.dicebear.com/api/micah/<?= $row['nama_user']?>.svg?w=400&h=400" alt="Avatar" />
-                    </div>
-                    <span class="fs-5"><?= $row['nama_user']?></span>
-                  </div> 
-                 </td>
-                  <td><?=$row["nilai"]?></td>
-                </tr>
+                  <div class="col-lg-3 my-2">
+                    <div class="card w-100 text-center">
+                      <div class="card-body">
+                        <h6 class="card-title"><?= $row['nama_user']; ?></h6>
+                        <a class="" href="file/<?=$row['jwbn_siswa']?>" download="<?=$row['jwbn_siswa']?>"> <?= $row['jwbn_siswa']; ?></a>
+                        <form method="POST">
+                          <input type="hidden" name="status" value="dinilai">
+                          <input type="hidden" name="id" value="<?=$row["id"]?>">
+                          <input type="number" name="nilai" class="form-control" value="<?=$row["nilai"]?>" style="text-align: center;">
+                          <button name="nilaiTugas" class="mt-2 ms-4 btn btn-primary">nilai</button>
+                        </form>
+                      </div>
+                    </div>                    
+                  </div>
 
                 <?php
                 }
                 ?>
 
-          </tbody>
-      
-  </table>
+            </div>
+  </div>
+
+
+
 
   <!---SCRIPT-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
