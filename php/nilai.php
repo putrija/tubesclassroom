@@ -143,8 +143,7 @@ $row = mysqli_fetch_assoc($result);
                 ON k.idkelas=t.idkelas 
                 JOIN jawaban as j
                 ON u.iduser=j.iduser
-                WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas
-                AND j.status='dinilai'"
+                WHERE ul.idkelas='$idkelas' AND ul.level='student' AND j.id_tugas = $idtugas"
                   );
                   ?>
                   <!--Batas--->
@@ -155,6 +154,7 @@ $row = mysqli_fetch_assoc($result);
                       while ($data = mysqli_fetch_assoc($datadinilai)) {
                         $user = $data['nama_user'];
                         $nilai = $data['nilai'];
+
                       ?>
                         <li class="d-flex align-items-center justify-content-between">
                           <div class="d-flex align-items-center">
