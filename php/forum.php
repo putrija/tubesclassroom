@@ -151,43 +151,37 @@ if (empty($_SESSION['username'])) {
         <span class="text-white">Umumkan sesuatu ke kelas anda </span>
       </button>
       <!---modal--->
-      <div class="modal fade" id="modal-input" tabindex="-1" style="display: none" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header mb-3">
-              <div class="d-flex align-items-center">
-                <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
-                <div class="text-primary">Tulis pengumuman anda</div>
+      <form action="" method="POST">
+        <div class="modal fade" id="modal-input" tabindex="-1" style="display: none" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header mb-3">
+                <div class="d-flex align-items-center">
+                  <img class="avatar me-3" src="https://avatars.dicebear.com/api/adventurer-neutral/123456.svg" alt="Avatar" />
+                  <div class="text-primary">Tulis pengumuman anda</div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
 
-            <div class="px-3 mb-3">
-              <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                <label for="floatingTextarea2" class="text-black-50">Pengumuman</label>
+              <div class="px-3 mb-3">
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                  <label for="floatingTextarea2" class="text-black-50">Pengumuman</label>
+                </div>
               </div>
-            </div>
 
-            <div class="modal-footer d-flex justify-content-between">
-              <div>
-                <label class="upload cursor-pointer" for="upload">
-                  <img class="img-cover" src="svgs/upload.svg" alt="Upload" />
-                </label>
-                <input id="upload" type="file" />
-              </div>
-              <div class="d-flex">
-                <button type="button" class="btn btn-secondary py-2 me-2" data-bs-dismiss="modal">
-                  Cancel
-                </button>
-                <button type="button" class="btn btn-primary py-2" data-bs-dismiss="modal">
-                  Post
-                </button>
+              <div class="modal-footer d-flex justify-content-between">
+                <div class="d-flex">
+                  <a class="btn btn-secondary" href="forum.php">Cancel</a>
+                  <button name="btnPosting" type="submit" class="btn btn-primary py-2 ms-3" data-bs-dismiss="modal">
+                    Post
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
 
       <!--KOLOM PENGUMUMAN KELAS-->
       <ul>
@@ -227,6 +221,11 @@ if (empty($_SESSION['username'])) {
     } else {
       echo "<script>window.location.href='isitugas.php';</script>";
     }
+  }
+  ?>
+
+  <?php
+  if (isset($_POST['btnPosting'])) {
   }
   ?>
 
