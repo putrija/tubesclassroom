@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2022 at 07:28 PM
+-- Generation Time: Jun 03, 2022 at 12:12 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -41,10 +41,14 @@ CREATE TABLE `jawaban` (
 --
 
 INSERT INTO `jawaban` (`id`, `id_tugas`, `iduser`, `jwbn_siswa`, `status`, `nilai`) VALUES
-(1, 24, 17, 'bellman1.pdf', 'dinilai', 100),
-(4, 24, 19, '4813-CETAK KRS.pdf', 'diserahkan', 0),
-(5, 27, 21, 'BAB_I_docc.pdf', 'diserahkan', 0),
-(6, 34, 20, 'BAB_I_docc.pdf', 'diserahkan', 0);
+(31, 49, 31, '2759-jawaban_putrija.pdf', 'dinilai', 100),
+(32, 48, 32, 'sebuah cabang matematika yang mempelajari hubungan yang meliputi panjang dan sudut segitiga', 'diserahkan', 0),
+(33, 49, 32, '6968-jawaban_reza.pdf', 'diserahkan', 0),
+(34, 48, 33, 'Trigonometri adalah berkaitan dengan sin, cos, tan', 'diserahkan', 0),
+(35, 48, 34, 'Trigonometri adalah Konsep kesebangunan segitiga siku-siku. ', 'diserahkan', 0),
+(36, 49, 34, '3145-jawaban_recindy.pdf', 'diserahkan', 0),
+(37, 51, 31, '8640-jawaban_putrija.pdf', 'dinilai', 100),
+(38, 51, 33, '2619-jawaban_anhar.pdf', 'diserahkan', 0);
 
 -- --------------------------------------------------------
 
@@ -67,9 +71,8 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`idkelas`, `namakelas`, `bagian`, `mapel`, `ruang`, `kodekelas`, `teacher`) VALUES
-(71, 'SBD 21', 'teknologi informasi', 'Sistem basis data', '101', 'arlEUbA1', 'pak guru anhar'),
-(72, 'Matematika', 'Semester 1', 'LIMIT', 'XII MIA 12', 'N2J7ygHh', 'BU SITI'),
-(73, 'B. INGGRIS', 'Semester 1', 'Past Tense', 'XII MIA 12', 'qUAFR269', 'BU LENI');
+(77, 'Matematika', 'Semester 1', 'Trigonometri', 'XII MIA 12', 'f4Q93Mk1', 'IBU SITI'),
+(78, 'FISIKA', 'Semester 1', 'Gaya', 'XII MIA 12', 'xEVwyC1F', 'PAK BUDI');
 
 -- --------------------------------------------------------
 
@@ -90,22 +93,8 @@ CREATE TABLE `posting` (
 --
 
 INSERT INTO `posting` (`id_posting`, `postingan`, `iduser`, `id_kelas`, `created_at`) VALUES
-(1, 'postingan 1', 20, 72, '2022-06-02 16:41:35'),
-(2, 'postingan harusnya 3 sih', 20, 72, '2022-06-02 16:44:22'),
-(34, '', 20, 72, '2022-06-02 17:14:16'),
-(35, 'halo muridku', 20, 72, '2022-06-02 17:14:23'),
-(36, 'halo muridku', 20, 72, '2022-06-02 17:14:37'),
-(37, 'apa kabar kalian muridku', 20, 72, '2022-06-02 17:14:49'),
-(38, 'apa kabar kalian muridku', 20, 72, '2022-06-02 17:14:53'),
-(39, 'dah capek kali', 20, 72, '2022-06-02 17:15:06'),
-(40, 'dah capek kali', 20, 72, '2022-06-02 17:15:11'),
-(41, 'halo gais', 20, 72, '2022-06-02 17:15:39'),
-(42, 'halo gais', 20, 72, '2022-06-02 17:15:43'),
-(43, 'halo gais', 20, 72, '2022-06-02 17:15:53'),
-(44, 'halo gais', 20, 72, '2022-06-02 17:15:59'),
-(45, 'halo gais', 20, 72, '2022-06-02 17:16:59'),
-(46, '..', 20, 72, '2022-06-02 17:17:09'),
-(47, 'nnmmm,,,', 20, 72, '2022-06-02 17:17:17');
+(50, 'Selamat datang di kelas Matematika yang akan diajarkan oleh saya.', 30, 77, '2022-06-02 21:31:42'),
+(51, 'Selamat siang anak-anak, kelas seperti biasa\r\n', 35, 78, '2022-06-02 22:03:33');
 
 -- --------------------------------------------------------
 
@@ -129,18 +118,10 @@ CREATE TABLE `tugas` (
 --
 
 INSERT INTO `tugas` (`id_tugas`, `idkelas`, `nama`, `description`, `upload`, `date`, `created_at`, `jenis`) VALUES
-(24, 71, 'tugas sbd pak anhar', 'kerjakan halaman 10', '4812-1657-Screenshot (14).png', '2022-06-25', '2022-05-31 18:36:32', 'tugas'),
-(26, 72, 'MATERI', 'AAA', '1008-Screenshot (10).png', '0000-00-00', '2022-06-01 11:23:23', 'materi'),
-(27, 72, 'Pertanyaan', 'pertanyaan', '9786-211402063_pointer.png', '0000-00-00', '2022-06-01 11:24:15', 'pertanyaan'),
-(28, 72, 'a', 'a', '2352-', '0000-00-00', '2022-06-01 18:30:51', 'materi'),
-(29, 73, 'Tugas 1', 'Kerjakan soal berikut', '7397-Screenshot (8).png', '2022-07-09', '2022-06-01 18:46:31', 'tugas'),
-(30, 73, 'Materi1', 'materi', '5414-', '0000-00-00', '2022-06-01 18:53:31', 'materi'),
-(31, 73, 'Pertanyaan1', 'pertanyaan', '4274-', '0000-00-00', '2022-06-01 18:54:01', 'pertanyaan'),
-(32, 73, 'Tugas 2', 'tugas', '2079-', '2022-07-09', '2022-06-01 19:50:37', 'tugas'),
-(33, 72, 'Tugas baru banget', '', '2746-', '0000-00-00', '2022-06-02 11:56:41', 'tugas'),
-(34, 72, 'Tugas tugas', 'cek cek', '3966-', '2022-07-08', '2022-06-02 11:57:00', 'tugas'),
-(35, 72, 'tugas nih bos 2', 'bsa dong', '', '2022-06-30', '2022-06-02 16:43:51', 'tugas'),
-(36, 72, 'Ipsam ipsa voluptat', 'Ipsum dolor sit qui', '7585-', '1983-06-20', '2022-06-02 17:17:38', 'tugas');
+(48, 77, 'Trigonometri', 'Trigonometri adalah?', '8802-', '0000-00-00', '2022-06-02 21:41:53', 'pertanyaan'),
+(49, 77, 'Soal Trigonometri', 'Jika sin A = 3/5, A sudut pada kuadran II, maka cos A =', '7895-', '2022-07-09', '2022-06-02 21:44:39', 'tugas'),
+(50, 77, 'Trigonometri', 'Berikut adalah rumus Trigonometri', '1070-Identitas trigonometri.jpg', '0000-00-00', '2022-06-02 21:45:44', 'materi'),
+(51, 78, 'Gaya', 'Kerjakan soal berikut di buku latihan', '5429-gaya.jpg', '2022-06-11', '2022-06-02 21:58:58', 'tugas');
 
 -- --------------------------------------------------------
 
@@ -162,13 +143,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`iduser`, `username`, `password`, `nama_user`, `email`, `created_at`) VALUES
-(16, 'guru1', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'pak guru anhar', 'anharto@gmail.com', '2022-05-31 18:26:47'),
-(17, 'murid1', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'naruto uzumaki', 'narto@gmail.com', '2022-05-31 18:28:28'),
-(18, 'murid2', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'sasuke uciha', 'saske@gmail.com', '2022-05-31 18:28:56'),
-(19, 'murid3', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'sakura haruno', 'saruno@gmail.com', '2022-05-31 18:29:28'),
-(20, 'siti', '54eefb4ecb912a0f9465e58f5b5967c3c43eadff', 'BU SITI', 'siti@gmail.com', '2022-06-01 11:15:28'),
-(21, 'putrija', '8dd79c49d0be6850d0c633f2c2435db2bacbd0cb', 'PUTRIJA BR MALAU', 'putrija@gmail.com', '2022-06-01 11:18:03'),
-(22, 'leni', '89281d7160fbc0867fc79c4fa3ebd0cb4e08e924', 'BU LENI', 'leni@gmail.com', '2022-06-01 18:44:13');
+(30, 'siti', '54eefb4ecb912a0f9465e58f5b5967c3c43eadff', 'IBU SITI', 'siti@gmail.com', '2022-06-02 21:26:54'),
+(31, 'putrija', '8dd79c49d0be6850d0c633f2c2435db2bacbd0cb', 'PUTRIJA BR MALAU', 'putrija@gmail.com', '2022-06-02 21:29:08'),
+(32, 'reza', 'b96dbf74436b3f73db2f27c2fb7c966eb1f47360', 'MUHAMMAD REZA', 'reza@gmail.com', '2022-06-02 21:49:06'),
+(33, 'anhar', '70879268f10667d8d30d272272e063976b3d8f9a', 'AL ANHAR SUFI', 'anhar@gmail.com', '2022-06-02 21:52:05'),
+(34, 'recindy', '5a53cfd49189f8b59eab4f13a15632583e3cb098', 'RECINDY NATALIA', 'recindy@gmail.com', '2022-06-02 21:54:10'),
+(35, 'budi', '83161a62f22277c65a6cdb7ebc314f218c376c63', 'PAK BUDI', 'budi@gmail.com', '2022-06-02 21:56:56');
 
 -- --------------------------------------------------------
 
@@ -188,14 +168,15 @@ CREATE TABLE `user_level` (
 --
 
 INSERT INTO `user_level` (`iduserlevel`, `iduser`, `idkelas`, `level`) VALUES
-(119, 16, 71, 'teacher'),
-(120, 17, 71, 'student'),
-(121, 18, 71, 'student'),
-(122, 19, 71, 'student'),
-(123, 20, 72, 'teacher'),
-(124, 21, 72, 'student'),
-(125, 22, 73, 'teacher'),
-(126, 21, 73, 'student');
+(139, 30, 77, 'teacher'),
+(140, 31, 77, 'student'),
+(141, 32, 77, 'student'),
+(142, 33, 77, 'student'),
+(143, 34, 77, 'student'),
+(144, 35, 78, 'teacher'),
+(145, 31, 78, 'student'),
+(146, 32, 78, 'student'),
+(147, 33, 78, 'student');
 
 -- --------------------------------------------------------
 
@@ -269,37 +250,37 @@ ALTER TABLE `user_level`
 -- AUTO_INCREMENT for table `jawaban`
 --
 ALTER TABLE `jawaban`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `idkelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `idkelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `posting`
 --
 ALTER TABLE `posting`
-  MODIFY `id_posting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id_posting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `user_level`
 --
 ALTER TABLE `user_level`
-  MODIFY `iduserlevel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `iduserlevel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
