@@ -126,7 +126,7 @@ $row = mysqli_fetch_assoc($result);
           
           <tbody> 
                 <?php
-                $ambildata = mysqli_query($connection, "SELECT * FROM jawaban AS j INNER JOIN user AS u ON j.iduser = u.iduser");
+                $ambildata = mysqli_query($connection, "SELECT * FROM jawaban AS j INNER JOIN user AS u ON j.iduser = u.iduser INNER JOIN user_level AS ul ON ul.iduser=u.iduser WHERE ul.level='student' AND ul.idkelas='$idkelas' ");
                 while ($row = mysqli_fetch_assoc($ambildata)) {
                 ?>
                 <tr>
