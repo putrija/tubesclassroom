@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2022 at 08:06 PM
+-- Generation Time: Jun 02, 2022 at 01:55 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `classroom`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jawaban`
+--
+
+CREATE TABLE `jawaban` (
+  `id` int(11) NOT NULL,
+  `id_tugas` int(11) NOT NULL,
+  `iduser` int(11) NOT NULL,
+  `jwbn_siswa` varchar(200) NOT NULL,
+  `status` varchar(10) NOT NULL DEFAULT 'diserahkan',
+  `nilai` int(11) UNSIGNED DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jawaban`
+--
+
+INSERT INTO `jawaban` (`id`, `id_tugas`, `iduser`, `jwbn_siswa`, `status`, `nilai`) VALUES
+(1, 24, 17, 'bellman1.pdf', 'dinilai', 100),
+(4, 24, 19, '4813-CETAK KRS.pdf', 'diserahkan', 0),
+(5, 27, 21, 'BAB_I_docc.pdf', 'diserahkan', 0),
+(6, 32, 21, 'BAB_I_docc.pdf', 'dinilai', 0);
 
 -- --------------------------------------------------------
 
@@ -42,52 +67,9 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`idkelas`, `namakelas`, `bagian`, `mapel`, `ruang`, `kodekelas`, `teacher`) VALUES
-(68, 'Matematika', 'Semester 1', 'Trigonometri', 'XII MIA 12', 'inljdh9U', 'PUTRIJA BR MALAU'),
-(69, 'A', 'B', 'C', 'D', 'sldiJtr6', 'PUTRIJA BR MALAU'),
-(70, 'Fisika', 'Semester 1', 'Gaya', 'XII MIA 12', '6g7m8wqE', 'Al Anhar Sulfi');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nilai`
---
-
-CREATE TABLE `nilai` (
-  `id_nilai` int(11) NOT NULL,
-  `nilai` int(11) NOT NULL,
-  `id_p_tugas` int(11) NOT NULL,
-  `iduser` int(11) NOT NULL,
-  `id_tugas` int(11) NOT NULL,
-  `status` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `nilai`
---
-
-INSERT INTO `nilai` (`id_nilai`, `nilai`, `id_p_tugas`, `iduser`, `id_tugas`, `status`) VALUES
-(3, 99, 1, 2, 1, ''),
-(4, 9, 0, 0, 1, 'dinilai');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pengumpulan_tugas`
---
-
-CREATE TABLE `pengumpulan_tugas` (
-  `id` int(11) NOT NULL,
-  `iduser` int(11) NOT NULL,
-  `id_tugas` int(11) NOT NULL,
-  `jwbn_siswa` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pengumpulan_tugas`
---
-
-INSERT INTO `pengumpulan_tugas` (`id`, `iduser`, `id_tugas`, `jwbn_siswa`) VALUES
-(1, 2, 1, 'a');
+(71, 'SBD 21', 'teknologi informasi', 'Sistem basis data', '101', 'arlEUbA1', 'pak guru anhar'),
+(72, 'Matematika', 'Semester 1', 'LIMIT', 'XII MIA 12', 'N2J7ygHh', 'BU SITI'),
+(73, 'B. INGGRIS', 'Semester 1', 'Past Tense', 'XII MIA 12', 'qUAFR269', 'BU LENI');
 
 -- --------------------------------------------------------
 
@@ -102,16 +84,23 @@ CREATE TABLE `tugas` (
   `description` text NOT NULL,
   `upload` text NOT NULL,
   `date` date NOT NULL,
-  `create` timestamp NOT NULL DEFAULT current_timestamp()
+  `create` timestamp NOT NULL DEFAULT current_timestamp(),
+  `jenis` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tugas`
 --
 
-INSERT INTO `tugas` (`id_tugas`, `idkelas`, `nama`, `description`, `upload`, `date`, `create`) VALUES
-(21, 70, 'Limit', 'Kerjakan no 1-10', '1657-Screenshot (14).png', '2022-07-01', '2022-05-31 17:43:01'),
-(22, 70, 'Tanpa upload', 'ini tanpa upload', '9605-', '2022-07-02', '2022-05-31 17:47:00');
+INSERT INTO `tugas` (`id_tugas`, `idkelas`, `nama`, `description`, `upload`, `date`, `create`, `jenis`) VALUES
+(24, 71, 'tugas sbd pak anhar', 'kerjakan halaman 10', '4812-1657-Screenshot (14).png', '2022-06-25', '2022-05-31 18:36:32', 'tugas'),
+(26, 72, 'MATERI', 'AAA', '1008-Screenshot (10).png', '0000-00-00', '2022-06-01 11:23:23', 'materi'),
+(27, 72, 'Pertanyaan', 'pertanyaan', '9786-211402063_pointer.png', '0000-00-00', '2022-06-01 11:24:15', 'pertanyaan'),
+(28, 72, 'a', 'a', '2352-', '0000-00-00', '2022-06-01 18:30:51', 'materi'),
+(29, 73, 'Tugas 1', 'Kerjakan soal berikut', '7397-Screenshot (8).png', '2022-07-09', '2022-06-01 18:46:31', 'tugas'),
+(30, 73, 'Materi1', 'materi', '5414-', '0000-00-00', '2022-06-01 18:53:31', 'materi'),
+(31, 73, 'Pertanyaan1', 'pertanyaan', '4274-', '0000-00-00', '2022-06-01 18:54:01', 'pertanyaan'),
+(32, 73, 'Tugas 2', 'tugas', '2079-', '2022-07-09', '2022-06-01 19:50:37', 'tugas');
 
 -- --------------------------------------------------------
 
@@ -133,9 +122,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`iduser`, `username`, `password`, `nama_user`, `email`, `created_at`) VALUES
-(13, 'putrija', '8dd79c49d0be6850d0c633f2c2435db2bacbd0cb', 'PUTRIJA BR MALAU', 'putrija@gmail.com', '2022-05-27 02:09:56'),
-(14, 'reza', 'b96dbf74436b3f73db2f27c2fb7c966eb1f47360', 'MUHAMMAD REZA', 'reza@gmail.com', '2022-05-27 02:19:14'),
-(15, 'anhar', '70879268f10667d8d30d272272e063976b3d8f9a', 'Al Anhar Sulfi', 'anhar@gmail.com', '2022-05-30 14:54:14');
+(16, 'guru1', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'pak guru anhar', 'anharto@gmail.com', '2022-05-31 18:26:47'),
+(17, 'murid1', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'naruto uzumaki', 'narto@gmail.com', '2022-05-31 18:28:28'),
+(18, 'murid2', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'sasuke uciha', 'saske@gmail.com', '2022-05-31 18:28:56'),
+(19, 'murid3', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'sakura haruno', 'saruno@gmail.com', '2022-05-31 18:29:28'),
+(20, 'siti', '54eefb4ecb912a0f9465e58f5b5967c3c43eadff', 'BU SITI', 'siti@gmail.com', '2022-06-01 11:15:28'),
+(21, 'putrija', '8dd79c49d0be6850d0c633f2c2435db2bacbd0cb', 'PUTRIJA BR MALAU', 'putrija@gmail.com', '2022-06-01 11:18:03'),
+(22, 'leni', '89281d7160fbc0867fc79c4fa3ebd0cb4e08e924', 'BU LENI', 'leni@gmail.com', '2022-06-01 18:44:13');
 
 -- --------------------------------------------------------
 
@@ -155,34 +148,30 @@ CREATE TABLE `user_level` (
 --
 
 INSERT INTO `user_level` (`iduserlevel`, `iduser`, `idkelas`, `level`) VALUES
-(113, 13, 68, 'teacher'),
-(114, 14, 68, 'student'),
-(115, 13, 69, 'teacher'),
-(116, 14, 69, 'student'),
-(117, 15, 70, 'teacher'),
-(118, 13, 70, 'student');
+(119, 16, 71, 'teacher'),
+(120, 17, 71, 'student'),
+(121, 18, 71, 'student'),
+(122, 19, 71, 'student'),
+(123, 20, 72, 'teacher'),
+(124, 21, 72, 'student'),
+(125, 22, 73, 'teacher'),
+(126, 21, 73, 'student');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `jawaban`
+--
+ALTER TABLE `jawaban`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`idkelas`);
-
---
--- Indexes for table `nilai`
---
-ALTER TABLE `nilai`
-  ADD PRIMARY KEY (`id_nilai`);
-
---
--- Indexes for table `pengumpulan_tugas`
---
-ALTER TABLE `pengumpulan_tugas`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tugas`
@@ -207,40 +196,34 @@ ALTER TABLE `user_level`
 --
 
 --
+-- AUTO_INCREMENT for table `jawaban`
+--
+ALTER TABLE `jawaban`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `idkelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
-
---
--- AUTO_INCREMENT for table `nilai`
---
-ALTER TABLE `nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `pengumpulan_tugas`
---
-ALTER TABLE `pengumpulan_tugas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idkelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user_level`
 --
 ALTER TABLE `user_level`
-  MODIFY `iduserlevel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `iduserlevel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

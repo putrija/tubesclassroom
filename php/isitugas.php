@@ -6,8 +6,8 @@ if (empty($_SESSION['username'])) {
 }
 $idKelas = $_SESSION['idkelas'];
 $idUser = $_SESSION['iduser'];
-$idtugas = $_SESSION['idtugas'];
-$query = "SELECT * FROM tugas AS t INNER JOIN jawaban AS j WHERE t.id_tugas = $idtugas AND j.iduser = $idUser  AND t.idkelas = $idKelas";
+$idTugas = $_SESSION['idtugas'];
+$query = "SELECT * FROM tugas AS t INNER JOIN jawaban AS j  WHERE t.id_tugas = $idTugas AND j.iduser = $idUser AND t.idkelas = $idKelas";
 $result = mysqli_query($connection, $query);
 $row = mysqli_fetch_assoc($result);
 
@@ -123,7 +123,6 @@ if (isset($_POST["update"])) {
 
                 <hr class="solid">
 
-                <h4><?php echo $row['status'] ?></h4>
                 <h4><?php echo $row['description'] ?></h4>
                 <object class="mt-3" data="berkas/<?php echo $row['upload']; ?>" width="400" height="200"></object>
                 <?php
@@ -148,57 +147,70 @@ if (isset($_POST["update"])) {
             $jenis = $row['jenis'];
             if ($jenis == 'tugas') :
             ?>
-                <div class="sbmt-task px-3 my-4">
-                    <div class="box-sbmt border shadow px-3 py-3">
-                        <h5 class="card-title">Tugas Anda</h5>
-                        <?php
-
-                        if ($row['status'] == 'diserahkan') :
-                        ?>
-                            <h5 class="card-title"><?php echo $row['status'] ?></h5>
-                            <p><?php echo $row['jwbn_siswa'] ?></p>
-                            <form action="" method="POST"><button type="submit" name="btnbatal">Batalkan pengiriman</button></form>
-
-                        <?php
-                        elseif ($row['status'] == 'dinilai') :
-                        ?>
-                            <h5 class="card-title"><?php echo $row['status'] ?></h5>
-                            <p><?php echo $row['jwbn_siswa'] ?></p>
-
-                        <?php
-                        else :
-                        ?>
+                <?php
+                echo "id user:";
+                print_r($idUser);
+                echo "id tugas:";
+                print_r($idTugas);
+                echo "id kelas:";
+                print_r($idKelas);
+                $ambildata = mysqli_query($connection, "SELECT * FROM tugas AS t INNER JOIN jawaban as j ON t.id_tugas = j.id_tugas WHERE t.id_tugas = '$idTugas' AND t.idkelas = '$idKelas' AND j.iduser = '$idUser' ");
+                while ($data = mysqli_fetch_assoc($ambildata)) {
+                ?>
+                    <div class="sbmt-task px-3 my-4">
+                        <div class="box-sbmt border shadow px-3 py-3">
+                            <h5 class="card-title">Tugas Anda</h5>
                             <?php
-                            $userID = $_SESSION['iduser'];
-                            $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas");
-                            $checkJawaban = mysqli_num_rows($check);
-                            if ($checkJawaban > 0) {
-                                $jawaban = show("SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas")[0];
-                                $jawabanID = $jawaban["id"];
-                            }
-                            ?>
 
-                            <?php if ($checkJawaban == 0) : ?>
-                                <form method="POST" enctype="multipart/form-data">
-                                    <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
-                                    <input type="file" id="formFile" class="form-control-sm form-control" name="file">
-                                    <input type="hidden" name="tugas" value="<?= $idtugas ?>">
-                                    <input type="hidden" name="user" value="<?= $userID ?>">
-                                    <input type="hidden" name="status" value="diserahkan">
-                                    <button class="btn mx-auto btn-outline-primary my-2" name="upload">Upload Tugas<i class="mx-2 fas fa-file-upload"></i></button>
-                                </form>
-                            <?php else : ?>
-                                <form method="POST" enctype="multipart/form-data">
-                                    <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
-                                    <input type="file" id="formFile" class="form-control-sm form-control" name="file">
-                                    <input type="hidden" name="jawaban" value="<?= $jawabanID ?>">
-                                    <button class="btn mx-auto btn-primary my-2" name="update">Update<i class="mx-2 fas fa-file-upload"></i></button>
-                                </form>
-                                <!-- ?= var_dump($jawabanID)?> -->
+                            if ($data['status'] == 'diserahkan') :
+                            ?>
+                                <h5 class="card-title"><?php echo $data['status'] ?></h5>
+                                <p><?php echo $data['jwbn_siswa'] ?></p>
+                                <form action="" method="POST"><button type="submit" name="btnbatal">Batalkan pengiriman</button></form>
+
+                            <?php
+                            elseif ($data['status'] == 'dinilai') :
+                            ?>
+                                <h5 class="card-title"><?php echo $data['status'] ?></h5>
+                                <p><?php echo $data['jwbn_siswa'] ?></p>
+
+                            <?php
+                            else :
+                            ?>
+                                <?php
+                                $userID = $_SESSION['iduser'];
+                                $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas");
+                                $checkJawaban = mysqli_num_rows($check);
+                                if ($checkJawaban > 0) {
+                                    $jawaban = show("SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas")[0];
+                                    $jawabanID = $jawaban["id"];
+                                }
+                                ?>
+
+                                <?php if ($checkJawaban == 0) : ?>
+                                    <form method="POST" enctype="multipart/form-data">
+                                        <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
+                                        <input type="file" id="formFile" class="form-control-sm form-control" name="file">
+                                        <input type="hidden" name="tugas" value="<?= $idtugas ?>">
+                                        <input type="hidden" name="user" value="<?= $userID ?>">
+                                        <input type="hidden" name="status" value="diserahkan">
+                                        <button class="btn mx-auto btn-outline-primary my-2" name="upload">Upload Tugas<i class="mx-2 fas fa-file-upload"></i></button>
+                                    </form>
+                                <?php else : ?>
+                                    <form method="POST" enctype="multipart/form-data">
+                                        <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
+                                        <input type="file" id="formFile" class="form-control-sm form-control" name="file">
+                                        <input type="hidden" name="jawaban" value="<?= $jawabanID ?>">
+                                        <button class="btn mx-auto btn-primary my-2" name="update">Update<i class="mx-2 fas fa-file-upload"></i></button>
+                                    </form>
+                                    <!-- ?= var_dump($jawabanID)?> -->
+                                <?php endif; ?>
                             <?php endif; ?>
-                        <?php endif; ?>
+                        </div>
                     </div>
-                </div>
+                <?php
+                }
+                ?>
             <?php endif; ?>
 
 
