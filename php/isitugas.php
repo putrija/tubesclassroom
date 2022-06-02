@@ -148,12 +148,6 @@ if (isset($_POST["update"])) {
             if ($jenis == 'tugas') :
             ?>
                 <?php
-                echo "id user:";
-                print_r($idUser);
-                echo "id tugas:";
-                print_r($idTugas);
-                echo "id kelas:";
-                print_r($idKelas);
 
                 $pemeriksaan_jawaban = mysqli_num_rows(mysqli_query($connection, "SELECT * FROM tugas AS t INNER JOIN jawaban as j ON t.id_tugas = j.id_tugas WHERE t.id_tugas = '$idTugas' AND t.idkelas = '$idKelas' AND j.iduser = '$idUser' "));
 
@@ -186,37 +180,15 @@ if (isset($_POST["update"])) {
                         </div>
 
                     <?php } else { ?>
-                        <div class="sbmt-task px-3 my-4">
-                            <div class="box-sbmt border shadow px-3 py-3">
+                        <div class="card mt-5 ms-3" style="width: 18rem;">
+                            <div class="card-body">
                                 <h5 class="card-title">Tugas Anda</h5>
-                                <?php
-                                $userID = $_SESSION['iduser'];
-                                $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas");
-                                $checkJawaban = mysqli_num_rows($check);
-                                if ($checkJawaban > 0) {
-                                    $jawaban = show("SELECT * FROM jawaban WHERE iduser = $userID AND id_tugas = $idtugas")[0];
-                                    $jawabanID = $jawaban["id"];
-                                }
-                                ?>
-
-                                <?php if ($checkJawaban == 0) : ?>
-                                    <form method="POST" enctype="multipart/form-data">
-                                        <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
-                                        <input type="file" id="formFile" class="form-control-sm form-control" name="file">
-                                        <input type="hidden" name="tugas" value="<?= $idtugas ?>">
-                                        <input type="hidden" name="user" value="<?= $userID ?>">
-                                        <input type="hidden" name="status" value="diserahkan">
-                                        <button class="btn mx-auto btn-outline-primary my-2" name="upload">Upload Tugas<i class="mx-2 fas fa-file-upload"></i></button>
-                                    </form>
-                                <?php else : ?>
-                                    <form method="POST" enctype="multipart/form-data">
-                                        <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
-                                        <input type="file" id="formFile" class="form-control-sm form-control" name="file">
-                                        <input type="hidden" name="jawaban" value="<?= $jawabanID ?>">
-                                        <button class="btn mx-auto btn-primary my-2" name="update">Update<i class="mx-2 fas fa-file-upload"></i></button>
-                                    </form>
-                                    <!-- ?= var_dump($jawabanID)?> -->
-                                <?php endif; ?>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    <div>
+                                        <input type="file" name="NamaFile">
+                                        <button type="submit" name="btnSelesai" class="btn btn-primary mt-3 ms-3">Tandai sebagai selesai</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     <?php
@@ -247,17 +219,24 @@ if (isset($_POST["update"])) {
     ?>
 
     <?php
-    if (isset($_POST['selesai'])) {
+    if (isset($_POST['btnSelesai'])) {
         $iduser = $_SESSION['iduser'];
 
-        $direktori = "berkas/";
-        //random angka agar foto dengan nama yang sama tidak terganti
-        $file_name = rand(1000, 10000) . "-" . $_FILES['upload_tugas']['name'];
-        move_uploaded_file($_FILES['upload_tugas']['tmp_name'], $direktori . $file_name);
+        $direktori = "jawaban/";
+        //random angka agar jawaban dengan nama yang sama tidak terganti
+        $file_name = rand(1000, 10000) . "-" . $_FILES['NamaFile']['name'];
+        move_uploaded_file($_FILES['NamaFile']['tmp_name'], $direktori . $file_name);
 
-        $insertjawaban = mysqli_query($connection, "INSERT INTO jawaban (iduser, id_tugas, jwbn_siswa, status) values('$iduser', '$idtugas', '$jawaban', 'diserahkan')");
+        $insertjawaban2 = mysqli_query($connection, "INSERT INTO jawaban (iduser, id_tugas, jwbn_siswa, status) values('$iduser', '$idTugas', '$file_name', 'diserahkan')");
 
         echo "<script>location='isitugas.php'</script>";
+    }
+    ?>
+
+    <?php
+    if (isset($_POST['btnbatal'])) {
+        $iduser = $_SESSION['iduser'];
+        $delete_jawaban = mysqli_query($connection, "DELETE FROM jawaban WHERE id_tugas=$idTugas AND iduser=$iduser");
     }
     ?>
 
